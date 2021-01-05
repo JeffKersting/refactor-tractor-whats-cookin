@@ -12,7 +12,7 @@ class User {
   }
 
   removeRecipe(recipe) {
-    let i = this.favoriteRecipes.indexOf(recipe);
+    const i = this.favoriteRecipes.indexOf(recipe);
     this.favoriteRecipes.splice(i, 1);
   }
 

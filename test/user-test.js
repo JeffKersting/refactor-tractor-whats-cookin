@@ -43,6 +43,7 @@ describe.only('User', () => {
   });
 
   it('should be able to remove a recipe from favoriteRecipes', () => {
+    user.removeRecipe(recipe);
     expect(user.favoriteRecipes).to.deep.equal([])
   })
 
