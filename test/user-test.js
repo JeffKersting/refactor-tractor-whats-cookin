@@ -8,8 +8,8 @@ describe('User', function() {
   let userInfo;
   let recipe;
 
-  beforeEach(function() {
-    userInfo = data.users[0];
+  beforeEach(() => {
+    userInfo = data[0];
     user = new User(userInfo)
 
     recipe = {name: 'Chicken Parm', type: ['italian', 'dinner']};
