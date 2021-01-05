@@ -3,10 +3,8 @@ import { expect } from 'chai';
 import User from '../src/user';
 import data from '../src/data/users-data';
 
-describe('User', () => {
-  const user;
-  const userInfo;
-  const recipe;
+describe.only('User', () => {
+  let user, userInfo, recipe
 
   beforeEach(() => {
     userInfo = data[0];
@@ -43,6 +41,10 @@ describe('User', () => {
     user.saveRecipe(recipe);
     expect(user.favoriteRecipes[0].name).to.equal('Chicken Parm');
   });
+
+  it('should be able to remove a recipe from favoriteRecipes', () => {
+    expect(user.favoriteRecipes).to.deep.equal([])
+  })
 
   it('should be able to decide to cook a recipe', () => {
     user.decideToCook(recipe);
