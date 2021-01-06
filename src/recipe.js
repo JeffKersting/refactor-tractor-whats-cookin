@@ -1,3 +1,5 @@
+import ingredientsData from './data/ingredient-data'
+
 class Recipe {
   constructor(recipe) {
     this.id = recipe.id;
@@ -13,6 +15,7 @@ class Recipe {
     //   ingredientData.find(ingredient => ingredient === i);
     // });
   }
+
 }
 
-module.exports = Recipe;
+export default Recipe;

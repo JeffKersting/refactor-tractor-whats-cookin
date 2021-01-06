@@ -18,7 +18,7 @@ describe.only('Recipe', () => {
     recipe3 = new Recipe(recipesData[2]);
     recipe4 = new Recipe(recipesData[3]);
     allRecipes = [recipe1, recipe2, recipe3, recipe4];
-    // allIngredients = [ingredientsData[0], ingredientsData[1], ingredientsData[2], ingredientsData[3], ingredientsData[4]];
+    // allIngredients = ingredientsData;
   })
 
   it('should be a function', () => {
