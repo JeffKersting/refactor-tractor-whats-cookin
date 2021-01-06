@@ -1,3 +1,14 @@
+@import "./login";
+@import "./variables";
+
+
+.page {
+  display: none;
+}
+
+
+
+
 body {
   background-color: #5B7894;
   display: grid;
@@ -237,7 +248,7 @@ main {
 }
 
 .recipe-card {
-  background-color: white;
+  background-color: $accent-primary;
   border: 2px solid #C4EB67;
   border-radius: 7px;
   cursor: pointer;

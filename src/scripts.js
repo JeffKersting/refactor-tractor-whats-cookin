@@ -24,6 +24,10 @@ let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let tagList = document.querySelector(".tag-list");
 let user;
 
+const loginInput = document.querySelector('.user-input');
+const loginBtn = document.querySelector('.login-btn');
+
+loginBtn.addEventListener('click', returnUserId);
 
 window.addEventListener("load", createCards);
 window.addEventListener("load", findTags);
@@ -38,17 +42,26 @@ showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
 searchForm.addEventListener("submit", pressEnterSearch);
 
 // GENERATE A USER ON LOAD
-function generateUser() {
-  user = new User(users[Math.floor(Math.random() * users.length)]);
-  let firstName = user.name.split(" ")[0];
-  let welcomeMsg = `
-    <div class="welcome-msg">
-      <h1>Welcome ${firstName}!</h1>
-    </div>`;
-  document.querySelector(".banner-image").insertAdjacentHTML("afterbegin",
-    welcomeMsg);
-  findPantryInfo();
-}
+// function generateUser() {
+//   user = new User(users[Math.floor(Math.random() * users.length)]);
+//   let firstName = user.name.split(" ")[0];
+//   let welcomeMsg = `
+//     <div class="welcome-msg">
+//       <h1>Welcome ${firstName}!</h1>
+//     </div>`;
+//   document.querySelector(".banner-image").insertAdjacentHTML("afterbegin",
+//     welcomeMsg);
+//   findPantryInfo();
+// }
+
+function returnUserId(){
+   fetch('http://localhost:3001/api/v1/users')
+    .then(response => response.json())
+    .then(data => data.find(user => user.name === loginInput.value))
+    .then(userSearched => {
+      user = new User(userSearched)
+    })
+ }
 
 // CREATE RECIPE CARDS
 function createCards() {

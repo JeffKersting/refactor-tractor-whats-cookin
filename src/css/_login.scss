@@ -1,0 +1,40 @@
+@import "variables.scss";
+
+.login {
+  display: none;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  margin-top: 10%;
+  @include centerVertically();
+  padding: 25px;
+  border-radius: 10px;
+  background-color: $secondary-background;
+  text-align: center;
+  box-shadow: inset 0 0 15px $accent-primary;
+}
+
+.welcome {
+  @include darkenText();
+  font-size: 3em;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.user-icon {
+  @include darkenText();
+  font-size: 8em;
+}
+
+.user-input {
+  align-self: center;
+  width: 40%;
+}
+
+.login-btn {
+  width: auto;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
