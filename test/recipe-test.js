@@ -47,55 +47,55 @@ describe.only('Recipe', () => {
   it('should initialize with an array of ingredients', () => {
     expect(allRecipes[0].ingredients).to.be.an('Array');
     expect(allRecipes[0].ingredients).to.deep.equal([
-      { name: 'all purpose flour', id: 20081, quantity: {
+      { name: 'all purpose flour', id: 20081, "estimatedCostInCents": 142, quantity: {
         "amount": 1.5,
         "unit": "c"
       } },
-      { name: 'baking soda', id: 18372, quantity: {
+      { name: 'baking soda', id: 18372, "estimatedCostInCents": 582, quantity: {
         "amount": 0.5,
         "unit": "tsp"
       } },
-      { name: 'egg', id: 1123, quantity: {
+      { name: 'egg', id: 1123, "estimatedCostInCents": 472, quantity: {
         "amount": 1,
         "unit": "large"
       } },
-      { name: 'granulated sugar', id: 19335, quantity: {
+      { name: 'granulated sugar', id: 19335, "estimatedCostInCents": 902, quantity: {
         "amount": 0.5,
         "unit": "c"
       } },
       {
         name: 'instant vanilla pudding mix',
         id: 19206,
-        quantity: {
+        "estimatedCostInCents": 660, quantity: {
           "amount": 3,
           "unit": "Tbsp"
         }
       },
-      { name: 'light brown sugar', id: 19334, quantity: {
+      { name: 'light brown sugar', id: 19334, "estimatedCostInCents": 559, quantity: {
         "amount": 0.5,
         "unit": "c"
       } },
-      { name: 'salt', id: 2047, quantity: {
+      { name: 'salt', id: 2047, "estimatedCostInCents": 280, quantity: {
         "amount": 0.5,
         "unit": "tsp"
       } },
-      { name: 'sea salt', id: 1012047, quantity: {
+      { name: 'sea salt', id: 1012047, "estimatedCostInCents": 528, quantity: {
         "amount": 24,
         "unit": "servings"
       } },
       {
         name: 'semisweet chocolate chips',
         id: 10019903,
-        quantity: {
+        "estimatedCostInCents": 253, quantity: {
           "amount": 2,
           "unit": "c"
         }
       },
-      { name: 'unsalted butter', id: 1145, quantity: {
+      { name: 'unsalted butter', id: 1145, "estimatedCostInCents": 617, quantity: {
         "amount": 0.5,
         "unit": "c"
       } },
-      { name: 'vanilla extract', id: 2050, quantity: {
+      { name: 'vanilla extract', id: 2050, "estimatedCostInCents": 926, quantity: {
         "amount": 0.5,
         "unit": "tsp"
       } }
@@ -107,7 +107,7 @@ describe.only('Recipe', () => {
     console.log('TEST recipeIngrds >>>>>>>>>> ', allRecipes[1].ingredients);
     let totalCost = allRecipes[1].calculateIngredientsCost();
 
-    console.log('totalCost >>>>>>>>>> ', totalCost);
+    console.log('TEST totalCost >>>>>>>>>> ', totalCost);
 
     expect(totalCost).to.equal(0);
     console.log('recipe >>>>>>> ', allRecipes[1])
