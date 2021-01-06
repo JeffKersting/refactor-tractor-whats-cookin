@@ -28,3 +28,5 @@ async function postData(userId, ingredientId, amount) {
         console.log(error)
     }  
 }
+
+export {getData, postData}; 

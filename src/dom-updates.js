@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const domUpdates = {
     displayWelcomeBanner() {
         const firstName = user.name.split(" ")[0];
@@ -9,7 +10,6 @@ const domUpdates = {
             welcomeMsg);
     },
     
-
     displayRecipeCard(recipeInfo, shortRecipeName) {
         const cardHtml = 
             `<div class="recipe-card" id=${recipeInfo.id}>
@@ -23,7 +23,7 @@ const domUpdates = {
                 <h4>${recipeInfo.tags[0]}</h4>
                     <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
             </div>`;
-        main.insertAdjacentHTML("beforeend", cardHtml);
+            document.querySelector("main").insertAdjacentHTML("beforeend", cardHtml);
     },
 
     listTags(allTags) {
@@ -33,7 +33,7 @@ const domUpdates = {
                 <input type="checkbox" class="checked-tag" id="${tag}">
                 <label for="${tag}">${capitalize(tag)}</label>
                 </li>`;
-        tagList.insertAdjacentHTML("beforeend", tagHtml);
+            document.querySelector(".tag-list").insertAdjacentHTML("beforeend", tagHtml);
         });
     }
 

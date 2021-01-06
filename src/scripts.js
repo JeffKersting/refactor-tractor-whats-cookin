@@ -1,68 +1,51 @@
-import users from './data/users-data';
-import recipeData from  './data/recipe-data';
-import ingredientData from './data/ingredient-data';
-import domUpdates from './dom-updates';
-
 import './css/base.scss';
 import './css/styles.scss';
-
+import getData from './apis'
+import postData from './apis'
+import domUpdates from './dom-updates';
 import User from './user';
 import Recipe from './recipe';
 
-const allRecipesBtn = document.querySelector(".show-all-btn");
-const filterBtn = document.querySelector(".filter-btn");
 const fullRecipeInfo = document.querySelector(".recipe-instructions");
-const main = document.querySelector("main");
-const menuOpen = false;
-const pantryBtn = document.querySelector(".my-pantry-btn");
-const pantryInfo = [];
-const recipes = [];
-const savedRecipesBtn = document.querySelector(".saved-recipes-btn");
-const searchBtn = document.querySelector(".search-btn");
-const searchForm = document.querySelector("#search");
-const searchInput = document.querySelector("#search-input");
-const showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
-const tagList = document.querySelector(".tag-list");
-const user;
+
+let pantryInfo = [];
+let recipes = [];
+const user; 
+const recipeData = getData('recipes')
+const usersdata = getData('users')
+const ingredientData = getData('ingredients')
 
 const loginInput = document.querySelector('.user-input');
-const loginBtn = document.querySelector('.login-btn');
+const searchForm = document.querySelector("#search");
+const searchInput = document.querySelector("#search-input");
 
-loginBtn.addEventListener('click', returnUserId);
-
-window.addEventListener("load", createCards);
-window.addEventListener("load", findTags);
-window.addEventListener("load", generateUser);
-allRecipesBtn.addEventListener("click", showAllRecipes);
-filterBtn.addEventListener("click", findCheckedBoxes);
-main.addEventListener("click", addToMyRecipes);
-pantryBtn.addEventListener("click", toggleMenu);
-savedRecipesBtn.addEventListener("click", showSavedRecipes);
-searchBtn.addEventListener("click", searchRecipes);
-showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
+window.addEventListener("load", loadPage);
 searchForm.addEventListener("submit", pressEnterSearch);
 
-// GENERATE A USER ON LOAD
-// function generateUser() {
-//   user = new User(users[Math.floor(Math.random() * users.length)]);
-//   let firstName = user.name.split(" ")[0];
-//   let welcomeMsg = `
-//     <div class="welcome-msg">
-//       <h1>Welcome ${firstName}!</h1>
-//     </div>`;
-//   document.querySelector(".banner-image").insertAdjacentHTML("afterbegin",
-//     welcomeMsg);
-//   findPantryInfo();
-// }
+const addClickEvent = (buttonName, func) => {
+  document.querySelector(buttonName).addEventListener("click", func)
+}
+addClickEvent('.login-btn', returnUserId)
+addClickEvent(".show-all-btn", showAllRecipes)
+addClickEvent(".filter-btn", findCheckedBoxes)
+addClickEvent("main", addToMyRecipes)
+addClickEvent(".my-pantry-btn", toggleMenu)
+addClickEvent(".saved-recipes-btn", showSavedRecipes)
+addClickEvent(".search-btn", searchRecipes)
+addClickEvent(".search-btn", searchRecipes)
+addClickEvent(".show-pantry-recipes-btn", findCheckedPantryBoxes)
 
-function returnUserId(){
-   fetch('http://localhost:3001/api/v1/users')
-    .then(response => response.json())
-    .then(data => data.find(user => user.name === loginInput.value))
-    .then(userSearched => {
-      user = new User(userSearched)
-    })
- }
+const loadPage = () => {
+    createCards()
+    findTags()
+    findPantryInfo()
+    domUpdates.displayWelcomeBanner()
+}
+
+const returnUserId = () => {
+    const userSearched = users.find(user => user.name === loginInput.value)
+    user = new User(userSearched)
+  }
 
 // CREATE RECIPE CARDS
 function createCards() {
@@ -73,24 +56,8 @@ function createCards() {
     if (recipeInfo.name.length > 40) {
       shortRecipeName = recipeInfo.name.substring(0, 40) + "...";
     }
-    addToDom(recipeInfo, shortRecipeName)
+    domUpdates.displayRecipeCard(recipeInfo, shortRecipeName)
   });
-}
-
-function addToDom(recipeInfo, shortRecipeName) {
-  let cardHtml = `
-    <div class="recipe-card" id=${recipeInfo.id}>
-      <h3 maxlength="40">${shortRecipeName}</h3>
-      <div class="card-photo-container">
-        <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
-        <div class="text">
-          <div>Click for Instructions</div>
-        </div>
-      </div>
-      <h4>${recipeInfo.tags[0]}</h4>
-      <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
-    </div>`
-  main.insertAdjacentHTML("beforeend", cardHtml);
 }
 
 // FILTER BY RECIPE TAGS
@@ -104,15 +71,7 @@ function findTags() {
     });
   });
   tags.sort();
-  listTags(tags);
-}
-
-function listTags(allTags) {
-  allTags.forEach(tag => {
-    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">
-      <label for="${tag}">${capitalize(tag)}</label></li>`;
-    tagList.insertAdjacentHTML("beforeend", tagHtml);
-  });
+  domUpdates.listTags(tags);
 }
 
 function capitalize(words) {
@@ -337,9 +296,9 @@ function displayPantryInfo(pantry) {
 }
 
 function findCheckedPantryBoxes() {
-  let pantryCheckboxes = document.querySelectorAll(".pantry-checkbox");
-  let pantryCheckboxInfo = Array.from(pantryCheckboxes)
-  let selectedIngredients = pantryCheckboxInfo.filter(box => {
+  const pantryCheckboxes = document.querySelectorAll(".pantry-checkbox");
+  const pantryCheckboxInfo = Array.from(pantryCheckboxes)
+  const selectedIngredients = pantryCheckboxInfo.filter(box => {
     return box.checked;
   })
   showAllRecipes();
@@ -349,8 +308,8 @@ function findCheckedPantryBoxes() {
 }
 
 function findRecipesWithCheckedIngredients(selected) {
-  let recipeChecker = (arr, target) => target.every(v => arr.includes(v));
-  let ingredientNames = selected.map(item => {
+   const recipeChecker = (arr, target) => target.every(v => arr.includes(v));
+   const ingredientNames = selected.map(item => {
     return item.id;
   })
   recipes.forEach(recipe => {
