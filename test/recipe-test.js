@@ -101,4 +101,15 @@ describe.only('Recipe', () => {
     let totalCost = allRecipes[1].calculateIngredientsCost();
     expect(totalCost).to.equal(272.97);
   });
+
+  it('should return the instructions to cook the recipe', () => {
+    let recipeInstructions = allRecipes[2].findInstructions();
+    console.log(allRecipes[2])
+    expect(recipeInstructions).to.deep.equal([
+      {
+        "number": 1,
+        "instruction": "Mix the hot sauce, butter, mango habanero sauce, brown sugar, chili powder, garlic powder, onion powder, black pepper, cayenne pepper and seasoning salt in a bowl. Stir vigorously until completely combined."
+      }
+    ]);
+  });
 });
