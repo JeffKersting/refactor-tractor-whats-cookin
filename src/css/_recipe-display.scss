@@ -5,6 +5,10 @@ main {
   align-content: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
+  position: absolute;
+  top: 25%;
+  left: 15%;
+  z-index: -1;
 }
 
 .recipe-card {

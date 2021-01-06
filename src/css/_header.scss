@@ -4,6 +4,8 @@ header {
   grid-area: header;
   padding: 0% 0%;
   width: 100%;
+  position: fixed;
+  background-color: $primary-background;
 }
 
 span {
