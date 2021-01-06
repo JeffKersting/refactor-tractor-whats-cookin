@@ -107,7 +107,9 @@ const domUpdates = {
         })
     },
     
-    //these all require "fullrecipeInfo" global var
+    // these all require "fullrecipeInfo" global var
+    // const fullRecipeInfo = document.querySelector(".recipe-instructions");
+    
     generateIngredients(recipe) {
         return recipe && recipe.ingredients.map(i => {
             return `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
@@ -245,7 +247,7 @@ const domUpdates = {
     }
 
     filterRecipes(filtered) {
-        let foundRecipes = recipes.filter(recipe => {
+        const foundRecipes = recipes.filter(recipe => {
             return !filtered.includes(recipe);
         });
         this.hideUnselectedRecipes(foundRecipes)
@@ -274,11 +276,11 @@ const domUpdates = {
     },
 
     showAllRecipes() {
-    recipes.forEach(recipe => {
-        const domRecipe = document.getElementById(`${recipe.id}`);
-        domRecipe.style.display = "block";
-    });
-    this.displayWelcomeBanner();
+        recipes.forEach(recipe => {
+            const domRecipe = document.getElementById(`${recipe.id}`);
+            domRecipe.style.display = "block";
+        });
+        this.displayWelcomeBanner();
     }
 
   // CREATE AND USE PANTRY

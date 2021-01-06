@@ -1,7 +1,6 @@
 import './css/base.scss';
 import './css/styles.scss';
-import getData from './apis'
-import postData from './apis'
+import {getData, postData} from './apis'
 import domUpdates from './dom-updates';
 import User from './user';
 import Recipe from './recipe';
@@ -25,14 +24,15 @@ searchForm.addEventListener("submit", pressEnterSearch);
 const addClickEvent = (buttonName, func) => {
   document.querySelector(buttonName).addEventListener("click", func)
 }
+
 addClickEvent('.login-btn', returnUserId)
 addClickEvent(".show-all-btn", showAllRecipes)
 addClickEvent(".filter-btn", findCheckedBoxes)
 addClickEvent("main", addToMyRecipes)
 addClickEvent(".my-pantry-btn", domUpdates.toggleMenu)
 addClickEvent(".saved-recipes-btn", domUpdates.showSavedRecipes)
-addClickEvent(".search-btn", searchRecipes)
-addClickEvent(".search-btn", searchRecipes)
+addClickEvent(".search-btn", domUpdates.searchRecipes)
+addClickEvent(".search-btn", domUpdates.searchRecipes)
 addClickEvent(".show-pantry-recipes-btn", findCheckedPantryBoxes)
 
 const loadPage = () => {
@@ -47,7 +47,7 @@ const returnUserId = () => {
     user = new User(userSearched)
   }
 
-function pressEnterSearch(event) {
+const pressEnterSearch = (event) => {
     event.preventDefault();
     domUpdates.searchRecipes();
 }
