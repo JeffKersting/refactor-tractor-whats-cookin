@@ -8,8 +8,8 @@ main {
 }
 
 .recipe-card {
-  background-color: $dropdown-color;
-  border: 2px solid #C4EB67;
+  background-color: $grey;
+  border: 2px solid $accent-primary;
   border-radius: 7px;
   cursor: pointer;
   height: 270px;
@@ -31,7 +31,7 @@ main {
 }
 
 .recipe-card:hover h3 {
-  text-shadow: 0px 0px 4px #C4EB67;
+  text-shadow: 0px 0px 4px $accent-primary;
   transition: .8s ease;
 }
 

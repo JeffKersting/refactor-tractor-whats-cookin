@@ -4,7 +4,7 @@
   @include defineSize(200px, 200px);
   @include centerHorizontally();
   background: transparent;
-  border: 25px solid $dropdown-color;
+  border: 25px solid $grey;
   border-right: 25px solid $dark-green;
   border-radius: 50%;
   animation: spin 5s linear infinite;
