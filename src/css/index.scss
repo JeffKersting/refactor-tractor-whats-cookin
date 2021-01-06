@@ -5,11 +5,12 @@
 @import "sidebar";
 @import "recipe-display";
 @import "buttons";
+@import "loading";
 
 
 
 .page {
-  // display: none;
+  display: none;
 }
 
 
@@ -46,7 +47,7 @@ h2 {
 }
 
 h3 {
-  color: #359567;
+  color: $dark-green;
   cursor: pointer;
   height: 17%;
   margin: 5px 5px 10px 0px;
@@ -54,25 +55,13 @@ h3 {
 }
 
 h4 {
-  color: #359567;
+  color: $dark-green;
   background-color: #C4EB67;
   border-radius: 3px;
   margin: 10px 0px 0px 0px;
   padding: 1px 4px 1px 4px;
   width: max-content;
 }
-
-
-/* FILTER SIDEBAR */
-
-
-
-/* RECIPE CARD SECTION */
-
-
-/* BUTTONS */
-
-
 
 /* PANTRY LIST */
 .drop-menu {
@@ -91,7 +80,7 @@ h4 {
 }
 
 .drop-menu h2 {
-  color: #359567;
+  color: $dark-green;
   margin: 0px;
 }
 
@@ -122,9 +111,9 @@ h4 {
 
 #exit-recipe-btn {
   background: white;
-  border: 2px double #359567;
+  border: 2px double $dark-green;
   border-radius: 5px;
-  color: #359567;
+  color: $dark-green;
   cursor: pointer;
   font-size: 20px;
   font-weight: 700;
@@ -152,7 +141,7 @@ h4 {
 
 .recipe-instructions h4 {
   background: white;
-  color: #359567;
+  color: $dark-green;
 }
 
 .recipe-instructions p {

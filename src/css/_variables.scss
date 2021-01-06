@@ -2,7 +2,7 @@ $primary-background: #5B7894;
 $secondary-background: #b6dcca;
 $accent-primary: #C4EB67;
 $accent-secondary:#84C8A4;
-$button-color: #359567;
+$dark-green: #359567;
 $dropdown-color: #DAE4EE;
 $box-shadow: #475d74;
 
@@ -17,7 +17,12 @@ $secondary-font: "Sulphur Point", sans-serif;
   -moz-text-fill-color: transparent;
 }
 
-@mixin centerVertically() {
+@mixin centerHorizontally() {
   margin-left: 50%;
   transform: translateX(-50%);
+}
+
+@mixin defineSize($width, $height) {
+  width: $width;
+  height: $height;
 }
