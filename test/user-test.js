@@ -42,6 +42,11 @@ describe('User', () => {
     expect(user.favoriteRecipes[0].name).to.equal('Loaded Chocolate Chip Pudding Cookie Cups');
   });
 
+  it('should not be able to save a duplicate recipe to favoriteRecipes', () => {
+    user.saveRecipe(recipe, 'favoriteRecipes');
+    expect(user.favoriteRecipes[0].name).to.equal('Loaded Chocolate Chip Pudding Cookie Cups');
+  });
+
   it('should be able to remove a recipe from favoriteRecipes', () => {
     user.removeRecipe(recipe, 'favoriteRecipes');
     expect(user.favoriteRecipes).to.deep.equal([])
@@ -57,15 +62,11 @@ describe('User', () => {
     expect(user.recipesToCook).to.deep.equal([])
   })
 
-  it('should be able to filter favorite recipes by tag', () => {
-    user.saveRecipe(recipe, 'favoriteRecipes')
+  it('should be able to filter favorite recipes or recipe to cook by tag', () => {
+    user.saveRecipe(recipe, 'favoriteRecipes');
     user.filterRecipes('snack', 'favoriteRecipes');
-    expect(recipe).to.deep.equal(['Loaded Chocolate Chip Pudding Cookie Cups']);
-  });
-
-  it('should be able to filter recipes to cook by tag', () => {
-    user.filterRecipes(tag, 'recipesToCook');
-    expect(user.filterRecipes('starter')).to.deep.equal([recipe]);
+    user.filterRecipes('starter', 'recipesToCook');
+    expect(recipe).to.deep.equal(recipe);
   });
 
   it('should be able to search recipes by name', () => {
