@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import User from '../src/user';
 import data from '../src/data/users-data';
 
-describe.only('User', () => {
+describe('User', () => {
   let user, userInfo, recipe
 
   beforeEach(() => {
@@ -38,19 +38,28 @@ describe.only('User', () => {
   });
 
   it('should be able to save a recipe to favoriteRecipes', () => {
-    user.saveRecipe(recipe);
+    const list = 'favoriteRecipes';
+    user.saveRecipe(recipe, list);
     expect(user.favoriteRecipes[0].name).to.equal('Chicken Parm');
   });
 
   it('should be able to remove a recipe from favoriteRecipes', () => {
-    user.removeRecipe(recipe);
+    const list = 'favoriteRecipes';
+    user.removeRecipe(recipe, list);
     expect(user.favoriteRecipes).to.deep.equal([])
   })
 
-  it('should be able to decide to cook a recipe', () => {
-    user.decideToCook(recipe);
+  it('should be able to save a recipe to recipesToCook', () => {
+    const list = 'recipesToCook';
+    user.saveRecipe(recipe, list);
     expect(user.recipesToCook[0].name).to.equal('Chicken Parm');
   });
+
+  it('should be able to remove a recipe from recipesToCook', () => {
+    const list = 'recipesToCook';
+    user.removeRecipe(recipe, list);
+    expect(user.recipesToCook).to.deep.equal([])
+  })
 
   it('should be able to filter recipes by type', () => {
     user.saveRecipe(recipe);

@@ -7,25 +7,21 @@ class User {
     this.recipesToCook = [];
   }
 
-  saveRecipe(recipe) {
-    this.favoriteRecipes.push(recipe);
+  saveRecipe(recipe, list) {
+    this[list].push(recipe);
   }
 
-  removeRecipe(recipe) {
-    const i = this.favoriteRecipes.indexOf(recipe);
-    this.favoriteRecipes.splice(i, 1);
+  removeRecipe(recipe, list) {
+    const i = this[list].indexOf(recipe);
+    this[list].splice(i, 1);
   }
 
-  decideToCook(recipe) {
-    this.recipesToCook.push(recipe);
-  }
-
-  filterRecipes(type) {
-    return this.favoriteRecipes.filter(recipe => recipe.type.includes(type));
+  filterRecipes(type, list) {
+    return this[list].filter(recipe => recipe.type.includes(type));
   }
   
-  searchForRecipe(keyword) {
-    return this.favoriteRecipes.filter(recipe => recipe.name.includes(keyword) || recipe.ingredients.includes(keyword));
+  searchForRecipe(keyword, list) {
+    return this[list].filter(recipe => recipe.name.includes(keyword) || recipe.ingredients.includes(keyword));
   }
 }
 
