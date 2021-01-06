@@ -61,8 +61,9 @@ describe('User', () => {
     expect(user.recipesToCook).to.deep.equal([])
   })
 
-  it('should be able to filter recipes by type', () => {
-    user.saveRecipe(recipe);
+  it('should be able to filter favorite recipes by type', () => {
+    const list = 'favoriteRecipes';
+    user.saveRecipe(recipe, list);
     expect(user.filterRecipes('italian')).to.deep.equal([recipe]);
   });
 
