@@ -15,19 +15,28 @@ class Recipe {
       return ingredientsData.find(ingredient => ingredient.id === i.id);
     });
     console.log('IMP recipeIngrds >>>>>>>>>> ', recipeIngrds);
-    return recipeIngrds;
-  }
+    // return recipeIngrds;
 
-  // calculateIngredientsCost() {
-  //   const recipeIngredients = this.ingredients.map(recipeIngredient => {
-  //     return ingredientsData.find(ingredient => {
-  //       ingredient.id === recipeIngredient.id
-  //     });
-  //   });
-  
-  //   console.log('recipeIngredients >>>>>>> ', recipeIngredients);
-  //   return recipeIngredients;
-  // }
+    const totalCost = recipeIngrds.reduce((sum, recIngredient) => {
+
+      recipeIngrds.forEach(ingredient => {
+
+        let quantity = this.ingredients.reduce((amount, currentIngredient) => {
+          amount = currentIngredient.quantity.amount;
+          console.log('IMP amount >>>>>>>>>> ', amount);
+          return amount;
+        }, 0)
+
+        sum += (ingredient.estimatedCostInCents * quantity)
+      })
+
+      return sum;
+    }, 0);
+    console.log('IMP totalCost >>>>>>>>>> ', totalCost);
+
+    return parseFloat((totalCost * 0.01).toFixed(2));
+
+  }
 
 }
 
