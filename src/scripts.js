@@ -29,8 +29,8 @@ addClickEvent('.login-btn', returnUserId)
 addClickEvent(".show-all-btn", showAllRecipes)
 addClickEvent(".filter-btn", findCheckedBoxes)
 addClickEvent("main", addToMyRecipes)
-addClickEvent(".my-pantry-btn", toggleMenu)
-addClickEvent(".saved-recipes-btn", showSavedRecipes)
+addClickEvent(".my-pantry-btn", domUpdates.toggleMenu)
+addClickEvent(".saved-recipes-btn", domUpdates.showSavedRecipes)
 addClickEvent(".search-btn", searchRecipes)
 addClickEvent(".search-btn", searchRecipes)
 addClickEvent(".show-pantry-recipes-btn", findCheckedPantryBoxes)
@@ -111,15 +111,10 @@ function filterRecipes(filtered) {
   let foundRecipes = recipes.filter(recipe => {
     return !filtered.includes(recipe);
   });
-  hideUnselectedRecipes(foundRecipes)
+  domUpdates.hideUnselectedRecipes(foundRecipes)
 }
 
-function hideUnselectedRecipes(foundRecipes) {
-  foundRecipes.forEach(recipe => {
-    let domRecipe = document.getElementById(`${recipe.id}`);
-    domRecipe.style.display = "none";
-  });
-}
+
 
 // FAVORITE RECIPE FUNCTIONALITY
 function addToMyRecipes() {
@@ -150,16 +145,7 @@ function isDescendant(parent, child) {
   return false;
 }
 
-function showSavedRecipes() {
-  let unsavedRecipes = recipes.filter(recipe => {
-    return !user.favoriteRecipes.includes(recipe.id);
-  });
-  unsavedRecipes.forEach(recipe => {
-    let domRecipe = document.getElementById(`${recipe.id}`);
-    domRecipe.style.display = "none";
-  });
-  showMyRecipesBanner();
-}
+
 
 // CREATE RECIPE INSTRUCTIONS
 function openRecipeInfo(event) {
@@ -240,7 +226,7 @@ function filterNonSearched(filtered) {
     let ids = filtered.map(f => f.id);
     return !ids.includes(recipe.id)
   })
-  hideUnselectedRecipes(found);
+  domUpdates.hideUnselectedRecipes(found);
 }
 
 function createRecipeObject(recipes) {
@@ -248,15 +234,7 @@ function createRecipeObject(recipes) {
   return recipes
 }
 
-function toggleMenu() {
-  var menuDropdown = document.querySelector(".drop-menu");
-  menuOpen = !menuOpen;
-  if (menuOpen) {
-    menuDropdown.style.display = "block";
-  } else {
-    menuDropdown.style.display = "none";
-  }
-}
+
 
 function showAllRecipes() {
   recipes.forEach(recipe => {
@@ -283,7 +261,7 @@ function findPantryInfo() {
       pantryInfo.push({name: itemInfo.name, count: item.amount});
     }
   });
-  displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
+  domUpdates.displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
 }
 
 function displayPantryInfo(pantry) {

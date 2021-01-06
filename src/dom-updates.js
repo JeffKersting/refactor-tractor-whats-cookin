@@ -1,5 +1,26 @@
 /* eslint-disable max-len */
 const domUpdates = {
+    toggleMenu() {
+        const menuDropdown = document.querySelector(".drop-menu");
+        menuOpen = !menuOpen;
+        if (menuOpen) {
+            menuDropdown.style.display = "block";
+        } else {
+            menuDropdown.style.display = "none";
+        }
+    },
+
+    showSavedRecipes() {
+        const unsavedRecipes = recipes.filter(recipe => {
+            return !user.favoriteRecipes.includes(recipe.id);
+        });
+        unsavedRecipes.forEach(recipe => {
+            const domRecipe = document.getElementById(`${recipe.id}`);
+            domRecipe.style.display = "none";
+        });
+        showMyRecipesBanner();
+    },
+
     displayWelcomeBanner() {
         const firstName = user.name.split(" ")[0];
         const welcomeMsg = `
@@ -34,6 +55,13 @@ const domUpdates = {
                 <label for="${tag}">${capitalize(tag)}</label>
                 </li>`;
             document.querySelector(".tag-list").insertAdjacentHTML("beforeend", tagHtml);
+        });
+    },
+
+    hideUnselectedRecipes(foundRecipes) {
+        foundRecipes.forEach(recipe => {
+            let domRecipe = document.getElementById(`${recipe.id}`);
+            domRecipe.style.display = "none";
         });
     }
 
