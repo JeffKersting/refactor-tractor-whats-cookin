@@ -1,6 +1,7 @@
 import users from './data/users-data';
 import recipeData from  './data/recipe-data';
 import ingredientData from './data/ingredient-data';
+import domUpdates from './dom-updates';
 
 import './css/base.scss';
 import './css/styles.scss';
