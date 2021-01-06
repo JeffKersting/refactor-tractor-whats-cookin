@@ -4,6 +4,10 @@ $accent-primary: #C4EB67;
 $accent-secondary:#84C8A4;
 $button-color: #359567;
 $dropdown-color: #DAE4EE;
+$box-shadow: #475d74;
+
+$primary-font: "Quicksand", sans-serif;
+$secondary-font: "Sulphur Point", sans-serif;
 
 @mixin darkenText() {
   background: black;
