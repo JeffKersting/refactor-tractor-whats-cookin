@@ -23,8 +23,8 @@ class User {
   }
   
   searchForRecipe(keyword, list) {
-    return this[list].filter(recipe => recipe.name.includes(keyword) || recipe.ingredients.includes(keyword));
-  }
+    return this[list].filter(recipe => recipe.name.includes(keyword) || recipe.ingredients.filter(ingredient => ingredient.name.includes(keyword)))
+  };
 }
 
 module.exports = User;
