@@ -1,0 +1,19 @@
+$primary-background: #5B7894;
+$secondary-background: #b6dcca;
+$accent-primary: #C4EB67;
+$accent-secondary:#84C8A4;
+$button-color: #359567;
+$dropdown-color: #DAE4EE;
+
+@mixin darkenText() {
+  background: black;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+@mixin centerVertically() {
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
