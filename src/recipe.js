@@ -1,5 +1,5 @@
 import ingredientsData from './data/ingredient-data'
-// Will need to import fetched API data
+// Will need to import fetched ingredient data from API
 import Ingredient from './Ingredient';
 
 class Recipe {
@@ -8,31 +8,25 @@ class Recipe {
     this.name = recipe.name;
     this.image = recipe.image;
     this.tags = recipe.tags;
-    this.ingredients = recipe.ingredients.map(ing => {
+    this.ingredients = this.instantiateIngredients(recipe);
+    this.instructions = recipe.instructions;
+  }
+
+  instantiateIngredients(recipe) {
+    return recipe.ingredients.map(ing => {
       const ingredientInfo = ingredientsData.find(i => i.id === ing.id);
-
-      console.log('CNST ingredientInfo >>>>>>>>>> ', ingredientInfo);
-
       return new Ingredient(ingredientInfo, ing);
     });
-    this.instructions = recipe.instructions;
   }
   
   calculateIngredientsCost() {
-
-    console.log('IMP this.ingredients >>>>>>>>>> ', this.ingredients);
-
     const totalCost = this.ingredients.reduce((sum, ingredient) => {
-
-
-
+      let ingredientCostPerRecipe = 
+      (ingredient.estimatedCostInCents * ingredient.quantity.amount);
+      sum += ingredientCostPerRecipe;
       return sum;
     }, 0);
-
-    console.log('IMP totalCost >>>>>>>>>> ', totalCost);
-
-    // return parseFloat((totalCost * 0.01).toFixed(2));
-
+    return parseFloat((totalCost * 0.01).toFixed(2));
   }
 
 }
