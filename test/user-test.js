@@ -64,9 +64,10 @@ describe('User', () => {
 
   it('should be able to filter favorite recipes or recipe to cook by tag', () => {
     user.saveRecipe(recipe, 'favoriteRecipes');
-    user.filterRecipes('snack', 'favoriteRecipes');
-    user.filterRecipes('starter', 'recipesToCook');
-    expect(recipe).to.deep.equal(recipe);
+    user.saveRecipe(recipe, 'recipesToCook');
+
+    expect(user.filterRecipes('snack', 'favoriteRecipes')).to.deep.equal([recipe]);
+    expect(user.filterRecipes('starter', 'recipesToCook')).to.deep.equal([recipe]);
   });
 
   it('should be able to search recipes by name', () => {
