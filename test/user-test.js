@@ -1,16 +1,16 @@
 import { expect } from 'chai';
 
 import User from '../src/user';
-import data from '../src/data/users-data';
+import userData from '../src/data/users-data';
+import recipeData from '../src/data/recipe-data';
 
 describe('User', () => {
   let user, userInfo, recipe
 
   beforeEach(() => {
-    userInfo = data[0];
+    userInfo = userData[0];
     user = new User(userInfo)
-
-    recipe = {name: 'Chicken Parm', type: ['italian', 'dinner']};
+    recipe = recipeData[0];
   });
 
   it('should be a function', () => {
@@ -38,33 +38,34 @@ describe('User', () => {
   });
 
   it('should be able to save a recipe to favoriteRecipes', () => {
-    const list = 'favoriteRecipes';
-    user.saveRecipe(recipe, list);
-    expect(user.favoriteRecipes[0].name).to.equal('Chicken Parm');
+    user.saveRecipe(recipe, 'favoriteRecipes');
+    expect(user.favoriteRecipes[0].name).to.equal('Loaded Chocolate Chip Pudding Cookie Cups');
   });
 
   it('should be able to remove a recipe from favoriteRecipes', () => {
-    const list = 'favoriteRecipes';
-    user.removeRecipe(recipe, list);
+    user.removeRecipe(recipe, 'favoriteRecipes');
     expect(user.favoriteRecipes).to.deep.equal([])
   })
 
   it('should be able to save a recipe to recipesToCook', () => {
-    const list = 'recipesToCook';
-    user.saveRecipe(recipe, list);
-    expect(user.recipesToCook[0].name).to.equal('Chicken Parm');
+    user.saveRecipe(recipe, 'recipesToCook');
+    expect(user.recipesToCook[0].name).to.equal('Loaded Chocolate Chip Pudding Cookie Cups');
   });
 
   it('should be able to remove a recipe from recipesToCook', () => {
-    const list = 'recipesToCook';
-    user.removeRecipe(recipe, list);
+    user.removeRecipe(recipe, 'recipesToCook');
     expect(user.recipesToCook).to.deep.equal([])
   })
 
-  it('should be able to filter favorite recipes by type', () => {
-    const list = 'favoriteRecipes';
-    user.saveRecipe(recipe, list);
-    expect(user.filterRecipes('italian')).to.deep.equal([recipe]);
+  it('should be able to filter favorite recipes by tag', () => {
+    user.saveRecipe(recipe, 'favoriteRecipes')
+    user.filterRecipes('snack', 'favoriteRecipes');
+    expect(recipe).to.deep.equal(['Loaded Chocolate Chip Pudding Cookie Cups']);
+  });
+
+  it('should be able to filter recipes to cook by tag', () => {
+    user.filterRecipes(tag, 'recipesToCook');
+    expect(user.filterRecipes('starter')).to.deep.equal([recipe]);
   });
 
   it('should be able to search recipes by name', () => {

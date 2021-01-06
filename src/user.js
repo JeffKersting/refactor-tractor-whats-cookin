@@ -8,7 +8,9 @@ class User {
   }
 
   saveRecipe(recipe, list) {
-    this[list].push(recipe);
+    if (!this[list].includes(recipe)) {
+      this[list].push(recipe);
+    }
   }
 
   removeRecipe(recipe, list) {
@@ -16,8 +18,8 @@ class User {
     this[list].splice(i, 1);
   }
 
-  filterRecipes(type, list) {
-    return this[list].filter(recipe => recipe.type.includes(type));
+  filterRecipes(tag, list) {
+    return this[list].filter(recipe => recipe.tags.includes(tag));
   }
   
   searchForRecipe(keyword, list) {
