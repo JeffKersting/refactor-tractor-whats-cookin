@@ -11,10 +11,23 @@ class Recipe {
   }
   
   calculateIngredientsCost() {
-    // return this.ingredients.map(i => {
-    //   ingredientData.find(ingredient => ingredient === i);
-    // });
+    const recipeIngrds = this.ingredients.map(i => {
+      return ingredientsData.find(ingredient => ingredient.id === i.id);
+    });
+    console.log('IMP recipeIngrds >>>>>>>>>> ', recipeIngrds);
+    return recipeIngrds;
   }
+
+  // calculateIngredientsCost() {
+  //   const recipeIngredients = this.ingredients.map(recipeIngredient => {
+  //     return ingredientsData.find(ingredient => {
+  //       ingredient.id === recipeIngredient.id
+  //     });
+  //   });
+  
+  //   console.log('recipeIngredients >>>>>>> ', recipeIngredients);
+  //   return recipeIngredients;
+  // }
 
 }
 

@@ -103,8 +103,13 @@ describe.only('Recipe', () => {
     console.log('recipe >>>>>>> ', allRecipes[0]);
   });
 
-  it('should calculate the total cost of all of the ingredients', () => {
-    expect(allRecipes[1].calculateIngredientsCost()).to.equal();
+  it('should calculate the total cost of all needed ingredients', () => {
+    console.log('TEST recipeIngrds >>>>>>>>>> ', allRecipes[1].ingredients);
+    let totalCost = allRecipes[1].calculateIngredientsCost();
+
+    console.log('totalCost >>>>>>>>>> ', totalCost);
+
+    expect(totalCost).to.equal(0);
     console.log('recipe >>>>>>> ', allRecipes[1])
   });
 });
