@@ -1,54 +1,12 @@
+@import "./login";
+@import "./variables";
+
+
 .page {
   display: none;
 }
 
-.login {
-  display: none;
-  position: fixed;
-  // display: flex;
-  flex-direction: column;
-  width: 20vw;
-  height: 30vh;
-  margin-top: 10%;
-  margin-left: 50%;
-  transform: translateX(-50%);
-  padding: 25px;
-  border-radius: 10px;
-  background-color: #b6dcca;
-  text-align: center;
-  box-shadow: inset 0 0 15px #C4EB67;
-}
 
-.welcome {
-  background: black;
-  font-size: 3em;
-  font-weight: bolder;
-  text-align: center;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-}
-
-.user-icon {
-  background: black;
-  font-size: 8em;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-}
-
-.user-input {
-  align-self: center;
-  width: 35%;
-}
-
-.login-btn {
-  width: 15%;
-  margin-left: 50%;
-  transform: translateX(-50%);
-}
 
 
 body {
@@ -290,7 +248,7 @@ main {
 }
 
 .recipe-card {
-  background-color: white;
+  background-color: $accent-primary;
   border: 2px solid #C4EB67;
   border-radius: 7px;
   cursor: pointer;
