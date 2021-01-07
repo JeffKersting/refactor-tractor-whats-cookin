@@ -8,11 +8,11 @@ class Recipe {
     this.name = recipe.name;
     this.image = recipe.image;
     this.tags = recipe.tags;
-    this.ingredients = this.instantiateIngredients(recipe);
+    this.ingredients = this.instantiateIngredients(recipe, ingredientsData);
     this.instructions = recipe.instructions;
   }
 
-  instantiateIngredients(recipe) {
+  instantiateIngredients(recipe, ingredientsData) {
     return recipe.ingredients.map(ing => {
       const ingredientInfo = ingredientsData.find(i => i.id === ing.id);
       return new Ingredient(ingredientInfo, ing);
