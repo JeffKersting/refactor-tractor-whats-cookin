@@ -1,5 +1,4 @@
 main {
-  grid-area: main;
   display: flex;
   justify-content: center;
   align-content: flex-start;
@@ -40,12 +39,15 @@ main {
 }
 
 .card-apple-icon {
-  cursor: pointer;
   float: right;
   height: 50px;
   padding-bottom: 10px;
   width: 45px;
 }
+
+// .card-apple-icon:hover {
+//   cursor: pointer;
+// }
 
 .card-photo-preview {
   background-position: 50% 50%;
