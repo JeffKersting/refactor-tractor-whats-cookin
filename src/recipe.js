@@ -29,12 +29,8 @@ class Recipe {
     return parseFloat((totalCost * 0.01).toFixed(2));
   }
 
-  findInstructions() {
+  getInstructions() {
     return this.instructions;
-  }
-
-  filterByKeyword() {
-
   }
 
 }
