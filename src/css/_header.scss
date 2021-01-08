@@ -8,9 +8,13 @@ header {
   background-color: $primary-background;
 }
 
+h1 {
+  @include transparentText($accent-primary)
+  font-weight: 200;
+}
+
 span {
-  color: $accent-primary;
-  font-weight: 400;
+  @include transparentText(white)
 }
 
 .header-apple-icon {

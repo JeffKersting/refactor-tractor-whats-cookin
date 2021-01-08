@@ -3,8 +3,6 @@ import recipeData from  './data/recipe-data';
 import ingredientData from './data/ingredient-data';
 
 import './css/index.scss';
-import './images/apple-logo.png'
-import './images/apple-logo-outline.png'
 import './images/search.png'
 import './images/seasoning.png'
 import './images/cookbook.png'

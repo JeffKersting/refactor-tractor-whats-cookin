@@ -14,7 +14,6 @@ main {
   background-color: $grey;
   border: 2px solid $accent-primary;
   border-radius: 7px;
-  cursor: pointer;
   height: 270px;
   margin: 20px;
   padding: 15px;
@@ -42,39 +41,27 @@ main {
   transition: .8s ease;
 }
 
-.card-apple-icon {
-  float: right;
-  height: 50px;
-  padding-bottom: 10px;
-  width: 45px;
-}
-
 .favorite-button {
   float: right;
   font-size: 3em;
   @include transparentText($accent-secondary)
-
   transition: .4s ease;
-  &:hover {
+  cursor: pointer;
 
+  &:hover {
     @include transparentText($dark-apple-red)
   }
-
 }
-
-// .card-apple-icon:hover {
-//   cursor: pointer;
-// }
 
 .card-photo-preview {
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 7px;
-  cursor: pointer;
   height: 130px;
   transition: .8s ease;
   width: 100%;
+  cursor: pointer;
 }
 
 .card-photo-container {
@@ -83,6 +70,7 @@ main {
   height: 130px;
   justify-content: center;
   position: relative;
+  cursor: pointer;
 }
 
 .text {
