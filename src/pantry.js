@@ -4,7 +4,9 @@ class Pantry {
   }
 
   compareIngredient() {
-    
+    recipe.ingredients.filter(recipeIng => {
+      
+    });
   }
 }
 
