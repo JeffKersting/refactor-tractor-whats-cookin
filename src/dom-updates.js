@@ -2,34 +2,20 @@
 /* eslint-disable max-len */
 const domUpdates = {
     // TOGGLE DISPLAYS
-    // ? for jeff: hidden class here? helper function to toggle it? display block/flex why?
-    toggleSection = (toShow, toHide) = {
-        document.querySelector(toShow).classlist.toggle = "hidden"
-        document.querySelector(toHide).classlist.toggle = "hidden"
-
+    toggleSection(toShow, toHide) {
+        [toShow, toHide].forEach(area => 
+            document.querySelector(area).classlist.toggle("hidden"))
     }
 
-    showMyRecipesBanner() {
-        document.querySelector(".welcome-msg").style.display = "none";
-        document.querySelector(".my-recipes-banner").style.display = "block";
-    },
-
-    //toggleSection(".welcome-msg", ".my-recipes-banner")
-
-    showWelcomeBanner() {
-        document.querySelector(".welcome-msg").style.display = "flex";
-        document.querySelector(".my-recipes-banner").style.display = "none";
-    },
-
     toggleMenu() {
-        const menuDropdown = document.querySelector(".drop-menu");
         menuOpen = !menuOpen;
-        if (menuOpen) {
-            menuDropdown.style.display = "block";
-        } else {
-            menuDropdown.style.display = "none";
-        }
+        const menuDropdown = document.querySelector(".drop-menu")
+        menuDropDown.classList.toggle("hidden")
     },
+
+    addDisplay(area, where, what) {
+        document.querySeletor(area).insertAdjacentHTML(where, what)
+        }
 
     displayWelcomeBanner() {
         const firstName = user.name.split(" ")[0];
@@ -37,24 +23,32 @@ const domUpdates = {
             <div class="welcome-msg">
                 <h1>Welcome ${firstName}!</h1>
             </div>`;
-        document.querySelector(".banner-image").insertAdjacentHTML("afterbegin",
-            welcomeMsg);
+        this.addDisplay(".banner-image", "afterbegin",
+        welcomeMsg)
     },
 
-
-    //have a insertAdjacentHTML helper function?
-
-    // const insertAdjacent = (area, where, what) => {
-    //document.querySeletor(area).insertAdjacentHTML(where, what)
+    hideDisplay(area) {
+        const documentArea = document.getElementById(area);
+        documentArea.style.display = "none";
     }
+
+    recipeDisplay(recipesList) {
+        recipesList.forEach(recipe => {
+            this.hideDisplay(recipe.id)
+        });
+    }
+    
+    capitalize(words) {
+        return words.split(" ").map(word => {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        }).join(" ");
+    }
+
     showSavedRecipes() {
         const unsavedRecipes = recipes.filter(recipe => {
             return !user.favoriteRecipes.includes(recipe.id);
         });
-        unsavedRecipes.forEach(recipe => {
-            const domRecipe = document.getElementById(`${recipe.id}`);
-            domRecipe.style.display = "none";
-        });
+        recipeDisplay(unsavedRecipes)
         showMyRecipesBanner();
     },
 
@@ -72,7 +66,7 @@ const domUpdates = {
                 <h4>${recipeInfo.tags[0]}</h4>
                     <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
             </div>`;
-            document.querySelector("main").insertAdjacentHTML("beforeend", cardHtml);
+            this.addDisplay("main","beforeend", cardHtml)
     },
 
     listTags(allTags) {
@@ -82,16 +76,11 @@ const domUpdates = {
                 <input type="checkbox" class="checked-tag" id="${tag}">
                 <label for="${tag}">${capitalize(tag)}</label>
                 </li>`;
-            document.querySelector(".tag-list").insertAdjacentHTML("beforeend", tagHtml);
+            this.addDisplay(".tag-list", "beforeend", tagHtml);
         });
     },
 
-    hideUnselectedRecipes(foundRecipes) {
-        foundRecipes.forEach(recipe => {
-            let domRecipe = document.getElementById(`${recipe.id}`);
-            domRecipe.style.display = "none";
-        });
-    },
+ 
 
     displayPantryInfo(pantry) {
         pantry.forEach(ingredient => {
@@ -137,7 +126,7 @@ const domUpdates = {
             <h3 id="recipe-title">${recipe.name}</h3>
             <h4>Ingredients</h4>
             <p>${ingredients}</p>`
-        fullRecipeInfo.insertAdjacentHTML("beforeend", recipeTitle);
+            this.addDisplay(".recipe-instructions", "beforeend", recipeTitle);
     },
 
     addRecipeImage(recipe) {
@@ -152,8 +141,8 @@ const domUpdates = {
         instructions.forEach(i => {
             instructionsList += `<li>${i}</li>`
         });
-        fullRecipeInfo.insertAdjacentHTML("beforeend", "<h4>Instructions</h4>");
-        fullRecipeInfo.insertAdjacentHTML("beforeend", `<ol>${instructionsList}</ol>`);
+        this.addDisplay(".recipe-instructions", "beforeend", "<h4>Instructions</h4>");
+        this.addDisplay(".recipe-instructions","beforeend", `<ol>${instructionsList}</ol>`);
     },
 
     openRecipeInfo(event) {
@@ -163,7 +152,7 @@ const domUpdates = {
         this.generateRecipeTitle(recipe, generateIngredients(recipe));
         this.addRecipeImage(recipe);
         this.generateInstructions(recipe);
-        fullRecipeInfo.insertAdjacentHTML("beforebegin", "<section id='overlay'></div>");
+        this.addDisplay(".recipe-instructions", "beforebegin", "<section id='overlay'></div>");
     },
     
     exitRecipe() {
@@ -228,11 +217,7 @@ const domUpdates = {
     this.listTags(tags);
     }
 
-    capitalize(words) {
-        return words.split(" ").map(word => {
-            return word.charAt(0).toUpperCase() + word.slice(1);
-        }).join(" ");
-    }
+   
 
     findCheckedBoxes() {
         const tagCheckboxes = document.querySelectorAll(".checked-tag");
@@ -265,7 +250,7 @@ const domUpdates = {
         const foundRecipes = recipes.filter(recipe => {
             return !filtered.includes(recipe);
         });
-        this.hideUnselectedRecipes(foundRecipes)
+        this.recipeDisplay(foundRecipes)
     }
 
   // SEARCH RECIPES
@@ -287,7 +272,7 @@ const domUpdates = {
             const ids = filtered.map(f => f.id);
             return !ids.includes(recipe.id)
         })
-        this.hideUnselectedRecipes(found);
+        this.recipeDisplay(found);
     },
 
     showAllRecipes() {
@@ -334,4 +319,5 @@ const domUpdates = {
 
 };
 
-export default domUpdates;
+//export default domUpdates;
+module.export = domUpdates
