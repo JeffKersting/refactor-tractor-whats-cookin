@@ -2,6 +2,10 @@ class Pantry {
   constructor(pantry) {
     this.pantry = pantry;
   }
+
+  compareIngredient() {
+    
+  }
 }
 
-module.exports = Pantry;
+export default Pantry; 
