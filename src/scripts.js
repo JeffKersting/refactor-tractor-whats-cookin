@@ -8,6 +8,7 @@ import './images/apple-logo-outline.png'
 import './images/search.png'
 import './images/seasoning.png'
 import './images/cookbook.png'
+import './images/pot.png'
 
 
 import User from './user';
@@ -79,10 +80,13 @@ function addToDom(recipeInfo, shortRecipeName) {
         </div>
       </div>
       <h4>${recipeInfo.tags[0]}</h4>
-      <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
+
+      <div class="favorite-button">&#127822;</div>
     </div>`
   main.insertAdjacentHTML("beforeend", cardHtml);
 }
+
+// <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
 
 // FILTER BY RECIPE TAGS
 function findTags() {

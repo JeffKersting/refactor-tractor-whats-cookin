@@ -21,6 +21,10 @@ main {
   width: 250px;
 }
 
+.favorite-recipe {
+  border: 2px solid $apple-red;
+}
+
 .recipe-card:hover .card-photo-preview {
   opacity: 50%;
   transition: .8s ease;
@@ -43,6 +47,19 @@ main {
   height: 50px;
   padding-bottom: 10px;
   width: 45px;
+}
+
+.favorite-button {
+  float: right;
+  font-size: 3em;
+  @include transparentText($accent-secondary)
+
+  transition: .4s ease;
+  &:hover {
+
+    @include transparentText($dark-apple-red)
+  }
+
 }
 
 // .card-apple-icon:hover {

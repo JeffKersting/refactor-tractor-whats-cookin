@@ -4,6 +4,7 @@
   // display: flex;
   flex-direction: column;
   width: 20vw;
+  height: 35vh;
   margin-top: 10%;
   @include centerHorizontally();
   padding: 25px;
@@ -11,28 +12,43 @@
   background-color: $secondary-background;
   text-align: center;
   box-shadow: inset 0 0 15px $accent-primary;
+}
+
+.welcome-background {
+  // background: url("../images/green-apples.jpg");
+  background: $accent-primary;
+  height: 75px;
+  width: 110%;
+  transform: translateX(-5%);
+  border-radius: 15px;
+}
 
 
-  .welcome {
-    @include darkenText();
-    font-size: 3em;
-    font-weight: bolder;
-    text-align: center;
-  }
+.welcome {
+  height: 100%;
+  line-height: 1.5;
+  font-size: 3em;
+  font-weight: bolder;
+  text-align: center;
+  background: rgba(0,0,0,.65);
+  mix-blend-mode: multiply;
+  border-radius: 15px;
 
-  .user-icon {
-    @include darkenText();
-    font-size: 8em;
-  }
+}
 
-  .user-input {
-    align-self: center;
-    width: 40%;
-  }
+.welcome-text {
+  @include transparentText(white)
+}
 
-  .login-btn {
-    margin-top: 5px;
-    width: 75px;
-    @include centerHorizontally();
-  }
+
+
+.user-icon {
+  @include transparentText(black);
+  font-size: 8em;
+  margin: 15px auto 20px auto;
+}
+
+.user-input {
+  align-self: center;
+  width: 40%;
 }

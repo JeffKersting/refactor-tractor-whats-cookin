@@ -29,6 +29,7 @@ span {
   justify-content: center;
   margin: 1.2% 0.5% 1.2% 0%;
   width: 100%;
+  align-self: center;
 }
 
 #search-input {
@@ -46,27 +47,27 @@ span {
   text-align: right;
   transition: .8s ease;
   width: 100%;
-}
 
-#search-input:hover {
-  box-shadow: inset 0px 0px 0px 0px white;
-  transition: .8s ease;
-}
+  &:hover {
+    box-shadow: inset 0px 0px 0px 0px white;
+    transition: .8s ease;
+  }
 
-#search-input:focus {
-  box-shadow: inset 0px 0px 0px 0px white;
-}
+  &:focus {
+    box-shadow: inset 0px 0px 0px 0px white;
+  }
 
-#search-input::placeholder {
-  color: $primary-background;
-  font-size: 20px;
-  text-align: right;
-  text-shadow: none;
-}
+  &::placeholder {
+    color: $primary-background;
+    font-size: 20px;
+    text-align: right;
+    text-shadow: none;
+  }
 
-#search-input:focus::placeholder {
-  font-size: 0px;
-  transition: .8s ease;
+  &:focus::placeholder {
+    font-size: 0px;
+    transition: .8s ease;
+  }
 }
 
 .search-label {
@@ -76,7 +77,6 @@ span {
 .search-btn {
   border-left: 3px outset $accent-primary;
   border-radius: 0px 15px 15px 0px;
-  padding: 1%;
 }
 
 .nav-btn {
@@ -95,23 +95,23 @@ span {
   text-align: center;
   transition: .4s ease;
   width: 15%;
+
+  &:hover {
+    color: $accent-primary;
+    font-size: 14px;
+    text-shadow: 0px 2px 4px black;
+    transition: .4s ease;
+  }
+
+  img {
+    max-height: 40px;
+    max-width: 40px;
+    padding: 2px 0px;
+  }
 }
 
-.nav-btn:hover {
-  color: $accent-primary;
-  font-size: 14px;
-  text-shadow: 0px 2px 4px black;
-  transition: .4s ease;
-}
-
-.nav-btn img {
-  max-height: 40px;
-  max-width: 40px;
-  padding: 2px 0px;
-}
-
-.saved-ingredients-btn {
-  border-left: 3px solid $accent-primary;
+.stroke-right {
+  border-right: 3px solid $accent-primary;
 }
 
 .ing-pan-btn {
