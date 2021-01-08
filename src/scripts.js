@@ -32,7 +32,6 @@ addClickEvent("main", addToMyRecipes)
 addClickEvent(".my-pantry-btn", domUpdates.toggleMenu)
 addClickEvent(".saved-recipes-btn", domUpdates.showSavedRecipes)
 addClickEvent(".search-btn", domUpdates.searchRecipes)
-addClickEvent(".search-btn", domUpdates.searchRecipes)
 addClickEvent(".show-pantry-recipes-btn", findCheckedPantryBoxes)
 
 const loadPage = () => {

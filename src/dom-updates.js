@@ -2,11 +2,20 @@
 /* eslint-disable max-len */
 const domUpdates = {
     // TOGGLE DISPLAYS
+    // ? for jeff: hidden class here? helper function to toggle it? display block/flex why?
+    toggleSection = (toShow, toHide) = {
+        document.querySelector(toShow).classlist.toggle = "hidden"
+        document.querySelector(toHide).classlist.toggle = "hidden"
+
+    }
+
     showMyRecipesBanner() {
         document.querySelector(".welcome-msg").style.display = "none";
         document.querySelector(".my-recipes-banner").style.display = "block";
     },
-  
+
+    //toggleSection(".welcome-msg", ".my-recipes-banner")
+
     showWelcomeBanner() {
         document.querySelector(".welcome-msg").style.display = "flex";
         document.querySelector(".my-recipes-banner").style.display = "none";
@@ -32,6 +41,12 @@ const domUpdates = {
             welcomeMsg);
     },
 
+
+    //have a insertAdjacentHTML helper function?
+
+    // const insertAdjacent = (area, where, what) => {
+    //document.querySeletor(area).insertAdjacentHTML(where, what)
+    }
     showSavedRecipes() {
         const unsavedRecipes = recipes.filter(recipe => {
             return !user.favoriteRecipes.includes(recipe.id);
@@ -186,7 +201,7 @@ const domUpdates = {
         return false;
     },
 
-    // CREATE RECIPE CARDS
+    // CREATE RECIPE CARDS, need
     createCards() {
         recipeData.forEach(recipe => {
             const recipeInfo = new Recipe(recipe);
@@ -220,9 +235,9 @@ const domUpdates = {
     }
 
     findCheckedBoxes() {
-        let tagCheckboxes = document.querySelectorAll(".checked-tag");
-        let checkboxInfo = Array.from(tagCheckboxes)
-        let selectedTags = checkboxInfo.filter(box => {
+        const tagCheckboxes = document.querySelectorAll(".checked-tag");
+        const checkboxInfo = Array.from(tagCheckboxes)
+        const selectedTags = checkboxInfo.filter(box => {
             return box.checked;
         })
         this.findTaggedRecipes(selectedTags);
