@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import Recipe from '../src/recipe';
 import recipesData from '../src/data/recipe-data';
 
-describe.only('Recipe', () => {
+describe('Recipe', () => {
   let recipe1;
   let recipe2;
   let recipe3;
