@@ -27,6 +27,30 @@ class Pantry {
     })
     return newList;
   }
+
+  removeIngredients(recipe) {
+    this.pantry.map(pantryIng => {
+      recipe.ingredients.forEach(recipeIng => {
+        if (recipeIng.id === pantryIng.ingredient) {
+          const recipeAmount = recipeIng.quantity.amount;
+          pantryIng.amount -= Number.parseFloat(recipeAmount).toFixed(2);
+        }
+        pantryIng.amount < 0 ? pantryIng.amount = 0 : pantryIng.amount;
+      })
+    })
+  }
+
+  removeIngredients(recipe) {
+    this.pantry.map(pantryIng => {
+      recipe.ingredients.forEach(recipeIng => {
+        if (recipeIng.id === pantryIng.ingredient) {
+          const recipeAmount = recipeIng.quantity.amount;
+          pantryIng.amount -= Number.parseFloat(recipeAmount).toFixed(2);
+        }
+        pantryIng.amount < 0 ? pantryIng.amount = 0 : pantryIng.amount;
+      })
+    })
+  }
 }
 
 export default Pantry; 
