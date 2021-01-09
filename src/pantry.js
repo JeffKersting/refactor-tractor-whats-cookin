@@ -37,8 +37,6 @@ class Pantry {
   removeIngredients(recipe) {
     let apiUpdate = [];
     recipe.ingredients.forEach(ingredient => {
-      console.log('pantry', this.pantry[ingredient.id])
-      console.log('recipe', ingredient.id)
       if (this.pantry[ingredient.id]) {
         this.pantry[ingredient.id].amount -= ingredient.quantity.amount;
         apiUpdate.push({
@@ -48,7 +46,7 @@ class Pantry {
         })
       }
     })
-    console.log(apiUpdate)
+    return apiUpdate
   }
 }
 
