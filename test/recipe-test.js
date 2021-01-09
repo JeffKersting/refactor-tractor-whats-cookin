@@ -1,9 +1,11 @@
 import { expect } from 'chai';
 
+import Ingredient from '../src/ingredient';
+import ingredientsData from '../src/data/ingredient-data';
 import Recipe from '../src/recipe';
 import recipesData from '../src/data/recipe-data';
 
-describe.only('Recipe', () => {
+describe('Recipe', () => {
   let recipe1;
   let recipe2;
   let recipe3;
@@ -104,7 +106,7 @@ describe.only('Recipe', () => {
 
   it('should return the instructions to cook the recipe', () => {
     let recipeInstructions = allRecipes[2].getInstructions();
-    console.log(allRecipes[2])
+    // console.log(allRecipes[2])
     expect(recipeInstructions).to.deep.equal([
       {
         "number": 1,

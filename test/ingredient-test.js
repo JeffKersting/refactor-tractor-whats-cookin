@@ -31,6 +31,8 @@ describe.only('Ingredient', () => {
   });
 
   it('should initialize with an name', () => {
+    console.log('allingredients[2] >>>', allingredients[2]);
+
     expect(allingredients[2].name).to.equal('Dirty Steve\'s Original Wing Sauce');
   });
 
