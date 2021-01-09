@@ -90,7 +90,8 @@ function addToDom(recipeInfo, shortRecipeName) {
   //     <div class="favorite-button">&#127822;</div>
   //   </div>`
   // main.insertAdjacentHTML("beforeend", cardHtml);
-
+  let instructions = '';
+  recipeInfo.instructions.forEach(item => instructions += `<li>${item.instruction}</li><br>`)
 
   let cardHtml = `
     <div class="recipe-card" id=${recipeInfo.id}>
@@ -107,7 +108,8 @@ function addToDom(recipeInfo, shortRecipeName) {
           <div class="favorite-button">&#127822;</div>
         </div>
         <div class="card-back">
-          <h3 class="instructions">Recipe</h3>
+          <p class="instructions-title">${recipeInfo.name}</p>
+          <ol class="instructions">${instructions}</ol>
         </div>
       </div>
     </div>
