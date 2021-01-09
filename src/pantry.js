@@ -1,55 +1,54 @@
 class Pantry {
-  constructor(pantry) {
-    this.pantry = pantry;
-  }
+  constructor(pantry, userID) {
+    this.pantry = this.compileSameIngredients(pantry);
+    this.userID = userID;
+  } 
 
-  compareIngredient() {
-    let result = recipe.ingredients.filter(recipeIng => {
-      const findIng = this.pantry.find(pantryIng => { 
-        return pantryIng.ingredient === recipeIng.id && pantryIng.amount < recipeIng.quantity.amount
-      })
-    const noIngNeeded = !this.pantry.find(pantryIng => pantryIng.ingredient === recipeIng.id);
-    return findIng || noIngNeeded;
-    })
-    return result;
-  }
-
-  reviewMissingIngredients(missingIngredient = []) {
-    const newMissingIngNum;
-    let newList = missingIngredient.map(missingIng => {
-      let findResult = this.pantry.find(pantryIng => pantryIng.ingredient === missingIng.id);
-      if (findResult) {
-        newMissingIngNum =  missingIng.quantity.amount - findResult.amount;
+  compileSameIngredients(pantry) {
+    const uniquePantryItems = pantry.reduce((acc, pantryItem) => {
+      if (acc[pantryItem.ingredient]) {
+        acc[pantryItem.ingredient].amount += pantryItem.amount;
       } else {
-        newMissingIngNum = missingIng.quantity.amount
+        acc[pantryItem.ingredient] = pantryItem;
       }
-      return {amount: newMissingIngNum, unit: missingIng.quantity.unit, id: missingIng.id};
+      return acc
+    }, {});
+    return uniquePantryItems
+  }
+
+  compareIngredients(recipe) {
+    let missing = []
+    recipe.ingredients.forEach(ingredient => {
+      if (!this.pantry[ingredient.id]) {
+        missing.push({
+          'missing' : ingredient.name, 
+          'amount' : ingredient.quantity.amount,
+        })
+      } else if (this.pantry[ingredient.id].amount < ingredient.quantity.amount) {
+        missing.push({
+          'missing' : ingredient.name, 
+          'amount' : (ingredient.quantity.amount - this.pantry[ingredient.id].amount),
+        })
+      }
     })
-    return newList;
+    return missing  
   }
 
   removeIngredients(recipe) {
-    this.pantry.map(pantryIng => {
-      recipe.ingredients.forEach(recipeIng => {
-        if (recipeIng.id === pantryIng.ingredient) {
-          const recipeAmount = recipeIng.quantity.amount;
-          pantryIng.amount -= Number.parseFloat(recipeAmount).toFixed(2);
-        }
-        pantryIng.amount < 0 ? pantryIng.amount = 0 : pantryIng.amount;
-      })
+    let apiUpdate = [];
+    recipe.ingredients.forEach(ingredient => {
+      console.log('pantry', this.pantry[ingredient.id])
+      console.log('recipe', ingredient.id)
+      if (this.pantry[ingredient.id]) {
+        this.pantry[ingredient.id].amount -= ingredient.quantity.amount;
+        apiUpdate.push({
+          userID: this.userID, 
+          ingredientID: ingredient.id, 
+          ingredientModification: this.pantry[ingredient.id].amount,
+        })
+      }
     })
-  }
-
-  removeIngredients(recipe) {
-    this.pantry.map(pantryIng => {
-      recipe.ingredients.forEach(recipeIng => {
-        if (recipeIng.id === pantryIng.ingredient) {
-          const recipeAmount = recipeIng.quantity.amount;
-          pantryIng.amount -= Number.parseFloat(recipeAmount).toFixed(2);
-        }
-        pantryIng.amount < 0 ? pantryIng.amount = 0 : pantryIng.amount;
-      })
-    })
+    console.log(apiUpdate)
   }
 }
 

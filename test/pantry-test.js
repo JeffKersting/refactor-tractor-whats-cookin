@@ -1,28 +1,39 @@
 import { expect } from 'chai';
-import User from '../src/user';
 import userData from '../src/data/users-data';
 import Recipe from '../src/recipe';
 import recipeData from '../src/data/recipe-data';
-import Ingredient from '../src/ingredient';
-import ingredientData from '../src/data/ingredient-data';
 import Pantry from '../src/pantry';
 
 
 describe('Pantry', () => {
-  let pantry, user, userInfo, recipe, ingredient, ingredientData;
+  let pantry, userInfo, recipe 
   
   beforeEach(() => {
-    pantry = new Pantry(user.pantry);
     userInfo = userData[0];
-    console.log(userData[0])
-    user = new User(userInfo);
+    pantry = new Pantry(userInfo.pantry, userInfo.id);
     recipe = new Recipe(recipeData[0]);
-    ingredient = new Ingredient(ingredientData[0], ingredientData);
   });
 
-  describe('intialize', () => {
-    it.only('should be an instance of Pantry class', () => {
-      expect(pantry).to.be.an.instanceOf(Pantry);
+  describe.only('instantiate', () => {
+    it('should be an instance of Pantry class', () => {
+      expect(pantry).to.be.an.instanceof(Pantry);
+    });
+
+    // it('should have a pantry', () => {
+    //   expect(pantry.pantry.length).to.equal(113);
+    // })
+  })
+
+
+  describe.only('method', () => {
+    it('should return ingredients that is missing from pantry in array', () => {
+      const result = pantry.compareIngredients(recipe);
+      const result1 = pantry.removeIngredients(recipe)
+
+      expect(result).to.deep.equal([
+        {missing: 'sea salt', amount: 24},
+        {missing: 'semisweet chocolate chips', amount: 2 }
+      ]);
     });
   });
 });
