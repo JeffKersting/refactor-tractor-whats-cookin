@@ -6,6 +6,7 @@ header {
   width: 100%;
   position: fixed;
   background-color: $primary-background;
+  height: 9%;
 }
 
 h1 {
@@ -95,7 +96,7 @@ span {
   justify-content: center;
   margin: 0%;
   outline: none;
-  overflow: hidden;
+  // overflow: hidden;
   text-align: center;
   transition: .4s ease;
   width: 15%;

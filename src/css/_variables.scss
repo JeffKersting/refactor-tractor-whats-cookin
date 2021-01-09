@@ -36,3 +36,8 @@ $secondary-font: "Sulphur Point", sans-serif;
   width: $width;
   height: $height;
 }
+
+@mixin displayRecipe() {
+  margin-left: 50%;
+  transform: rotateY(180deg) translateX(-50%);
+}

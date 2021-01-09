@@ -3,6 +3,7 @@ import recipeData from  './data/recipe-data';
 import ingredientData from './data/ingredient-data';
 
 import './css/index.scss';
+import './images/apple-logo.png'
 import './images/search.png'
 import './images/seasoning.png'
 import './images/cookbook.png'
@@ -30,6 +31,14 @@ let user;
 
 const loginInput = document.querySelector('.user-input');
 const loginBtn = document.querySelector('.login-btn');
+
+
+main.addEventListener('click', function(event) {
+  // console.log(event.target.classList.contains(''))
+  if (event.target.classList.contains('favorite-button')) {
+    event.target.classList.add('favorited-button')
+  }
+})
 
 loginBtn.addEventListener('click', returnUserId);
 
@@ -68,19 +77,41 @@ function createCards() {
 }
 
 function addToDom(recipeInfo, shortRecipeName) {
+  // let cardHtml = `
+  //   <div class="recipe-card" id=${recipeInfo.id}>
+  //     <h3 maxlength="40">${shortRecipeName}</h3>
+  //     <div class="card-photo-container">
+  //       <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
+  //       <div class="text">
+  //         <div>Click for Instructions</div>
+  //       </div>
+  //     </div>
+  //     <h4>${recipeInfo.tags[0]}</h4>
+  //     <div class="favorite-button">&#127822;</div>
+  //   </div>`
+  // main.insertAdjacentHTML("beforeend", cardHtml);
+
+
   let cardHtml = `
     <div class="recipe-card" id=${recipeInfo.id}>
-      <h3 maxlength="40">${shortRecipeName}</h3>
-      <div class="card-photo-container">
-        <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
-        <div class="text">
-          <div>Click for Instructions</div>
+      <div class="flip-card">
+        <div class="card-front">
+          <h3 maxlength="40">${shortRecipeName}</h3>
+          <div class="card-photo-container">
+            <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
+            <div class="text">
+              <div>Click for Instructions</div>
+            </div>
+          </div>
+          <h4>${recipeInfo.tags[0]}</h4>
+          <div class="favorite-button">&#127822;</div>
+        </div>
+        <div class="card-back">
+          <h3 class="instructions">Recipe</h3>
         </div>
       </div>
-      <h4>${recipeInfo.tags[0]}</h4>
-
-      <div class="favorite-button">&#127822;</div>
-    </div>`
+    </div>
+    `
   main.insertAdjacentHTML("beforeend", cardHtml);
 }
 
