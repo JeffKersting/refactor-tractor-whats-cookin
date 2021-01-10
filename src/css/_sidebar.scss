@@ -1,0 +1,21 @@
+aside {
+  background-color: $grey;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  position: fixed;
+  top: 24%;
+  width: 15%;
+  margin-left: -1%;
+}
+
+.wrap {
+  background-color: $grey;
+  height: 100vh;
+  position: relative;
+}
+
+ul {
+  list-style-type: none;
+  text-align: left;
+}

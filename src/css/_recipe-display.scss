@@ -1,0 +1,181 @@
+main {
+  position: absolute;
+  top: 25%;
+  left: 15%;
+  width: 85%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: minmax(400px, auto);
+  z-index: -1;
+}
+
+.recipe-card {
+  border-radius: 7px;
+  height: 75%;
+  margin: 0 10px 0 10px;
+  padding: 15px;
+  width: 85%;
+  @include centerHorizontally();
+  perspective: 1000px;
+}
+
+.recipe-card:hover  {
+  z-index: 99;
+  display: fixed;
+  @include centerHorizontally();
+
+  .flip-card {
+    transform: rotateY(180deg);
+  }
+
+  .card-back {
+    transition: transform 1.5s ease;
+    -webkit-font-smoothing: subpixel-antialiased;
+    transform: scaleY(2) rotateY(180deg) translate(50%, 25%);
+  }
+
+  .card-front {
+    transition: transform 1.5s ease;
+    transform: scaleY(2) translateY(25%);
+  }
+}
+
+.flip-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 1.6s ease;
+  transform-style: preserve-3d;
+
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  border-radius: 7px;
+  width: 100%;
+  height: 100%;
+  margin: 20px;
+  padding: 15px;
+  background-color: $grey;
+  border: 2px solid $accent-primary;
+  backface-visibility: hidden;
+  @include centerHorizontally();
+}
+
+.card-back {
+  margin-left: 50%;
+  padding-left: 15px;
+  transform: rotateY(180deg) translateX(50%);
+  box-shadow: 0 2px 5px 2px black;
+  overflow: auto;
+  -webkit-font-smoothing: subpixel-antialiased;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  p {
+    position: relative;
+    top: -4%;
+    height: 5%;
+    text-align: center;
+    transform: scaleY(.5)  perspective(1px);
+    font-size: 1.5em;
+    height: 0%;
+    margin: 0;
+    padding: 0;
+    color: $dark-green;
+  }
+
+
+  ol {
+    font-size: 10px;
+    transform: scaleY(.5);
+    margin: 0;
+    padding: 0;
+    line-height: .9;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.favorite-recipe {
+  border: 2px solid $apple-red;
+}
+
+.recipe-card:hover .card-photo-preview {
+  opacity: 50%;
+  transition: .8s ease;
+}
+
+.recipe-card:hover .text {
+  font-size: 20px;
+  opacity: 100%;
+  transition: .5s ease;
+  width: 100%;
+}
+
+.recipe-card:hover h3 {
+  text-shadow: 0px 0px 4px $accent-primary;
+  transition: .8s ease;
+}
+
+.favorite-button {
+  float: right;
+  font-size: 3em;
+  @include transparentText($accent-secondary)
+  transition: .4s ease;
+  cursor: pointer;
+
+  &:hover {
+    @include transparentText($dark-apple-red)
+  }
+}
+
+.favorited-button {
+  @include transparentText($apple-red)
+}
+
+.card-photo-preview {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 7px;
+  height: 130px;
+  transition: .8s ease;
+  width: 100%;
+  cursor: pointer;
+}
+
+.card-photo-container {
+  align-items: center;
+  display: flex;
+  height: 130px;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.text {
+  background: $dark-green;
+  color: white;
+  font-weight: 700;
+  font-size: 0px;
+  opacity: 0%;
+  padding: 0%;
+  position: absolute;
+  text-align: center;
+  width: 0%;
+  transition: .5s ease;
+}

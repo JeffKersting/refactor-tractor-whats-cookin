@@ -2,18 +2,42 @@ $primary-background: #5B7894;
 $secondary-background: #b6dcca;
 $accent-primary: #C4EB67;
 $accent-secondary:#84C8A4;
-$button-color: #359567;
-$dropdown-color: #DAE4EE;
+$dark-green: #359567;
+$grey: #DAE4EE;
+$box-shadow: #475d74;
+$apple-red: #ff0800;
+$dark-apple-red: #a40000;
 
-@mixin darkenText() {
-  background: black;
+$primary-font: "Quicksand", sans-serif;
+$secondary-font: "Sulphur Point", sans-serif;
+
+@mixin transparentText($bgColor) {
+  background: $bgColor;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   -moz-background-clip: text;
   -moz-text-fill-color: transparent;
 }
 
-@mixin centerVertically() {
+@mixin lightenText() {
+  background: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+@mixin centerHorizontally() {
   margin-left: 50%;
   transform: translateX(-50%);
+}
+
+@mixin defineSize($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin displayRecipe() {
+  margin-left: 50%;
+  transform: rotateY(180deg) translateX(-50%);
 }

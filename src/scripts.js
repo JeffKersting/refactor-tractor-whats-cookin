@@ -1,7 +1,20 @@
+
 import './css/base.scss';
 import './css/styles.scss';
 import {getData, postData} from './apis'
 import domUpdates from './dom-updates';
+
+import users from './data/users-data';
+import recipeData from  './data/recipe-data';
+import ingredientData from './data/ingredient-data';
+
+import './css/index.scss';
+import './images/apple-logo.png'
+import './images/search.png'
+import './images/seasoning.png'
+import './images/cookbook.png'
+import './images/pot.png'
+
 import User from './user';
 import Recipe from './recipe';
 
@@ -9,12 +22,33 @@ const fullRecipeInfo = document.querySelector(".recipe-instructions");
 
 let pantryInfo = [];
 let recipes = [];
-let users = [];
-let ingredients = []
-let user; 
 
-const addClickEvent = (buttonName, func) => {
-  document.querySelector(buttonName).addEventListener("click", func)
+function addToDom(recipeInfo, shortRecipeName) {
+  let instructions = '';
+  recipeInfo.instructions.forEach(item => instructions += `<li>${item.instruction}</li><br>`)
+
+  let cardHtml = `
+    <div class="recipe-card" id=${recipeInfo.id}>
+      <div class="flip-card">
+        <div class="card-front">
+          <h3 maxlength="40">${shortRecipeName}</h3>
+          <div class="card-photo-container">
+            <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
+            <div class="text">
+              <div>Click for Instructions</div>
+            </div>
+          </div>
+          <h4>${recipeInfo.tags[0]}</h4>
+          <div class="favorite-button">&#127822;</div>
+        </div>
+        <div class="card-back">
+          <p class="instructions-title">${recipeInfo.name}</p>
+          <ol class="instructions">${instructions}</ol>
+        </div>
+      </div>
+    </div>
+    `
+  main.insertAdjacentHTML("beforeend", cardHtml);
 }
 
 window.addEventListener("load", loadPage);
