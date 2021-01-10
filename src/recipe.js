@@ -13,9 +13,9 @@ class Recipe {
   }
 
   instantiateIngredients(recipe, ingredientsData) {
-    return recipe.ingredients.map(ing => {
-      const ingredientInfo = ingredientsData.find(i => i.id === ing.id);
-      return new Ingredient(ingredientInfo, ing);
+    return recipe.ingredients.map(recipeIngredient => {
+      const ingredientInfo = ingredientsData.find(ingredient => ingredient.id === recipeIngredient.id);
+      return new Ingredient(ingredientInfo, recipeIngredient);
     });
   }
   
