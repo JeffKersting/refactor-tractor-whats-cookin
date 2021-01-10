@@ -23,3 +23,9 @@ button {
 .filter-btn:hover {
   background-color: $accent-secondary;
 }
+
+.login-btn {
+  margin-top: 5px;
+  width: 75px;
+  @include centerHorizontally();
+}

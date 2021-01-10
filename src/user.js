@@ -2,7 +2,7 @@ class User {
   constructor(user) {
     this.id = user.id;
     this.name = user.name;
-    this.pantry = user.pantry;
+    this.pantry = new Pantry(user.pantry, user.id);
     this.favoriteRecipes = [];
     this.recipesToCook = [];
   }
@@ -24,7 +24,7 @@ class User {
   
   searchForRecipe(keyword, list) {
     return this[list].filter(recipe => recipe.name.includes(keyword) || recipe.ingredients.filter(ingredient => ingredient.name.includes(keyword)))
-  };
+  }
 }
 
 module.exports = User;

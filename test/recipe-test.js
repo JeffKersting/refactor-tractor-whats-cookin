@@ -106,7 +106,6 @@ describe('Recipe', () => {
 
   it('should return the instructions to cook the recipe', () => {
     let recipeInstructions = allRecipes[2].getInstructions();
-    // console.log(allRecipes[2])
     expect(recipeInstructions).to.deep.equal([
       {
         "number": 1,
