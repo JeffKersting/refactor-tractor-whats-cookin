@@ -4,10 +4,10 @@ import ingredientData from './data/ingredient-data';
 
 import './css/index.scss';
 import './images/apple-logo.png'
-import './images/apple-logo-outline.png'
 import './images/search.png'
 import './images/seasoning.png'
 import './images/cookbook.png'
+import './images/pot.png'
 
 
 import User from './user';
@@ -31,6 +31,14 @@ let user;
 
 const loginInput = document.querySelector('.user-input');
 const loginBtn = document.querySelector('.login-btn');
+
+
+main.addEventListener('click', function(event) {
+  // console.log(event.target.classList.contains(''))
+  if (event.target.classList.contains('favorite-button')) {
+    event.target.classList.add('favorited-button')
+  }
+})
 
 loginBtn.addEventListener('click', returnUserId);
 
@@ -69,20 +77,47 @@ function createCards() {
 }
 
 function addToDom(recipeInfo, shortRecipeName) {
+  // let cardHtml = `
+  //   <div class="recipe-card" id=${recipeInfo.id}>
+  //     <h3 maxlength="40">${shortRecipeName}</h3>
+  //     <div class="card-photo-container">
+  //       <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
+  //       <div class="text">
+  //         <div>Click for Instructions</div>
+  //       </div>
+  //     </div>
+  //     <h4>${recipeInfo.tags[0]}</h4>
+  //     <div class="favorite-button">&#127822;</div>
+  //   </div>`
+  // main.insertAdjacentHTML("beforeend", cardHtml);
+  let instructions = '';
+  recipeInfo.instructions.forEach(item => instructions += `<li>${item.instruction}</li><br>`)
+
   let cardHtml = `
     <div class="recipe-card" id=${recipeInfo.id}>
-      <h3 maxlength="40">${shortRecipeName}</h3>
-      <div class="card-photo-container">
-        <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
-        <div class="text">
-          <div>Click for Instructions</div>
+      <div class="flip-card">
+        <div class="card-front">
+          <h3 maxlength="40">${shortRecipeName}</h3>
+          <div class="card-photo-container">
+            <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
+            <div class="text">
+              <div>Click for Instructions</div>
+            </div>
+          </div>
+          <h4>${recipeInfo.tags[0]}</h4>
+          <div class="favorite-button">&#127822;</div>
+        </div>
+        <div class="card-back">
+          <p class="instructions-title">${recipeInfo.name}</p>
+          <ol class="instructions">${instructions}</ol>
         </div>
       </div>
-      <h4>${recipeInfo.tags[0]}</h4>
-      <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
-    </div>`
+    </div>
+    `
   main.insertAdjacentHTML("beforeend", cardHtml);
 }
+
+// <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
 
 // FILTER BY RECIPE TAGS
 function findTags() {

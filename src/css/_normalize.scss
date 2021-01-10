@@ -22,6 +22,11 @@ html {
 
 body {
   margin: 0;
+  background-color: $primary-background;
+  font-family: "Quicksand", sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: auto;
 }
 
 /**
@@ -38,8 +43,36 @@ main {
  */
 
 h1 {
-  font-size: 2em;
+  // font-size: 2em;
   margin: 0.67em 0;
+  align-self: center;
+  color: white;
+  font-family: $secondary-font;
+  font-size: 50px;
+  margin: 0%;
+  padding: 0.5% 0.7% 0%;
+  width: 70%;
+}
+
+h2 {
+  color: $accent-secondary;
+  margin: 10px 0px 10px 0px;
+}
+
+h3 {
+  color: $dark-green;
+  height: 17%;
+  margin: 5px 5px 10px 0px;
+  transition: .8s ease;
+}
+
+h4 {
+  color: $dark-green;
+  background-color: $accent-primary;
+  border-radius: 3px;
+  margin: 10px 0px 0px 0px;
+  padding: 1px 4px 1px 4px;
+  width: max-content;
 }
 
 /* Grouping content

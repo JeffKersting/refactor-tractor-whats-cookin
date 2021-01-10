@@ -18,10 +18,10 @@ class Recipe {
       return new Ingredient(ingredientInfo, recipeIngredient);
     });
   }
-  
+
   calculateIngredientsCost() {
     const totalCost = this.ingredients.reduce((sum, ingredient) => {
-      let ingredientCostPerRecipe = 
+      let ingredientCostPerRecipe =
       (ingredient.estimatedCostInCents * ingredient.quantity.amount);
       sum += ingredientCostPerRecipe;
       return sum;
