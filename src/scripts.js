@@ -1,6 +1,5 @@
-
-import './css/base.scss';
-import './css/styles.scss';
+/* eslint-disable max-len */
+import './css/index.scss';
 import {getData, postData} from './apis'
 import domUpdates from './dom-updates';
 
@@ -22,34 +21,7 @@ const fullRecipeInfo = document.querySelector(".recipe-instructions");
 
 let pantryInfo = [];
 let recipes = [];
-
-function addToDom(recipeInfo, shortRecipeName) {
-  let instructions = '';
-  recipeInfo.instructions.forEach(item => instructions += `<li>${item.instruction}</li><br>`)
-
-  let cardHtml = `
-    <div class="recipe-card" id=${recipeInfo.id}>
-      <div class="flip-card">
-        <div class="card-front">
-          <h3 maxlength="40">${shortRecipeName}</h3>
-          <div class="card-photo-container">
-            <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
-            <div class="text">
-              <div>Click for Instructions</div>
-            </div>
-          </div>
-          <h4>${recipeInfo.tags[0]}</h4>
-          <div class="favorite-button">&#127822;</div>
-        </div>
-        <div class="card-back">
-          <p class="instructions-title">${recipeInfo.name}</p>
-          <ol class="instructions">${instructions}</ol>
-        </div>
-      </div>
-    </div>
-    `
-  main.insertAdjacentHTML("beforeend", cardHtml);
-}
+let ingredients = [];
 
 window.addEventListener("load", loadPage);
 
@@ -68,10 +40,56 @@ const searchForm = document.querySelector("#search");
 const searchInput = document.querySelector("#search-input");
 searchForm.addEventListener("submit", pressEnterSearch);
 
+// // ADD INGREDIENT FORM
+// addClickEvent(".add-ingredient-button", addIngredientToPantry)
+// const nameAddedIngredient = document.querySelector(".name-ingredient-form")
+// const quantityAddedIngredient = document.querySelector(".quantity-ingredient-form")
+
+// const addIngredientToForm  = () => {
+//   const nameAdded = nameAddedIngredient.value
+//   const quantityAdded = quantityAddedIngredient.value
+
+// // IF EITHER FIELD IS EMPTY
+//   const checkEmptyField = field => field === '' || field === null
+//   if (checkEmptyField(nameAdded) || checkEmptyField(quantityAdded)) {
+//     alert('Name and Quantity input is required.')
+//   }
+// // VALIDATE TYPE OF FORM INPUT
+//    const formInputValidation = nameAddedIngredient === /^[a-zA-Z]+$/
+//      &&  quantityAdded === /^[0-9]+$/
+
+// //CHECK IF THERE'S A MATCHING INGREDIENT ID
+//   const match = ingredients.find(ingredient => ingredient.name === nameInput)
+
+// // IF VALID ADD TO USER PANTRY AND POST 
+//    if (formInputValidation && match) {
+//      user.pantry[match.id].quantity.amount += quantityAdded
+//      postData(user.id, match.id, quantityAdded)
+//   } else {
+
+// // CAN WE ONLY ADD EXISTING INGREDIENTS? HOW DO WE ADD NEW INGREDIENT WITH POST TO DATABASE?
+//     alert('Sorry, ingredient cannot be added at this time.')
+//   }
+// }
+
+// load
+  // login page html displays
+  // get user data to use for login button search
+  // get all recipes data?
+  // get all ingredients data?
+
 const loadPage = () => {
   getData('users', users)
+  getData('recipes', recipes)
+  getData('ingredients', ingredients)
   console.log('hi')
 }
+
+// on login display
+  // create user & display welcome
+  // create & hide display pantry
+  // create & hide display favs 
+  // create & hide display to cook
 
 const returnUserId = () => {
   const userSearched = users.find(user => user.name === loginInput.value)
@@ -79,8 +97,6 @@ const returnUserId = () => {
 }
 
 const login = () => {
-  getData('recipes', recipes)
-  getData('ingredients', ingredients)
   returnUserId()
   createCards()
   findTags()
@@ -109,18 +125,6 @@ const showSavedRecipes = () => {
 }
 //PLANNING
 
-
-// load
-  // login page html displays
-  // get user data to use for login button search
-  // get all recipes data?
-  // get all ingredients data?
-
-// on login display
-  // create user & display welcome
-  // create & hide display pantry
-  // create & hide display favs 
-  // create & hide display to cook
 
 
 // search bar button
