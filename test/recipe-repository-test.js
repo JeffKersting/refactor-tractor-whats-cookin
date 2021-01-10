@@ -8,11 +8,6 @@ import RecipeRepository from '../src/recipe-repository';
 
 
 describe.only('RecipeRepository', () => {
-  // let ingredient1;
-  // let ingredient2;
-  // let ingredient3;
-  // let ingredient4;
-  // let allingredients;
   let recipe1;
   let recipe2;
   let recipe3;
@@ -21,13 +16,6 @@ describe.only('RecipeRepository', () => {
   let recipeRepo;
 
   beforeEach(() => {
-
-    // ingredient2 = new Ingredient(ingredientsData[1], ingredientsData);
-    // ingredient3 = new Ingredient(ingredientsData[2], ingredientsData);
-    // ingredient1 = new Ingredient(ingredientsData[0], ingredientsData);
-    // ingredient4 = new Ingredient(ingredientsData[3], ingredientsData);
-    // allingredients = [ingredient1, ingredient2, ingredient3, ingredient4];
-
     allRecipes = recipesData.map(recipeInfo => {
       const recipe = new Recipe(recipeInfo);
       return recipe;

@@ -5,6 +5,7 @@ import Recipe from '../src/recipe';
 import Ingredient from '../src/ingredient';
 
 describe('Ingredient', () => {
+  let recipe;
   let ingredient1;
   let ingredient2;
   let ingredient3;
