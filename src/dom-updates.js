@@ -46,18 +46,30 @@ const domUpdates = {
 
     
     displayRecipeCard(recipeInfo, shortRecipeName) {
-        const cardHtml = 
-            `<div class="recipe-card" id=${recipeInfo.id}>
+        let instructions = '';
+        recipeInfo.instructions.forEach(item => instructions += `<li>${item.instruction}</li><br>`)
+
+        let cardHtml = `
+            <div class="recipe-card" id=${recipeInfo.id}>
+            <div class="flip-card">
+                <div class="card-front">
                 <h3 maxlength="40">${shortRecipeName}</h3>
                 <div class="card-photo-container">
                     <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
                     <div class="text">
-                        <div>Click for Instructions</div>
+                    <div>Click for Instructions</div>
                     </div>
                 </div>
                 <h4>${recipeInfo.tags[0]}</h4>
-                    <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
-            </div>`;
+                <div class="favorite-button">&#127822;</div>
+                </div>
+                <div class="card-back">
+                <p class="instructions-title">${recipeInfo.name}</p>
+                <ol class="instructions">${instructions}</ol>
+                </div>
+            </div>
+            </div>
+            `
             this.addDisplay("main","beforeend", cardHtml)
     },
 
@@ -308,5 +320,4 @@ const domUpdates = {
 
 };
 
-//export default domUpdates;
-module.export = domUpdates
+export default domUpdates;
