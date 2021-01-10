@@ -8,14 +8,14 @@ const domUpdates = {
     }
 
     toggleMenu() {
-        menuOpen = !menuOpen;
+        // menuOpen = !menuOpen;
         const menuDropdown = document.querySelector(".drop-menu")
         menuDropDown.classList.toggle("hidden")
     },
 
     addDisplay(area, where, what) {
         document.querySeletor(area).insertAdjacentHTML(where, what)
-        }
+    }
 
     displayWelcomeBanner() {
         const firstName = user.name.split(" ")[0];
@@ -43,14 +43,6 @@ const domUpdates = {
             return word.charAt(0).toUpperCase() + word.slice(1);
         }).join(" ");
     }
-
-    showSavedRecipes() {
-        const unsavedRecipes = recipes.filter(recipe => {
-            return !user.favoriteRecipes.includes(recipe.id);
-        });
-        recipeDisplay(unsavedRecipes)
-        showMyRecipesBanner();
-    },
 
     
     displayRecipeCard(recipeInfo, shortRecipeName) {
@@ -80,8 +72,6 @@ const domUpdates = {
         });
     },
 
- 
-
     displayPantryInfo(pantry) {
         pantry.forEach(ingredient => {
             const ingredientHtml = 
@@ -89,7 +79,7 @@ const domUpdates = {
                 <input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">
                 <label for="${ingredient.name}">${ingredient.name}, ${ingredient.count}</label>
                 </li>`;
-            document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
+            this.addDisplay(".pantry-list", "beforeend",
             ingredientHtml);
         });
     },
@@ -111,9 +101,6 @@ const domUpdates = {
         })
     },
     
-    // these all require "fullrecipeInfo" global var
-    // const fullRecipeInfo = document.querySelector(".recipe-instructions");
-    
     generateIngredients(recipe) {
         return recipe && recipe.ingredients.map(i => {
             return `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
@@ -121,12 +108,12 @@ const domUpdates = {
     },
 
     generateRecipeTitle(recipe, ingredients) {
-        let recipeTitle = `
+        const recipeTitle = `
             <button id="exit-recipe-btn">X</button>
             <h3 id="recipe-title">${recipe.name}</h3>
             <h4>Ingredients</h4>
             <p>${ingredients}</p>`
-            this.addDisplay(".recipe-instructions", "beforeend", recipeTitle);
+        this.addDisplay(".recipe-instructions", "beforeend", recipeTitle);
     },
 
     addRecipeImage(recipe) {
@@ -144,6 +131,8 @@ const domUpdates = {
         this.addDisplay(".recipe-instructions", "beforeend", "<h4>Instructions</h4>");
         this.addDisplay(".recipe-instructions","beforeend", `<ol>${instructionsList}</ol>`);
     },
+
+    // these use const fullRecipeInfo = document.querySelector(".recipe-instructions");
 
     openRecipeInfo(event) {
         fullRecipeInfo.style.display = "inline";

@@ -1,9 +1,9 @@
 // use get to grab whatever dataType (users/ingredients/recipes)
-export function getData(dataType, saveVar) {
+export function getData(dataType, localArray) {
   fetch(`http://localhost:3001/api/v1/${dataType}`)
     .then(response => response.json())
     .then(dataArray => dataArray
-      .forEach(dataObject => saveVar.push(dataObject)))
+      .forEach(dataObject => localArray.push(dataObject)))
     .catch(error => alert(`Sorry, there is an error: ${error}`))
 }
 
