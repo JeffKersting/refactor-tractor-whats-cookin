@@ -33,9 +33,65 @@ function addClickEvent(area, func) {
   document.querySelector(area).addEventListener('click', func)
 }
 
+//BEGIN JEFF CODE
+const pantry = document.querySelector('.pantry');
+
+pantryBtn.addEventListener('click', function() {
+  pantry.classList.remove('pantry-hidden')
+})
 
 // // // // // // LOADING THE PAGE 
 window.addEventListener("load", loadPage);
+main.addEventListener('click', function(event) {
+  let target = event.target
+  console.log(target.id)
+  switch(target.id) {
+    case 'img1':
+      target.parentNode.parentNode.parentNode.parentNode.classList.add('recipe-card-active')
+      break;
+    case 'img2':
+      target.parentNode.parentNode.parentNode.parentNode.parentNode.classList.add('recipe-card-active')
+      break;
+    case 'icon' || 'icon-text':
+      console.log(target.parentNode.parentNode.parentNode.parentNode.classList)
+      break;
+    case 'exit-recipe':
+      target.parentNode.parentNode.parentNode.classList.remove('recipe-card-active')
+      break;
+    case 'cooked-recipe':
+      console.log('cooked-recipe')
+      break;
+    case 'exit-pantry':
+      target.parentNode.classList.add('hidden')
+      break;
+  }
+})
+
+
+pantry.addEventListener('click', function(event) {
+  let target = event.target
+  console.log(target.parentNode)
+  switch(target.id) {
+    case 'exit-pantry':
+      target.parentNode.classList.add('pantry-hidden')
+      break;
+  }
+})
+
+// END JEFF CODE
+loginBtn.addEventListener('click', returnUserId);
+
+window.addEventListener("load", createCards);
+window.addEventListener("load", findTags);
+window.addEventListener("load", generateUser);
+allRecipesBtn.addEventListener("click", showAllRecipes);
+filterBtn.addEventListener("click", findCheckedBoxes);
+main.addEventListener("click", addToMyRecipes);
+pantryBtn.addEventListener("click", toggleMenu);
+savedRecipesBtn.addEventListener("click", showSavedRecipes);
+searchBtn.addEventListener("click", searchRecipes);
+showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
+searchForm.addEventListener("submit", pressEnterSearch);
 
 function loadPage() {
   getData('users', users)
@@ -55,8 +111,6 @@ function createCards() {
     domUpdates.displayCards(recipeInfo, shortRecipeName)
   });
 }
-
-
 
 // // // // // // LOGGIN IN 
 addClickEvent(".login-btn", login)
