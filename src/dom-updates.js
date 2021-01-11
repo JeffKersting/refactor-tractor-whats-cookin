@@ -39,8 +39,23 @@ const domUpdates = {
             </div>
             `
             this.addDisplay("main", "beforeend", cardHtml)
+    }, 
+
+    capitalize(words) {
+        return words.split(" ").map(word => {
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        }).join(" ");
+      },
+
+    listTags(allTags) {
+        allTags.forEach(tag => {
+          const tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">
+            <label for="${tag}">${this.capitalize(tag)}</label></li>`;
+          tagList.insertAdjacentHTML("beforeend", tagHtml);
+        });
     }
-  
+
+
   }
 
 export default domUpdates;

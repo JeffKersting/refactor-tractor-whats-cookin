@@ -54,7 +54,6 @@ function createCards() {
     }
     domUpdates.displayCards(recipeInfo, shortRecipeName)
   });
-  console.log('CARDS CREATED')
 }
 
 
@@ -71,8 +70,44 @@ function login() {
   findTags()
 }
 
+function findTags() {
+  let tags = [];
+  recipes.forEach(recipe => {
+    recipe.tags.forEach(tag => {
+      if (!tags.includes(tag)) {
+        tags.push(tag);
+      }
+    });
+  });
+  tags.sort();
+  domUpates.listTags(tags);
+}
+
 // // // // // // SHOW ALL RECIPES BUTTON 
 addClickEvent(".show-all-btn", showAllRecipes)
+
+//BOTH OF THESE TOGGLE?
+function toggleMenu() {
+  domUpdates.toggle('.drop-menu')
+  // REPLACE ALL THIS WITH THE ABOVE TOGGLE?
+  // var menuDropdown = document.querySelector(".drop-menu");
+  // // menuOpen = !menuOpen;
+  // if (menuOpen) {
+  //   menuDropdown.style.display = "block";
+  // } else {
+  //   menuDropdown.style.display = "none";
+  // }
+}
+
+function showAllRecipes() {
+  //TOGGLE? HERE
+  // let ids = recipes.
+  recipes.forEach(recipe => {
+    let domRecipe = document.getElementById(`${recipe.id}`);
+    domRecipe.style.display = "block";
+  });
+  domUpdates.toggle([".welcome-msg", ".my-recipes-banner"])
+}
 
 
 // // // // // // TAG SEARCH
@@ -83,7 +118,6 @@ const tagList = document.querySelector(".tag-list");
 // // // // // // FAVORITING THE RECIPES 
 addClickEvent("main", clickSaveToFavoriteRecipes)
 
-// FAVORITE RECIPE FUNCTIONALITY
 function addToFavoriteRecipes() {
   if (event.target.className === "card-apple-icon") {
     let cardId = parseInt(event.target.closest(".recipe-card").id)
@@ -104,7 +138,7 @@ function showSavedRecipes() {
     let domRecipe = document.getElementById(`${recipe.id}`);
     domRecipe.style.display = "none";
   });
-  showMyRecipesBanner();
+  domUpdates.toggle([".welcome-msg", ".my-recipes-banner"])
 }
 
 function clickSaveToFavoriteRecipes(event) {
@@ -113,7 +147,6 @@ function clickSaveToFavoriteRecipes(event) {
     event.target.classList.add('favorited-button')
   }
 }
-
 
 // // // // // // DISPLAYING FAVORITED RECIPES
 addClickEvent(".saved-recipes-btn", showSavedRecipes)
@@ -126,40 +159,33 @@ const searchInput = document.querySelector("#search-input");
 searchForm.addEventListener("submit", pressEnterSearch);
 
 
-// // // // // // PANTRY 
-addClickEvent(".show-pantry-recipes-btn", findCheckedPantryBoxes)
-addClickEvent(".my-pantry-btn", toggleMenu)
+function pressEnterSearch(event) {
+  event.preventDefault();
+  searchRecipes();
+}
 
+function searchRecipes() {
+  showAllRecipes();
+  let searchedRecipes = recipeData.filter(recipe => {
+    return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
+  });
+  filterNonSearched(createRecipeObject(searchedRecipes));
+}
 
+function filterNonSearched(filtered) {
+  let found = recipes.filter(recipe => {
+    let ids = filtered.map(f => f.id);
+    return !ids.includes(recipe.id)
+  })
+  hideUnselectedRecipes(found);
+}
 
+function createRecipeObject(recipes) {
+  recipes = recipes.map(recipe => new Recipe(recipe));
+  return recipes
+}
 
 // // // // // // FILTER BY RECIPE TAGS
-function findTags() {
-  let tags = [];
-  recipes.forEach(recipe => {
-    recipe.tags.forEach(tag => {
-      if (!tags.includes(tag)) {
-        tags.push(tag);
-      }
-    });
-  });
-  tags.sort();
-  listTags(tags);
-}
-
-function capitalize(words) {
-  return words.split(" ").map(word => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }).join(" ");
-}
-
-function listTags(allTags) {
-  allTags.forEach(tag => {
-    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">
-      <label for="${tag}">${capitalize(tag)}</label></li>`;
-    tagList.insertAdjacentHTML("beforeend", tagHtml);
-  });
-}
 
 function findCheckedBoxes() {
   let tagCheckboxes = document.querySelectorAll(".checked-tag");
@@ -202,64 +228,10 @@ function hideUnselectedRecipes(foundRecipes) {
   });
 }
 
+// // // // // // PANTRY 
+addClickEvent(".show-pantry-recipes-btn", findCheckedPantryBoxes)
+addClickEvent(".my-pantry-btn", toggleMenu)
 
-
-
-// TOGGLE DISPLAYS
-function showMyRecipesBanner() {
-  document.querySelector(".welcome-msg").style.display = "none";
-  document.querySelector(".my-recipes-banner").style.display = "block";
-}
-
-function showWelcomeBanner() {
-  document.querySelector(".welcome-msg").style.display = "flex";
-  document.querySelector(".my-recipes-banner").style.display = "none";
-}
-
-// SEARCH RECIPES
-function pressEnterSearch(event) {
-  event.preventDefault();
-  searchRecipes();
-}
-
-function searchRecipes() {
-  showAllRecipes();
-  let searchedRecipes = recipeData.filter(recipe => {
-    return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
-  });
-  filterNonSearched(createRecipeObject(searchedRecipes));
-}
-
-function filterNonSearched(filtered) {
-  let found = recipes.filter(recipe => {
-    let ids = filtered.map(f => f.id);
-    return !ids.includes(recipe.id)
-  })
-  hideUnselectedRecipes(found);
-}
-
-function createRecipeObject(recipes) {
-  recipes = recipes.map(recipe => new Recipe(recipe));
-  return recipes
-}
-
-function toggleMenu() {
-  var menuDropdown = document.querySelector(".drop-menu");
-  menuOpen = !menuOpen;
-  if (menuOpen) {
-    menuDropdown.style.display = "block";
-  } else {
-    menuDropdown.style.display = "none";
-  }
-}
-
-function showAllRecipes() {
-  recipes.forEach(recipe => {
-    let domRecipe = document.getElementById(`${recipe.id}`);
-    domRecipe.style.display = "block";
-  });
-  showWelcomeBanner();
-}
 
 // CREATE AND USE PANTRY
 function findPantryInfo() {
@@ -318,4 +290,40 @@ function findRecipesWithCheckedIngredients(selected) {
     }
   })
 }
+}
+
+// // ADD INGREDIENT FORM
+ // do we need a form here to post ingredients 
+  // so users can update their pantry?
+
+
+addClickEvent(".add-ingredient-button", addIngredientToPantry)
+const nameAddedIngredient = document.querySelector(".name-ingredient-form")
+const quantityAddedIngredient = document.querySelector(".quantity-ingredient-form")
+
+const addIngredientToForm  = () => {
+  const nameAdded = nameAddedIngredient.value
+  const quantityAdded = quantityAddedIngredient.value
+
+// IF EITHER FIELD IS EMPTY
+  const checkEmptyField = field => field === '' || field === null
+  if (checkEmptyField(nameAdded) || checkEmptyField(quantityAdded)) {
+    alert('Name and Quantity input is required.')
+  }
+// VALIDATE TYPE OF FORM INPUT
+   const formInputValidation = nameAddedIngredient === /^[a-zA-Z]+$/
+     &&  quantityAdded === /^[0-9]+$/
+
+//CHECK IF THERE'S A MATCHING INGREDIENT ID
+  const match = ingredients.find(ingredient => ingredient.name === nameInput)
+
+// IF VALID ADD TO USER PANTRY AND POST 
+   if (formInputValidation && match) {
+     user.pantry[match.id].quantity.amount += quantityAdded
+     postData(user.id, match.id, quantityAdded)
+  } else {
+
+// CAN WE ONLY ADD EXISTING INGREDIENTS? HOW DO WE ADD NEW INGREDIENT WITH POST TO DATABASE?
+    alert('Sorry, ingredient cannot be added at this time.')
+  }
 }
