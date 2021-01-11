@@ -32,6 +32,11 @@ $secondary-font: "Sulphur Point", sans-serif;
   transform: translateX(-50%);
 }
 
+@mixin cardUnflipped() {
+  margin-left: 50%;
+  transform: translate(-50%) rotateY(0deg) scaleY(1);
+}
+
 @mixin defineSize($width, $height) {
   width: $width;
   height: $height;

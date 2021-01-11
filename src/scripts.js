@@ -34,11 +34,31 @@ const loginBtn = document.querySelector('.login-btn');
 
 
 main.addEventListener('click', function(event) {
-  // console.log(event.target.classList.contains(''))
-  if (event.target.classList.contains('favorite-button')) {
-    event.target.classList.add('favorited-button')
+  let target = event.target
+  // console.log(target.id)
+  switch(target.id) {
+    case 'img1':
+      target.parentNode.parentNode.parentNode.parentNode.classList.add('recipe-card-active')
+      // target.parentNode.parentNode.parentNode.parentNode.classList.remove('recipe-card')
+      break;
+    case 'img2':
+      target.parentNode.parentNode.parentNode.parentNode.parentNode.classList.add('recipe-card-active')
+      // target.parentNode.parentNode.parentNode.parentNode.parentNode.classList.remove('recipe-card')
+      break;
+    case 'icon' || 'icon-text':
+      console.log(target.parentNode.parentNode.parentNode.parentNode.classList)
+      break;
+    case 'exit-recipe':
+      target.parentNode.parentNode.parentNode.classList.remove('recipe-card-active')
+      // target.parentNode.parentNode.parentNode.classList.add('recipe-card')
+      break;
+    case 'cooked-recipe':
+      console.log('cooked-recipe')
+      break;
   }
 })
+
+
 
 loginBtn.addEventListener('click', returnUserId);
 
@@ -99,17 +119,20 @@ function addToDom(recipeInfo, shortRecipeName) {
         <div class="card-front">
           <h3 maxlength="40">${shortRecipeName}</h3>
           <div class="card-photo-container">
-            <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
+            <img src=${recipeInfo.image} class="card-photo-preview" id= "img1" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
             <div class="text">
-              <div>Click for Instructions</div>
+              <div id="img2">Click for Instructions</div>
             </div>
           </div>
           <h4>${recipeInfo.tags[0]}</h4>
-          <div class="favorite-button">&#127822;</div>
+          <div class="to-cook-button"><div id="icon">🍽</div><p id="icon-text">Add to cook</p></div>
+          <div class="favorite-button"><div id="icon">&#127822;</div><p id="icon-text">Favorite</p></div>
         </div>
         <div class="card-back">
+          <div id="exit-recipe">⤸</div>
           <p class="instructions-title">${recipeInfo.name}</p>
           <ol class="instructions">${instructions}</ol>
+          <div id="cooked-recipe">&#10003;</div>
         </div>
       </div>
     </div>
@@ -117,6 +140,7 @@ function addToDom(recipeInfo, shortRecipeName) {
   main.insertAdjacentHTML("beforeend", cardHtml);
 }
 
+// <div class="favorite-button">&#127822;</div>
 // <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
 
 // FILTER BY RECIPE TAGS

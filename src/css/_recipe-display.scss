@@ -15,13 +15,36 @@ main {
   margin: 0 10px 0 10px;
   padding: 15px;
   width: 85%;
-  @include centerHorizontally();
+  @include cardUnflipped;
   perspective: 1000px;
+  transition: transform 1.6s ease;
+
+  .card-front {
+    transition: transform 1.5s ease;
+    @include cardUnflipped()
+  }
+
+  .card-back {
+    transition: transform 1.5s ease;
+    transform: scaleY(1) rotateY(180deg);
+    box-shadow: 0 2px 5px 2px black;
+    z-index: 100;
+  }
 }
 
-.recipe-card:hover  {
+.overlap {
+  z-index: 100;
+}
+
+.recipe-card-active  {
+  border-radius: 7px;
+  height: 75%;
+  margin: 0 10px 0 10px;
+  padding: 15px;
+  width: 85%;
+  perspective: 1000px;
+  transition: transform 1.6s ease;
   z-index: 99;
-  display: fixed;
   @include centerHorizontally();
 
   .flip-card {
@@ -32,6 +55,7 @@ main {
     transition: transform 1.5s ease;
     -webkit-font-smoothing: subpixel-antialiased;
     transform: scaleY(2) rotateY(180deg) translate(50%, 25%);
+    box-shadow: 0 2px 5px 2px black;
   }
 
   .card-front {
@@ -46,7 +70,6 @@ main {
   height: 100%;
   transition: transform 1.6s ease;
   transform-style: preserve-3d;
-
 }
 
 .card-front,
@@ -64,19 +87,9 @@ main {
 }
 
 .card-back {
-  margin-left: 50%;
-  padding-left: 15px;
-  transform: rotateY(180deg) translateX(50%);
-  box-shadow: 0 2px 5px 2px black;
-  overflow: auto;
-  -webkit-font-smoothing: subpixel-antialiased;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
   p {
     position: relative;
-    top: -4%;
+    top: 5%;
     height: 5%;
     text-align: center;
     transform: scaleY(.5)  perspective(1px);
@@ -87,14 +100,44 @@ main {
     color: $dark-green;
   }
 
-
   ol {
+    position: relative;
+    top: 15%;
     font-size: 10px;
     transform: scaleY(.5);
     margin: 0;
     padding: 0;
     line-height: .9;
   }
+
+  #exit-recipe {
+    position: absolute;
+    top: 0%;
+    right: 5%;
+    transform: scaleY(.5) rotate(-120deg);
+    font-size: 2em;
+    cursor: pointer;
+    @include transparentText($dark-green);
+
+    &:hover {
+      @include transparentText($accent-secondary);
+    }
+  }
+
+  #cooked-recipe {
+    position: absolute;
+    bottom: 0%;
+    right: 5%;
+    transform: scaleY(.5);
+    font-size: 2em;
+    cursor: pointer;
+    @include transparentText($dark-green);
+
+    &:hover {
+      @include transparentText($accent-secondary);
+    }
+  }
+
 }
 
 
@@ -131,19 +174,85 @@ main {
   transition: .8s ease;
 }
 
-.favorite-button {
-  float: right;
+.to-cook-button {
+  float: left;
+  padding-top: 8%;
+  padding-left: 2%;
   font-size: 3em;
-  @include transparentText($accent-secondary)
-  transition: .4s ease;
   cursor: pointer;
 
+  p {
+    font-size: 14px;
+    margin-top: -5%;
+    margin-left: -18%;
+    text-align: left;
+    opacity: 0;
+  }
+
+  #icon {
+      @include transparentText($accent-secondary)
+    }
+
   &:hover {
-    @include transparentText($dark-apple-red)
+    #icon {
+      @include transparentText($dark-apple-red);
+      transform: translateY(-10%);
+      transition: .4s ease;
+    }
+
+    p {
+      color: $dark-apple-red;
+      font-size: 14px;
+      text-shadow: 0px 1px 1px black;
+      transition: .4s ease;
+      margin-top: -12%;
+      opacity: 1;
+
+    }
   }
 }
 
-.favorited-button {
+.to-cook-active {
+  @include transparentText($apple-red)
+}
+
+.favorite-button {
+  float: right;
+  padding-top: 8%;
+  padding-right: 2%;
+  font-size: 3em;
+  cursor: pointer;
+
+  p {
+    font-size: 14px;
+    margin-top: -5%;
+    text-align: right;
+    opacity: 0;
+  }
+
+  #icon {
+      @include transparentText($accent-secondary)
+    }
+
+  &:hover {
+    #icon {
+      @include transparentText($dark-apple-red);
+      transform: translateY(-10%);
+      transition: .4s ease;
+    }
+
+    p {
+      color: $dark-apple-red;
+      font-size: 14px;
+      text-shadow: 0px 1px 1px black;
+      transition: .4s ease;
+      margin-top: -12%;
+      opacity: 1;
+    }
+  }
+}
+
+.favorite-active {
   @include transparentText($apple-red)
 }
 
