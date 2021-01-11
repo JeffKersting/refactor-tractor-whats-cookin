@@ -1,0 +1,39 @@
+.pantry {
+  position: fixed;
+  @include centerHorizontally();
+  @include cardStyling();
+  top: 25%;
+  height: 65%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  transition: 1.6s ease;
+
+  #exit-pantry {
+    position: absolute;
+    top: 0%;
+    right: 2%;
+    transform: rotate(-120deg);
+    font-size: 2em;
+    cursor: pointer;
+    @include transparentText($dark-green);
+
+    &:hover {
+      @include transparentText($accent-secondary);
+    }
+  }
+
+  h4 {
+    align-self: center;
+    text-decoration: underline;
+    font-size: 3em;
+    background-color: transparent;
+  }
+}
+
+.pantry-hidden {
+  position: fixed;
+  transition: 1.6s ease;
+  display: none;
+  top: 50%;
+}

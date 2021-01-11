@@ -9,7 +9,11 @@
 @import "loading";
 @import "pantry";
 @import "recipe";
+@import "modal";
 
-.page {
-  // display: none;
+.hidden {
+  display: none;
 }
+// .page {
+  // display: none;
+// }
