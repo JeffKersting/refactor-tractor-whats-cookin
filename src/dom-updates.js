@@ -12,6 +12,8 @@ const domUpdates = {
 
     // CARD DISPLAY
     displayCards(recipeInfo, shortRecipeName) {
+        // document.querySelector('main').innerHTML = ''
+
         let instructions = '';
         recipeInfo.instructions.forEach(item => {
             instructions += `<li>${item.instruction}</li><br>`
@@ -28,8 +30,14 @@ const domUpdates = {
               </div>
             </div>
             <h4>${recipeInfo.tags[0]}</h4>
-            <div class="to-cook-button"><div id="icon">🍽</div><p id="icon-text">Add to cook</p></div>
-            <div class="favorite-button"><div id="icon">&#127822;</div><p id="icon-text">Favorite</p></div>
+            <div class="to-cook-button" name=${recipeInfo.id}>
+                <div id="icon-cook">🍽</div>
+                <p id="icon-cook-text">Add to cook</p>
+            </div>
+            <div class="favorite-button" name=${recipeInfo.id}>
+                <div id="icon-fav">&#127822;</div>
+                <p id="icon-fav-text">Favorite</p>
+            </div>
           </div>
           <div class="card-back">
             <div id="exit-recipe">⤸</div>
@@ -52,10 +60,9 @@ const domUpdates = {
         allTags.forEach(tag => {
           const tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">
             <label for="${tag}">${this.capitalize(tag)}</label></li>`;
-          tagList.insertAdjacentHTML("beforeend", tagHtml);
+            this.addDisplay(".tag-list", "beforeend", tagHtml);
         });
-    }
-
+    },
 
   }
 

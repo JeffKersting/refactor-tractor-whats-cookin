@@ -20,7 +20,7 @@ import domUpdates from './dom-updates';
 
 // // // // // // GLOBAL VARIABLES
 const fullRecipeInfo = document.querySelector(".recipe-instructions");
-const main = document.querySelector("main");
+
 let menuOpen = false;
 let users = [];
 let recipes = [];
@@ -33,83 +33,13 @@ function addClickEvent(area, func) {
   document.querySelector(area).addEventListener('click', func)
 }
 
-//BEGIN JEFF CODE
-const pantry = document.querySelector('.pantry');
-
-pantryBtn.addEventListener('click', function() {
-  pantry.classList.remove('pantry-hidden')
-})
-
 // // // // // // LOADING THE PAGE 
 window.addEventListener("load", loadPage);
-main.addEventListener('click', function(event) {
-  let target = event.target
-  console.log(target.id)
-  switch(target.id) {
-    case 'img1':
-      target.parentNode.parentNode.parentNode.parentNode.classList.add('recipe-card-active')
-      break;
-    case 'img2':
-      target.parentNode.parentNode.parentNode.parentNode.parentNode.classList.add('recipe-card-active')
-      break;
-    case 'icon' || 'icon-text':
-      console.log(target.parentNode.parentNode.parentNode.parentNode.classList)
-      break;
-    case 'exit-recipe':
-      target.parentNode.parentNode.parentNode.classList.remove('recipe-card-active')
-      break;
-    case 'cooked-recipe':
-      console.log('cooked-recipe')
-      break;
-    case 'exit-pantry':
-      target.parentNode.classList.add('hidden')
-      break;
-  }
-})
-
-
-pantry.addEventListener('click', function(event) {
-  let target = event.target
-  console.log(target.parentNode)
-  switch(target.id) {
-    case 'exit-pantry':
-      target.parentNode.classList.add('pantry-hidden')
-      break;
-  }
-})
-
-// END JEFF CODE
-loginBtn.addEventListener('click', returnUserId);
-
-window.addEventListener("load", createCards);
-window.addEventListener("load", findTags);
-window.addEventListener("load", generateUser);
-allRecipesBtn.addEventListener("click", showAllRecipes);
-filterBtn.addEventListener("click", findCheckedBoxes);
-main.addEventListener("click", addToMyRecipes);
-pantryBtn.addEventListener("click", toggleMenu);
-savedRecipesBtn.addEventListener("click", showSavedRecipes);
-searchBtn.addEventListener("click", searchRecipes);
-showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
-searchForm.addEventListener("submit", pressEnterSearch);
 
 function loadPage() {
   getData('users', users)
   getData('recipes', recipes)
   getData('ingredients', ingredients)
-}
-
-// CREATE RECIPE CARDS
-function createCards() {
-  recipes.forEach(recipe => {
-    const recipeInfo = new Recipe(recipe);
-    let shortRecipeName = recipeInfo.name;
-    recipes.push(recipeInfo);
-    if (recipeInfo.name.length > 40) {
-      shortRecipeName = recipeInfo.name.substring(0, 40) + "...";
-    }
-    domUpdates.displayCards(recipeInfo, shortRecipeName)
-  });
 }
 
 // // // // // // LOGGIN IN 
@@ -119,9 +49,22 @@ function login() {
   const loginInput = document.querySelector('.user-input');
   const userLoggingIn = users.find(user => user.name === loginInput.value)
   user = new User(userLoggingIn)
-  domUpdates.toggle(['.login'])
-  createCards()
+  domUpdates.toggle(['.login', '.page-wrapper'])
+  createCards(recipes)
   findTags()
+}
+
+// CREATE RECIPE CARDS
+function createCards(recipeList) {
+  recipeList.forEach(recipe => {
+    const recipeInfo = new Recipe(recipe);
+    let shortRecipeName = recipeInfo.name;
+    recipesList.push(recipeInfo);
+    if (recipeInfo.name.length > 40) {
+      shortRecipeName = recipeInfo.name.substring(0, 40) + "...";
+    }
+    domUpdates.displayCards(recipeInfo, shortRecipeName)
+  });
 }
 
 function findTags() {
@@ -134,7 +77,7 @@ function findTags() {
     });
   });
   tags.sort();
-  domUpates.listTags(tags);
+  domUpdates.listTags(tags);
 }
 
 // // // // // // SHOW ALL RECIPES BUTTON 
@@ -164,13 +107,51 @@ function showAllRecipes() {
 }
 
 
-// // // // // // TAG SEARCH
-addClickEvent(".filter-btn", findCheckedBoxes)
-const tagList = document.querySelector(".tag-list");
-
 
 // // // // // // FAVORITING THE RECIPES 
-addClickEvent("main", clickSaveToFavoriteRecipes)
+addClickEvent("main", mainClicks)
+
+function mainClicks(event) {
+  let target = event.target
+  console.log(target.id)
+  switch(target.id) {
+    case 'img1':
+      target.parentNode.parentNode.parentNode.parentNode.classList.add('recipe-card-active')
+      break;
+    case 'img2':
+      target.parentNode.parentNode.parentNode.parentNode.parentNode.classList.add('recipe-card-active')
+      break;
+    case 'icon-fav' || 'icon-fav-text':
+      console.log(target.parentNode.parentNode.parentNode.parentNode.classList)
+      break;
+    case 'icon-cook' || 'icon-cook-text':
+      addToCookList(target.parentNode.name)
+      break;
+    case 'exit-recipe':
+      target.parentNode.parentNode.parentNode.classList.remove('recipe-card-active')
+      break;
+    case 'cooked-recipe':
+      console.log('cooked-recipe')
+      break;
+    case 'exit-pantry':
+      target.parentNode.classList.add('hidden')
+      break;
+  }
+}
+
+function addToCookList(targetId) {
+   //to add this to the "let's cook list" we need to
+      // find recipe in recipes  
+  const targetRecipe = recipes.find(recipe => recipe.id === targetId)
+  user.recipesToCook.push(targetRecipe)
+  console.log('TARGET RECIPE', targetRecipe)
+  //DO WE UPDATE THE DATABASE WITH API?
+  // Change the icon color
+  // display the new recipes to cook in the list
+ 
+}
+
+
 
 function addToFavoriteRecipes() {
   if (event.target.className === "card-apple-icon") {
@@ -200,6 +181,14 @@ function clickSaveToFavoriteRecipes(event) {
   if (event.target.classList.contains('favorite-button')) {
     event.target.classList.add('favorited-button')
   }
+}
+
+
+// // // // // // DISPLAY LET'S COOK RECIPES TO COOK BUTTON
+addClickEvent('.lets-cook-button', displayRecipesToCook)
+
+function displayRecipesToCook() {
+  createCards(user.recipesToCook)
 }
 
 // // // // // // DISPLAYING FAVORITED RECIPES
@@ -240,6 +229,10 @@ function createRecipeObject(recipes) {
 }
 
 // // // // // // FILTER BY RECIPE TAGS
+// // // // // // TAG SEARCH
+addClickEvent(".filter-btn", findCheckedBoxes)
+const tagList = document.querySelector(".tag-list");
+
 
 function findCheckedBoxes() {
   let tagCheckboxes = document.querySelectorAll(".checked-tag");
@@ -283,9 +276,23 @@ function hideUnselectedRecipes(foundRecipes) {
 }
 
 // // // // // // PANTRY 
-addClickEvent(".show-pantry-recipes-btn", findCheckedPantryBoxes)
-addClickEvent(".my-pantry-btn", toggleMenu)
+  addClickEvent(".show-pantry-recipes-btn", findCheckedPantryBoxes)
+  addClickEvent(".my-pantry-btn",  displayPantry)
+  addClickEvent('.pantry', pantryClicks)
 
+function displayPantry() {
+  domUpdates.toggle(['.pantry'])
+}
+
+function pantryClicks(event) {
+  let target = event.target
+  console.log(target.parentNode)
+  switch(target.id) {
+    case 'exit-pantry':
+      displayPantry()
+      break;
+  }
+}
 
 // CREATE AND USE PANTRY
 function findPantryInfo() {
@@ -350,34 +357,33 @@ function findRecipesWithCheckedIngredients(selected) {
  // do we need a form here to post ingredients 
   // so users can update their pantry?
 
+// addClickEvent(".add-ingredient-button", addIngredientToPantry)
+// const nameAddedIngredient = document.querySelector(".name-ingredient-form")
+// const quantityAddedIngredient = document.querySelector(".quantity-ingredient-form")
 
-addClickEvent(".add-ingredient-button", addIngredientToPantry)
-const nameAddedIngredient = document.querySelector(".name-ingredient-form")
-const quantityAddedIngredient = document.querySelector(".quantity-ingredient-form")
+// const addIngredientToForm  = () => {
+//   const nameAdded = nameAddedIngredient.value
+//   const quantityAdded = quantityAddedIngredient.value
 
-const addIngredientToForm  = () => {
-  const nameAdded = nameAddedIngredient.value
-  const quantityAdded = quantityAddedIngredient.value
+// // IF EITHER FIELD IS EMPTY
+//   const checkEmptyField = field => field === '' || field === null
+//   if (checkEmptyField(nameAdded) || checkEmptyField(quantityAdded)) {
+//     alert('Name and Quantity input is required.')
+//   }
+// // VALIDATE TYPE OF FORM INPUT
+//    const formInputValidation = nameAddedIngredient === /^[a-zA-Z]+$/
+//      &&  quantityAdded === /^[0-9]+$/
 
-// IF EITHER FIELD IS EMPTY
-  const checkEmptyField = field => field === '' || field === null
-  if (checkEmptyField(nameAdded) || checkEmptyField(quantityAdded)) {
-    alert('Name and Quantity input is required.')
-  }
-// VALIDATE TYPE OF FORM INPUT
-   const formInputValidation = nameAddedIngredient === /^[a-zA-Z]+$/
-     &&  quantityAdded === /^[0-9]+$/
+// //CHECK IF THERE'S A MATCHING INGREDIENT ID
+//   const match = ingredients.find(ingredient => ingredient.name === nameInput)
 
-//CHECK IF THERE'S A MATCHING INGREDIENT ID
-  const match = ingredients.find(ingredient => ingredient.name === nameInput)
+// // IF VALID ADD TO USER PANTRY AND POST 
+//    if (formInputValidation && match) {
+//      user.pantry[match.id].quantity.amount += quantityAdded
+//      postData(user.id, match.id, quantityAdded)
+//   } else {
 
-// IF VALID ADD TO USER PANTRY AND POST 
-   if (formInputValidation && match) {
-     user.pantry[match.id].quantity.amount += quantityAdded
-     postData(user.id, match.id, quantityAdded)
-  } else {
-
-// CAN WE ONLY ADD EXISTING INGREDIENTS? HOW DO WE ADD NEW INGREDIENT WITH POST TO DATABASE?
-    alert('Sorry, ingredient cannot be added at this time.')
-  }
-}
+// // CAN WE ONLY ADD EXISTING INGREDIENTS? HOW DO WE ADD NEW INGREDIENT WITH POST TO DATABASE?
+//     alert('Sorry, ingredient cannot be added at this time.')
+//   }
+// }
