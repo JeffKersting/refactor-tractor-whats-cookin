@@ -32,6 +32,11 @@ $secondary-font: "Sulphur Point", sans-serif;
   transform: translateX(-50%);
 }
 
+@mixin cardUnflipped() {
+  margin-left: 50%;
+  transform: translate(-50%) rotateY(0deg) scaleY(1);
+}
+
 @mixin defineSize($width, $height) {
   width: $width;
   height: $height;
@@ -40,4 +45,11 @@ $secondary-font: "Sulphur Point", sans-serif;
 @mixin displayRecipe() {
   margin-left: 50%;
   transform: rotateY(180deg) translateX(-50%);
+}
+
+@mixin cardStyling() {
+  background-color: $grey;
+  border: 2px solid $accent-primary;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px 2px black;
 }
