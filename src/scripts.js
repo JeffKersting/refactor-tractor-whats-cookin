@@ -1,56 +1,41 @@
-/* eslint-disable max-len */
-//IMPORT CSS
+// import users from './data/users-data';
+// import recipeData from  './data/recipe-data';
+// import ingredientData from './data/ingredient-data';
+
+// // // // // // IMPORT CSS
 import './css/index.scss';
-import './images/apple-logo.png'
-import './images/search.png'
-import './images/seasoning.png'
-import './images/cookbook.png'
-import './images/pot.png'
-//IMPORT CLASSES 
-import {getData, postData} from './apis'
-import domUpdates from './dom-updates';
+import './images/apple-logo.png';
+import './images/search.png';
+import './images/seasoning.png';
+import './images/cookbook.png';
+import './images/pot.png';
+
+// // // // // // IMPORT CLASS AND FUNCTIONS
 import User from './user';
 import Recipe from './recipe';
+import Pantry from './pantry';
+import Ingredient from './ingredient';
+import {getData, postData} from './apis';
+import domUpdates from './dom-updates';
 
+// // // // // // GLOBAL VARIABLES
+const fullRecipeInfo = document.querySelector(".recipe-instructions");
+const main = document.querySelector("main");
+let menuOpen = false;
+let users = [];
+let recipes = [];
+let ingredients = []
+let pantryInfo = [];
+let user;
 
-window.addEventListener("load", loadPage);
-
-const loginInput = document.querySelector('.user-input');
-
+// HELPER FUNCTION TO ADD EVENT LISTENERS ON CLICKS
 function addClickEvent(area, func) {
   document.querySelector(area).addEventListener('click', func)
 }
 
-addClickEvent(".login-btn", login)
-// addClickEvent(".show-all-btn", showAllRecipes)
-// addClickEvent(".filter-btn", findCheckedBoxes)
-// addClickEvent("main", addToMyRecipes)
-addClickEvent(".my-pantry-btn", displayMenu)
-addClickEvent(".saved-recipes-btn", domUpdates.showSavedRecipes)
-addClickEvent(".search-btn", domUpdates.searchRecipes)
-// addClickEvent(".show-pantry-recipes-btn", findCheckedPantryBoxes)
 
-// search
-const searchForm = document.querySelector("#search");
-const searchInput = document.querySelector("#search-input");
-
-// search bar button
-searchForm.addEventListener("submit", pressEnterSearch);
-
-function pressEnterSearch(event) {
-  event.preventDefault();
-  domUpdates.searchRecipes();
-}
-
-// load
-  // login page html displays >>>>>> 
-  // get user data to use for login button search >>>>>> 
-  // get all recipes data? >>>>>> 
-  // get all ingredients data? >>>>>> 
-
-let users = [];
-let recipes = [];
-let ingredients = [];
+// // // // // // LOADING THE PAGE 
+window.addEventListener("load", loadPage);
 
 function loadPage() {
   getData('users', users)
@@ -58,155 +43,279 @@ function loadPage() {
   getData('ingredients', ingredients)
 }
 
-// on login display
-  // create user & display welcome  >>>>>> 
-  // create & hide display pantry >>>>>> 
-  // create & hide display favs  >>>>>> 
-  // create & hide display to cook >>>>>> 
-
-
-let user;
-
-function returnUserId() {
-  const userSearched = users.find(user => user.name === loginInput.value)
-  user = new User(userSearched)
-}
+// CREATE RECIPE CARDS
 function createCards() {
   recipes.forEach(recipe => {
-      const recipeInstance = new Recipe(recipe);
-      recipes.push(recipeInstance);
-      const shortRecipeName = recipeInstance.name;
-      if (recipeInstance.name.length > 40) {
-          shortRecipeName = recipeInstance.name.substring(0, 40) + "...";
-      }
-      domUpdates.displayRecipeCard(recipeInstance, shortRecipeName)
+    const recipeInfo = new Recipe(recipe);
+    let shortRecipeName = recipeInfo.name;
+    recipes.push(recipeInfo);
+    if (recipeInfo.name.length > 40) {
+      shortRecipeName = recipeInfo.name.substring(0, 40) + "...";
+    }
+    domUpdates.displayCards(recipeInfo, shortRecipeName)
   });
+  console.log('CARDS CREATED')
 }
+
+
+
+// // // // // // LOGGIN IN 
+addClickEvent(".login-btn", login)
 
 function login() {
-  returnUserId()
+  const loginInput = document.querySelector('.user-input');
+  const userLoggingIn = users.find(user => user.name === loginInput.value)
+  user = new User(userLoggingIn)
+  domUpdates.toggle(['.login'])
   createCards()
-  domUpdates.showRecipes(recipes)
-  domUpdates.listTags()
-  domUpdates.displayWelcomeBanner()
-  // MAKE SURE THESE DEFAULT TO HIDDEN CLASS
-  domUpdates.displayPantryInfo(user.pantry.sort((a, b) => a.name.localeCompare(b.name)))
-  //
+  findTags()
 }
 
-//FIGURE OUT WHAT TO TOGGLE?
-//showWelcomeBanner & showMyRecipesBanner
-// domUpdates.toggleSelection(".welcome-msg", ".my-recipes-banner")
+// // // // // // SHOW ALL RECIPES BUTTON 
+addClickEvent(".show-all-btn", showAllRecipes)
 
-//toggleMenu
-function displayMenu() {
-  domUpdates.toggleMenu()
-}
+
+// // // // // // TAG SEARCH
+addClickEvent(".filter-btn", findCheckedBoxes)
+const tagList = document.querySelector(".tag-list");
+
+
+// // // // // // FAVORITING THE RECIPES 
+addClickEvent("main", clickSaveToFavoriteRecipes)
+
+// FAVORITE RECIPE FUNCTIONALITY
+function addToFavoriteRecipes() {
+  if (event.target.className === "card-apple-icon") {
+    let cardId = parseInt(event.target.closest(".recipe-card").id)
+    if (!user.favoriteRecipes.includes(cardId)) {
+      event.target.src = "../images/apple-logo.png";
+      user.saveRecipe(cardId);
+    } else {
+      event.target.src = "../images/apple-logo-outline.png";
+      user.removeRecipe(cardId);
+    }
+  } 
 
 function showSavedRecipes() {
-  const unsavedRecipes = recipes.filter(recipe => {
-      return !user.favoriteRecipes.includes(recipe.id);
+  let unsavedRecipes = recipes.filter(recipe => {
+    return !user.favoriteRecipes.includes(recipe.id);
   });
-  domUpdates.recipeDisplay(unsavedRecipes)
-  domUpdates.toggleSelection(".welcome-msg", ".my-recipes-banner")
+  unsavedRecipes.forEach(recipe => {
+    let domRecipe = document.getElementById(`${recipe.id}`);
+    domRecipe.style.display = "none";
+  });
+  showMyRecipesBanner();
+}
+
+function clickSaveToFavoriteRecipes(event) {
+  // console.log(event.target.classList.contains(''))
+  if (event.target.classList.contains('favorite-button')) {
+    event.target.classList.add('favorited-button')
+  }
 }
 
 
-// checkbox search button
-  // const displayFilteredRecipes = () => {
-  //   let search = whateverItIsThatWasSearched
-  //   recipes.methodThatFilters
-  //   domUpdates.displayRecipes()
-  // }
+// // // // // // DISPLAYING FAVORITED RECIPES
+addClickEvent(".saved-recipes-btn", showSavedRecipes)
 
-// user favorites button
-  // displayFilteredRecipes by 'favorites'?
-  // dropdown or what display?
 
-// user to cook button
-  // displayFilteredRecipes by 'toCook'?
+// // // // // // SEARCH BAR 
+addClickEvent(".search-btn", searchRecipes)
+const searchForm = document.querySelector("#search");
+const searchInput = document.querySelector("#search-input");
+searchForm.addEventListener("submit", pressEnterSearch);
 
-// user 'cook this' button
-  // method that updates local and posts pantry ingredient changes
 
-//user pantry button
-  // displays ingredients in user pantry
-  // function that updates the pantry locally and does the fetch post
+// // // // // // PANTRY 
+addClickEvent(".show-pantry-recipes-btn", findCheckedPantryBoxes)
+addClickEvent(".my-pantry-btn", toggleMenu)
 
 
 
-//     if (selectedIngredients.length > 0) {
-//         this.findRecipesWithCheckedIngredients(selectedIngredients);
-//     }
 
-
-function findCheckedBoxes(checkboxesSelector) {
-  const checkboxes = document.querySelectorAll(checkboxesSelector);
-  const checkboxValues = Array.from(checkboxes)
-  const selectedBoxes = checkboxValues.filter(box => box.checked)
-  findRecipes(selectedBoxes);
+// // // // // // FILTER BY RECIPE TAGS
+function findTags() {
+  let tags = [];
+  recipes.forEach(recipe => {
+    recipe.tags.forEach(tag => {
+      if (!tags.includes(tag)) {
+        tags.push(tag);
+      }
+    });
+  });
+  tags.sort();
+  listTags(tags);
 }
 
-function searchAndDisplayRecipesMatchingTagCheckboxes() {
-  findCheckedBoxes(".checked-tag")
+function capitalize(words) {
+  return words.split(" ").map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(" ");
+}
+
+function listTags(allTags) {
+  allTags.forEach(tag => {
+    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">
+      <label for="${tag}">${capitalize(tag)}</label></li>`;
+    tagList.insertAdjacentHTML("beforeend", tagHtml);
+  });
+}
+
+function findCheckedBoxes() {
+  let tagCheckboxes = document.querySelectorAll(".checked-tag");
+  let checkboxInfo = Array.from(tagCheckboxes)
+  let selectedTags = checkboxInfo.filter(box => {
+    return box.checked;
+  })
+  findTaggedRecipes(selectedTags);
+}
+
+function findTaggedRecipes(selected) {
+  let filteredResults = [];
+  selected.forEach(tag => {
+    let allRecipes = recipes.filter(recipe => {
+      return recipe.tags.includes(tag.id);
+    });
+    allRecipes.forEach(recipe => {
+      if (!filteredResults.includes(recipe)) {
+        filteredResults.push(recipe);
+      }
+    })
+  });
+  showAllRecipes();
+  if (filteredResults.length > 0) {
+    filterRecipes(filteredResults);
+  }
+}
+
+function filterRecipes(filtered) {
+  let foundRecipes = recipes.filter(recipe => {
+    return !filtered.includes(recipe);
+  });
+  hideUnselectedRecipes(foundRecipes)
+}
+
+function hideUnselectedRecipes(foundRecipes) {
+  foundRecipes.forEach(recipe => {
+    let domRecipe = document.getElementById(`${recipe.id}`);
+    domRecipe.style.display = "none";
+  });
 }
 
 
-function searchAndDisplayRecipesForPantryIngredients() {
-  findCheckedBoxes(".pantry-checkbox")
-  this.showAllRecipes();
+
+
+// TOGGLE DISPLAYS
+function showMyRecipesBanner() {
+  document.querySelector(".welcome-msg").style.display = "none";
+  document.querySelector(".my-recipes-banner").style.display = "block";
 }
 
+function showWelcomeBanner() {
+  document.querySelector(".welcome-msg").style.display = "flex";
+  document.querySelector(".my-recipes-banner").style.display = "none";
+}
+
+// SEARCH RECIPES
+function pressEnterSearch(event) {
+  event.preventDefault();
+  searchRecipes();
+}
+
+function searchRecipes() {
+  showAllRecipes();
+  let searchedRecipes = recipeData.filter(recipe => {
+    return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
+  });
+  filterNonSearched(createRecipeObject(searchedRecipes));
+}
+
+function filterNonSearched(filtered) {
+  let found = recipes.filter(recipe => {
+    let ids = filtered.map(f => f.id);
+    return !ids.includes(recipe.id)
+  })
+  hideUnselectedRecipes(found);
+}
+
+function createRecipeObject(recipes) {
+  recipes = recipes.map(recipe => new Recipe(recipe));
+  return recipes
+}
+
+function toggleMenu() {
+  var menuDropdown = document.querySelector(".drop-menu");
+  menuOpen = !menuOpen;
+  if (menuOpen) {
+    menuDropdown.style.display = "block";
+  } else {
+    menuDropdown.style.display = "none";
+  }
+}
+
+function showAllRecipes() {
+  recipes.forEach(recipe => {
+    let domRecipe = document.getElementById(`${recipe.id}`);
+    domRecipe.style.display = "block";
+  });
+  showWelcomeBanner();
+}
+
+// CREATE AND USE PANTRY
+function findPantryInfo() {
+  user.pantry.forEach(item => {
+    let itemInfo = ingredientsData.find(ingredient => {
+      return ingredient.id === item.ingredient;
+    });
+    let originalIngredient = pantryInfo.find(ingredient => {
+      if (itemInfo) {
+        return ingredient.name === itemInfo.name;
+      }
+    });
+    if (itemInfo && originalIngredient) {
+      originalIngredient.count += item.amount;
+    } else if (itemInfo) {
+      pantryInfo.push({name: itemInfo.name, count: item.amount});
+    }
+  });
+  displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
+}
+
+function displayPantryInfo(pantry) {
+  pantry.forEach(ingredient => {
+    let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">
+      <label for="${ingredient.name}">${ingredient.name}, ${ingredient.count}</label></li>`;
+    document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
+      ingredientHtml);
+  });
+}
+
+function findCheckedPantryBoxes() {
+  let pantryCheckboxes = document.querySelectorAll(".pantry-checkbox");
+  let pantryCheckboxInfo = Array.from(pantryCheckboxes)
+  let selectedIngredients = pantryCheckboxInfo.filter(box => {
+    return box.checked;
+  })
+  showAllRecipes();
+  if (selectedIngredients.length > 0) {
+    findRecipesWithCheckedIngredients(selectedIngredients);
+  }
+}
 
 function findRecipesWithCheckedIngredients(selected) {
   const recipeChecker = (arr, target) => target.every(v => arr.includes(v));
-  const ingredientNames = selected.map(item => {
-      return item.id;
-  })
+  const ingredientNames = selected.map(item => item.id)
+
   recipes.forEach(recipe => {
-      let allRecipeIngredients = [];
-      recipe.ingredients.forEach(ingredient => {
-          allRecipeIngredients.push(ingredient.name);
-      });
-      if (!recipeChecker(allRecipeIngredients, ingredientNames)) {
-          const domRecipe = document.getElementById(`${recipe.id}`);
-          domRecipe.style.display = "none";
-      }
+    let allRecipeIngredients = [];
+    recipe.ingredients.forEach(ingredient => {
+      allRecipeIngredients.push(ingredient.name);
+    });
+
+    if (!recipeChecker(allRecipeIngredients, ingredientNames)) {
+      let domRecipe = document.getElementById(`${recipe.id}`);
+      domRecipe.style.display = "none";
+    }
   })
 }
-
-// // ADD INGREDIENT FORM
- // do we need a form here to post ingredients 
-  // so users can update their pantry?
-
-
-// addClickEvent(".add-ingredient-button", addIngredientToPantry)
-// const nameAddedIngredient = document.querySelector(".name-ingredient-form")
-// const quantityAddedIngredient = document.querySelector(".quantity-ingredient-form")
-
-// const addIngredientToForm  = () => {
-//   const nameAdded = nameAddedIngredient.value
-//   const quantityAdded = quantityAddedIngredient.value
-
-// // IF EITHER FIELD IS EMPTY
-//   const checkEmptyField = field => field === '' || field === null
-//   if (checkEmptyField(nameAdded) || checkEmptyField(quantityAdded)) {
-//     alert('Name and Quantity input is required.')
-//   }
-// // VALIDATE TYPE OF FORM INPUT
-//    const formInputValidation = nameAddedIngredient === /^[a-zA-Z]+$/
-//      &&  quantityAdded === /^[0-9]+$/
-
-// //CHECK IF THERE'S A MATCHING INGREDIENT ID
-//   const match = ingredients.find(ingredient => ingredient.name === nameInput)
-
-// // IF VALID ADD TO USER PANTRY AND POST 
-//    if (formInputValidation && match) {
-//      user.pantry[match.id].quantity.amount += quantityAdded
-//      postData(user.id, match.id, quantityAdded)
-//   } else {
-
-// // CAN WE ONLY ADD EXISTING INGREDIENTS? HOW DO WE ADD NEW INGREDIENT WITH POST TO DATABASE?
-//     alert('Sorry, ingredient cannot be added at this time.')
-//   }
-// }
+}

@@ -1,6 +1,6 @@
 import ingredientsData from './data/ingredient-data'
 // Will need to import fetched ingredient data from API
-import Ingredient from './Ingredient';
+import Ingredient from './ingredient';
 
 class Recipe {
   constructor(recipe) {
@@ -13,9 +13,12 @@ class Recipe {
   }
 
   instantiateIngredients(recipe, ingredientsData) {
+    
     return recipe.ingredients.map(recipeIngredient => {
-      const ingredientInfo = ingredientsData.find(ingredient => ingredient.id === recipeIngredient.id);
-      return new Ingredient(ingredientInfo, recipeIngredient);
+      if (recipeIngredient.id) {
+        const ingredientInfo = ingredientsData.find(ingredient => ingredient.id === recipeIngredient.id);
+        return new Ingredient(ingredientInfo, recipeIngredient);
+      }
     });
   }
 
