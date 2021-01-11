@@ -2,8 +2,12 @@
 export function getData(dataType, localArray) {
   fetch(`http://localhost:3001/api/v1/${dataType}`)
     .then(response => response.json())
-    .then(dataArray => dataArray
-      .forEach(dataObject => localArray.push(dataObject)))
+    .then(dataArray => {
+      dataArray.forEach(dataObject => {
+        localArray.push(dataObject)
+      })
+      console.log('It done')
+    })
     .catch(error => alert(`Sorry, there is an error: ${error}`))
 }
 
