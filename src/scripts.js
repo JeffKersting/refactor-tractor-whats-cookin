@@ -32,34 +32,50 @@ let user;
 const loginInput = document.querySelector('.user-input');
 const loginBtn = document.querySelector('.login-btn');
 
+//BEGIN JEFF CODE
+const pantry = document.querySelector('.pantry');
+
+pantryBtn.addEventListener('click', function() {
+  pantry.classList.remove('pantry-hidden')
+})
 
 main.addEventListener('click', function(event) {
   let target = event.target
-  // console.log(target.id)
+  console.log(target.id)
   switch(target.id) {
     case 'img1':
       target.parentNode.parentNode.parentNode.parentNode.classList.add('recipe-card-active')
-      // target.parentNode.parentNode.parentNode.parentNode.classList.remove('recipe-card')
       break;
     case 'img2':
       target.parentNode.parentNode.parentNode.parentNode.parentNode.classList.add('recipe-card-active')
-      // target.parentNode.parentNode.parentNode.parentNode.parentNode.classList.remove('recipe-card')
       break;
     case 'icon' || 'icon-text':
       console.log(target.parentNode.parentNode.parentNode.parentNode.classList)
       break;
     case 'exit-recipe':
       target.parentNode.parentNode.parentNode.classList.remove('recipe-card-active')
-      // target.parentNode.parentNode.parentNode.classList.add('recipe-card')
       break;
     case 'cooked-recipe':
       console.log('cooked-recipe')
+      break;
+    case 'exit-pantry':
+      target.parentNode.classList.add('hidden')
       break;
   }
 })
 
 
+pantry.addEventListener('click', function(event) {
+  let target = event.target
+  console.log(target.parentNode)
+  switch(target.id) {
+    case 'exit-pantry':
+      target.parentNode.classList.add('pantry-hidden')
+      break;
+  }
+})
 
+// END JEFF CODE
 loginBtn.addEventListener('click', returnUserId);
 
 window.addEventListener("load", createCards);

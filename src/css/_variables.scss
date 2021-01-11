@@ -46,3 +46,10 @@ $secondary-font: "Sulphur Point", sans-serif;
   margin-left: 50%;
   transform: rotateY(180deg) translateX(-50%);
 }
+
+@mixin cardStyling() {
+  background-color: $grey;
+  border: 2px solid $accent-primary;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px 2px black;
+}
