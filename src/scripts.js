@@ -35,10 +35,6 @@ addEvent(".lets-cook-btn", "click", displayToCookRecipes)
 addEvent(".filter-btn", "click", findCheckedBoxes)
 addEvent("main", "click", mainClicks)
 
-function formValue(area) {
-  document.querySelector(area).value
-}
-
 function loadPage() {
   getData('users', users)
   getData('recipes', recipes)
@@ -75,7 +71,8 @@ function showHome() {
 }
 
 function searchRecipes() {
-  const userSearch = formValue('#search-input').toLowerCase()
+
+  const userSearch = document.querySelector('#search-input').value.toLowerCase()
   const searchResults = recipes.filter(recipe => {
     return recipe.name.toLowerCase().includes(userSearch);
   });
@@ -266,8 +263,8 @@ function findRecipesWithCheckedIngredients(selected) {
 function addIngredientToPantry(event) {
   event.preventDefault()
 
-  const nameAdded = formValue(".name-ingredient-form")
-  const quantityAdded = formValue(".quantity-ingredient-form")
+  const nameAdded = document.querySelector(".name-ingredient-form").value
+  const quantityAdded =document.querySelector(".quantity-ingredient-form").value
 
   const match = ingredients.find(ingredient => ingredient.name === nameAdded.toLowerCase()) 
 
