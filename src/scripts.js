@@ -19,19 +19,16 @@ let user;
 window.addEventListener("load", loadPage);
 
 function addEvent(area, eventType, func) {
-  if (!document.querySelector(area)) {
-    console.log('THISAREA', area)
-  }
   document.querySelector(area).addEventListener(eventType, func)
 }
 
 addEvent(".login-btn", "click", login) // line 43
 addEvent(".home-btn", "click", showHome) // line 70
-addEvent("#search", "submit", pressEnterSearch) // line 72
-addEvent(".search-btn", "click", searchRecipes) //
-addEvent(".favorited-recipes-btn", "click", displayFavoritedRecipes)
-addEvent(".my-pantry-btn",  "click", displayPantry)
-addEvent(".pantry", "click", pantryClicks)
+addEvent(".search-btn", "click", searchRecipes) // line 80
+addEvent("#search", "submit", pressEnterSearch) // line 88
+addEvent(".favorited-recipes-btn", "click", displayFavoritedRecipes) // line 90
+addEvent(".my-pantry-btn",  "click", displayPantry) // line 98
+addEvent(".pantry", "click", pantryClicks) // 
 addEvent(".add-ingredient-form", "submit", addIngredientToPantry)
 addEvent(".show-pantry-recipes-btn", "click", findCheckedPantryBoxes)
 addEvent(".lets-cook-btn", "click", displayToCookRecipes)
@@ -77,25 +74,17 @@ function showHome() {
   domUpdates.displayCards(recipes)
 }
 
-function pressEnterSearch(event) {
-  event.preventDefault();
-  searchRecipes();
-}
-
 function searchRecipes() {
   const userSearch = formValue('#search-input').toLowerCase()
   const searchResults = recipes.filter(recipe => {
     return recipe.name.toLowerCase().includes(userSearch);
   });
-  filterNonSearched(searchResults);
+  domUpdates.displayCards(searchResults)
 }
 
-function filterNonSearched(filtered) {
-  let found = recipes.filter(recipe => {
-    let ids = filtered.map(f => f.id);
-    return !ids.includes(recipe.id)
-  })
-  hideUnselectedRecipes(found);
+function pressEnterSearch(event) {
+  event.preventDefault();
+  searchRecipes();
 }
 
 function displayFavoritedRecipes() {
@@ -106,8 +95,24 @@ function displayToCookRecipes() {
   domUpdates.displayCards(user.recipesToCook)
 }
 
-function mainClicks(event) {
+function displayPantry() {
+  domUpdates.showUserPantry(user, ingredients)
+  domUpdates.toggle(['.pantry'])
+}
+
+function pantryClicks(event) {
   let target = event.target
+  switch(target.id) {
+    case 'exit-pantry':
+      displayPantry()
+      break;
+  }
+}
+
+function mainClicks(event) {
+  const target = event.target
+  const targetRecipe = findTargetRecipe(target)
+
   switch(target.id) {
     case 'img1':
       target.closest('.recipe-card').classList.add('recipe-card-active')
@@ -116,10 +121,10 @@ function mainClicks(event) {
       target.closest('.recipe-card').classList.add('recipe-card-active')
       break;
     case 'icon-fav' || 'icon-fav-text':
-      console.log(target.parentNode.parentNode.parentNode.parentNode.classList)
+      saveToFavorites(targetRecipe)
       break;
     case 'icon-cook' || 'icon-cook-text':
-      addToCookList(target)
+      addToCookList(targetRecipe)
       break;
     case 'exit-recipe':
       target.closest('.recipe-card').classList.remove('recipe-card-active')
@@ -133,61 +138,24 @@ function mainClicks(event) {
   }
 }
 
-function addToCookList(target) {
-   //to add this to the "let's cook list" we need to
-      // find recipe in recipes 
+function findTargetRecipe(target) {
   const targetId = target.parentNode.getAttribute('name')
   const targetRecipe = recipes.find(recipe => recipe.id == targetId)
-  user.recipesToCook.push(targetRecipe)
- 
-  //DO WE UPDATE THE DATABASE WITH API?
-  // Change the icon color
-  // display the new recipes to cook in the list
 }
 
-
-
-function addToFavoriteRecipes() {
-  if (event.target.className === "card-apple-icon") {
-    let cardId = parseInt(event.target.closest(".recipe-card").id)
-    if (!user.favoriteRecipes.includes(cardId)) {
-      event.target.src = "../images/apple-logo.png";
-      user.saveRecipe(cardId);
-    } else {
-      event.target.src = "../images/apple-logo-outline.png";
-      user.removeRecipe(cardId);
-    }
-  }
+function saveToFavorites(targetRecipe) {
+   console.log('RECIPES', recipes)
+  user.saveRecipe(targetRecipe, 'favoriteRecipes')
+  //SAVE RECIPE PROPERTY ISFAVORITED
+  showHome()
 }
 
-function showSavedRecipes() {
-  let unsavedRecipes = recipes.filter(recipe => {
-    return !user.favoriteRecipes.includes(recipe.id);
-  });
-  unsavedRecipes.forEach(recipe => {
-    let domRecipe = document.getElementById(`${recipe.id}`);
-    domRecipe.style.display = "none";
-  });
-  domUpdates.toggle([".welcome-msg", ".my-recipes-banner"])
+function addToCookList(targetRecipe) {
+  user.saveRecipe(targetRecipe, 'recipesToCook')
+  //SAVE RECIPE PROPERTY ISTOCOOK
+  showHome()
 }
 
-function clickSaveToFavoriteRecipes(event) {
-  // console.log(event.target.classList.contains(''))
-  if (event.target.classList.contains('favorite-button')) {
-    event.target.classList.add('favorited-button')
-  }
-}
-
-
-// // // // // // DISPLAY LET'S COOK RECIPES TO COOK BUTTON
-
-function displayRecipesToCook() {
-  createCards(user.recipesToCook)
-}
-
-
-
-// // // // // // FILTER BY RECIPE TAGS
 
 function findCheckedBoxes() {
   let tagCheckboxes = document.querySelectorAll(".checked-tag");
@@ -232,19 +200,7 @@ function hideUnselectedRecipes(foundRecipes) {
 
 // // // // // // PANTRY 
 
-function displayPantry() {
-  domUpdates.toggle(['.pantry'])
-}
 
-function pantryClicks(event) {
-  let target = event.target
-  console.log(target.parentNode)
-  switch(target.id) {
-    case 'exit-pantry':
-      displayPantry()
-      break;
-  }
-}
 
 // CREATE AND USE PANTRY
 function findPantryInfo() {
