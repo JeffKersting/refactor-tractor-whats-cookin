@@ -24,10 +24,11 @@ const domUpdates = {
             instructions += `<li>${step.instruction}</li><br>`
         })
         
-        const shortName = recipe.name.length > 40 ? recipe.name.substring(0, 40) + "..." : recipe.name
-        
-        const favoritedClass = recipe.isFavorited ? "favorited" : ''
+        const shortName = recipe.name.length > 40 
+        ? recipe.name.substring(0, 40) + "..." 
+        : recipe.name
 
+        const favoritedClass = recipe.isFavorited ? "favorited" : ''
         const toCookClass = recipe.isFavorited ? "to-cook" : ''
 
         const cardHtml = `<div class="recipe-card ${favoritedClass} ${toCookClass}" id=${recipe.id} name=${recipe.id}>
@@ -40,7 +41,6 @@ const domUpdates = {
                   <div id="img2">Click for Instructions</div>
                 </div>
               </div>
-              <h4>${recipe.tags[0]}</h4>
               <div class="to-cook-button" name=${recipe.id}>
                   <div id="icon-cook">🍽</div>
                   <p id="icon-cook-text">Add to cook</p>
@@ -54,6 +54,8 @@ const domUpdates = {
               <div id="exit-recipe">⤸</div>
               <p class="instructions-title">${recipe.name}</p>
               <ol class="instructions">${instructions}</ol>
+              <ol class="missing"></ol>
+              <button class="compare-recipe type="button" id="compare-recipe-${recipe.id}">Pantry Check?</button>
               <div id="cooked-recipe">&#10003;</div>
             </div>
           </div>
@@ -80,16 +82,33 @@ const domUpdates = {
     },
 
     showUserPantry(user, ingredients) {
-      this.clearDisaply('.pantry')
       const pantryItemArray = Object.keys(user.pantry.pantry)
       pantryItemArray.forEach(pantryItem => {
-        const ingredientName = ingredients.find(ingredient => ingredient.id == pantryItem).name
+        console.log(user.pantry.pantry[pantryItem])
 
-        const pantryItemHTML = `${ingredientName} 
-        - ${user.pantry.pantry[pantryItem].amount} <br>`
+        //right now if this is long because we have no names on ingredients
+        // if they added it themselves to the database we have no way of retrieving
+        // that new ingredient name, just an id which I set to Date.now()
+        const ingredientName = ingredients.find(ingredient => ingredient.id == pantryItem) 
+        ? ingredients.find(ingredient => ingredient.id == pantryItem).name 
+        : `Item ID: ${user.pantry.pantry[pantryItem].id}`
+
+        const pantryItemHTML = `${user.pantry.pantry[pantryItem].amount} - ${ingredientName}  <br>`
 
         this.addDisplay('.pantry', 'beforeend', pantryItemHTML)
        })
+    },
+
+    //NOT WORKING
+    showRecipeComparison(missingList) {
+      const missingItemHtml = ["<h2>Missing Ingredients from Your Pantry:</h2>"]
+      missingList.forEach(item => {
+        missingItemHtml.push`<li>
+        ${item.amount} - ${item.missing}
+        </li>`
+      })
+
+      this.displayCards('.missing', 'beforeend', missingItemHtml.join(''))
     }
 
   }

@@ -12,6 +12,7 @@ export function getData(dataType, localArray) {
 
 // use post to modify ingredients 
 export function postData(userId, ingredientId, amount) {
+  const amountNum = parseInt(amount)
   const settings = {
     method: 'POST',
     headers: {
@@ -20,7 +21,7 @@ export function postData(userId, ingredientId, amount) {
     body: JSON.stringify({ 
       userID: userId, 
       ingredientID: ingredientId, 
-      ingredientModification: amount
+      ingredientModification: amountNum
     })
   }
   fetch('http://localhost:3001/api/v1/users', settings)

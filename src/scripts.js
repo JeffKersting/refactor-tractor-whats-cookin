@@ -30,9 +30,9 @@ addEvent(".favorited-recipes-btn", "click", displayFavoritedRecipes) // line 90
 addEvent(".my-pantry-btn",  "click", displayPantry) // line 98
 addEvent(".pantry", "click", pantryClicks) // 
 addEvent(".add-ingredient-form", "submit", addIngredientToPantry)
-addEvent(".show-pantry-recipes-btn", "click", findCheckedPantryBoxes)
+addEvent(".find-recipes-using-pantry-btn", "click", findRecipesUsingPantry)
 addEvent(".lets-cook-btn", "click", displayToCookRecipes)
-addEvent(".filter-btn", "click", findCheckedBoxes)
+addEvent(".filter-btn", "click", displayTaggedRecipes)
 addEvent("main", "click", mainClicks)
 
 function loadPage() {
@@ -52,9 +52,11 @@ function login() {
 }
 
 function updateDataToClassInstances() {
+  // doing this just to keep all data in class structures? dunno if needed
   users = users.map(user => new User(user))
   recipes = recipes.map(recipe => new Recipe(recipe))
   // MAYBE TRY TO MAKE ALL THESE INTO INGREDIENT CLASS INSTANCES?
+  // tricky because we have to pass in another array to instantiate
   // const allRecipeIngredients = recipes.flatMap(recipe => recipe.ingredients())
   // ingredients = ingredients.map(ingredient => new Ingredient(ingredient))
 }
@@ -71,7 +73,6 @@ function showHome() {
 }
 
 function searchRecipes() {
-
   const userSearch = document.querySelector('#search-input').value.toLowerCase()
   const searchResults = recipes.filter(recipe => {
     return recipe.name.toLowerCase().includes(userSearch);
@@ -116,10 +117,31 @@ function addIngredientToPantry(event) {
   const matchId = match ? match.id : Date.now()
 
   postData(user.id, matchId, quantityAdded)
+  alert(`You have added ${quantityAdded} of ${nameAdded} to your pantry!`)
+
+  //Update user from API to update ingredients, 
+  //right now it's doing a weird concatination instead of addition, 
+  // added a parseInt to pantry amount to try to fix in the future
+  // getData('users', users)
+  // user = users.find(person => person.id === user.id)
+  // showUserPantry(user, ingredients)
 }
 
+// we currently don't have this but we could?
+function findRecipesUsingPantry() {
+  const recipesUserCouldCook = recipes.filter(recipe => {
+    return !user.pantry.compareIngredients(recipe)
+  })
+  if (recipesUserCouldCook.length != 0) {
+    domUpdates.displayCards(recipesUserCouldCook)
+    domUpdates.toggle(['.pantry'])
+  } else {
+    alert('Sorry, you need to go to the groccery store.')
+  }
+} 
+
+
 function mainClicks(event) {
-  console.log('HELP', event.target, 'PARENT', event.target.closest('.recipe-card').getAttribute("name"))
   const target = event.target
   const targetRecipe = findTargetRecipe(target)
   
@@ -140,10 +162,15 @@ function mainClicks(event) {
       target.closest('.recipe-card').classList.remove('recipe-card-active')
       break;
     case 'cooked-recipe':
-      console.log('cooked-recipe')
+      cookThisRecipe(targetRecipe)
       break;
     case 'exit-pantry':
       target.parentNode.classList.add('hidden')
+      break;
+    case `#recipe-compare-${targetRecipe.id}`:
+      console.log('hi')
+      //may have to do something to set button eventListening or something
+      compareRecipes(targetRecipe)
       break;
   }
 }
@@ -156,76 +183,36 @@ function findTargetRecipe(target) {
 function saveToFavorites(targetRecipe) {
   targetRecipe.isFavorited = true
   user.saveRecipe(targetRecipe, 'favoriteRecipes')
-  console.log(user.favoriteRecipes)
-  //SAVE RECIPE PROPERTY ISFAVORITED
   showHome()
 }
 
 function addToCookList(targetRecipe) {
+  targetRecipe.isToCook = true
   user.saveRecipe(targetRecipe, 'recipesToCook')
-  //SAVE RECIPE PROPERTY ISTOCOOK
   showHome()
 }
 
-
-function findCheckedBoxes() {
-  let tagCheckboxes = document.querySelectorAll(".checked-tag");
-  let checkboxInfo = Array.from(tagCheckboxes)
-  let selectedTags = checkboxInfo.filter(box => {
-    return box.checked;
-  })
-  findTaggedRecipes(selectedTags);
+//NOT WORKING:
+function compareRecipes(event) {
+  const missingList = user.pantry.compareIngredients(targetRecipe)
+  domUpdates.compareRecipes(missingList)
 }
 
-function findTaggedRecipes(selected) {
-  let filteredResults = [];
-  selected.forEach(tag => {
-    let allRecipes = recipes.filter(recipe => {
-      return recipe.tags.includes(tag.id);
-    });
-    allRecipes.forEach(recipe => {
-      if (!filteredResults.includes(recipe)) {
-        filteredResults.push(recipe);
-      }
-    })
+function cookThisRecipe(targetRecipe) {
+  user.removeRecipe(targetRecipe, 'recipesToCook')
+  user.pantry.removeIngredients(targetRecipe)
+  domUpdates.showUserPantry(user, ingredients)
+  alert('Good cooking! Recipe will be removed from your recipes to cook.')
+  setTimeout(showHome, 1000)
+}
+
+function displayTaggedRecipes(checkboxesSelector) {
+  const checkboxes = document.querySelectorAll(".checked-tag");
+  const checkboxValues = Array.from(checkboxes)
+  const selectedBoxes = checkboxValues.filter(box => box.checked).map(tag => tag.id)
+  const searchResults = recipes.filter(recipe => {
+    return recipe.tags.some(tag => selectedBoxes.includes(tag));
   });
-  showAllRecipes();
-  if (filteredResults.length > 0) {
-    filterRecipes(filteredResults);
-  }
-}
-
-function filterRecipes(filtered) {
-  let foundRecipes = recipes.filter(recipe => {
-    return !filtered.includes(recipe);
-  });
-  hideUnselectedRecipes(foundRecipes)
-}
-
-function hideUnselectedRecipes(foundRecipes) {
-  foundRecipes.forEach(recipe => {
-    let domRecipe = document.getElementById(`${recipe.id}`);
-    domRecipe.style.display = "none";
-  });
-}
-
-function findCheckedPantryBoxes() {
-  console.log('hi')
-}
-
-function findRecipesWithCheckedIngredients(selected) {
-  const recipeChecker = (arr, target) => target.every(v => arr.includes(v));
-  const ingredientNames = selected.map(item => item.id)
-
-  recipes.forEach(recipe => {
-    let allRecipeIngredients = [];
-    recipe.ingredients.forEach(ingredient => {
-      allRecipeIngredients.push(ingredient.name);
-    });
-
-    if (!recipeChecker(allRecipeIngredients, ingredientNames)) {
-      let domRecipe = document.getElementById(`${recipe.id}`);
-      domRecipe.style.display = "none";
-    }
-  })
+  domUpdates.displayCards(searchResults)
+  //how to reset checks? when?
 }
