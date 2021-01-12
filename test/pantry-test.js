@@ -37,8 +37,7 @@ describe.only('Pantry', () => {
     let pantry, userInfo, recipe 
   
     beforeEach(() => {
-      userInfo = new User(userData[0], new Pantry(userData[0].id));
-      // pantry = new Pantry(userInfo.pantry, userInfo.id);
+      userInfo = new User(userData[0]);
       pantry = userInfo.pantry;
       recipe = new Recipe(recipeData[0]);
     });

@@ -1,7 +1,5 @@
 import { expect } from 'chai';
 
-import Ingredient from '../src/ingredient';
-import ingredientsData from '../src/data/ingredient-data';
 import Recipe from '../src/recipe';
 import recipesData from '../src/data/recipe-data';
 

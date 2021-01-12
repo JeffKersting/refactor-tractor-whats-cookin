@@ -1,16 +1,14 @@
 class Pantry {
   constructor(pantry, userID) {
     this.pantry = this.compileSameIngredients(pantry);
-
-    // console.log('PANTRY >>>>>>>>>>>>>>>', this.pantry);
-
     this.userID = userID;
   } 
 
   compileSameIngredients(pantry) {
     const uniquePantryItems = pantry.reduce((acc, pantryItem) => {
-
-      if (!acc[pantryItem.ingredient]) {
+      if (acc[pantryItem.ingredient]) {
+        acc[pantryItem.ingredient].amount += parseInt(pantryItem.amount);
+      } else {
         acc[pantryItem.ingredient] = pantryItem;
       } else {
         acc[pantryItem.ingredient].amount += pantryItem.amount;
@@ -42,19 +40,9 @@ class Pantry {
   }
 
   removeIngredients(recipe) {
-
-    // console.log('recipe >>>>>>>', recipe);
-    // console.log('this.userID >>>>>>>', this.userID);
-
-
     let apiUpdate = [];
     recipe.ingredients.forEach(ingredient => {
       if (this.pantry[ingredient.id]) {
-
-        // console.log('this.pantry[ingredient.id].amount >>>>>>>', this.pantry[ingredient.id], this.pantry[ingredient.id].amount);
-
-        // console.log('ingredient.quantity.amount >>>>>>>', ingredient.quantity.amount);
-
         this.pantry[ingredient.id].amount -= ingredient.quantity.amount;
         apiUpdate.push({
           userID: this.userID, 
