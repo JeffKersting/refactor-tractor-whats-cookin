@@ -15,7 +15,6 @@ let recipes = [];
 let ingredients = []
 let user;
 
-
 window.addEventListener("load", loadPage);
 
 function addEvent(area, eventType, func) {
