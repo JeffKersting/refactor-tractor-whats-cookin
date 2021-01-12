@@ -1,7 +1,7 @@
 const domUpdates = {
     // CHANGE THE DISPLAY OF ANY ARGS PASSED IN, MUST PASS IN [ARGS]
     toggle(anyArr) {
-        anyArr.forEach(area => 
+        anyArr.forEach(area =>
             document.querySelector(area).classList.toggle("hidden"))
     },
 
@@ -17,15 +17,15 @@ const domUpdates = {
     // CARD DISPLAY
     displayCards(recipeList) {
       this.clearDisplay('main')
-    
+
       recipeList.forEach(recipe => {
         let instructions = '';
         recipe.instructions.forEach(step => {
             instructions += `<li>${step.instruction}</li><br>`
         })
-        
-        const shortName = recipe.name.length > 40 
-        ? recipe.name.substring(0, 40) + "..." 
+
+        const shortName = recipe.name.length > 40
+        ? recipe.name.substring(0, 40) + "..."
         : recipe.name
 
         const favoritedClass = recipe.isFavorited ? "favorited" : ''
@@ -63,7 +63,7 @@ const domUpdates = {
 
         this.addDisplay("main", "beforeend", cardHtml)
       })
-    }, 
+    },
 
     capitalize(words) {
         return words.split(" ").map(word => {
@@ -89,13 +89,13 @@ const domUpdates = {
         //right now if this is long because we have no names on ingredients
         // if they added it themselves to the database we have no way of retrieving
         // that new ingredient name, just an id which I set to Date.now()
-        const ingredientName = ingredients.find(ingredient => ingredient.id == pantryItem) 
-        ? ingredients.find(ingredient => ingredient.id == pantryItem).name 
+        const ingredientName = ingredients.find(ingredient => ingredient.id == pantryItem)
+        ? ingredients.find(ingredient => ingredient.id == pantryItem).name
         : `Item ID: ${user.pantry.pantry[pantryItem].id}`
 
         const pantryItemHTML = `${user.pantry.pantry[pantryItem].amount} - ${ingredientName}  <br>`
-
-        this.addDisplay('.pantry', 'beforeend', pantryItemHTML)
+        console.log(document.querySelector('.pantry-list'))
+        this.addDisplay('.pantry-ingredients', 'beforeend', pantryItemHTML)
        })
     },
 

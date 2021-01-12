@@ -23,6 +23,23 @@
     }
   }
 
+  #search {
+    height: 5%;
+    width: 70%;
+    font-size: 1em;
+  }
+
+  .pantry-ingredients {
+    position: absolute;
+    overflow: scroll;
+    top: 25%;
+    width: 75%;
+    height: 50%;
+    font-size: 1em;
+    @include cardStyling()
+    @include centerHorizontally()
+  }
+
   h4 {
     align-self: center;
     text-decoration: underline;
