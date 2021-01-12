@@ -1,50 +1,49 @@
-// import users from './data/users-data';
-// import recipeData from  './data/recipe-data';
-// import ingredientData from './data/ingredient-data';
-
-// // // // // // IMPORT CSS
+/* eslint-disable indent */
 import './css/index.scss';
 import './images/apple-logo.png';
 import './images/search.png';
 import './images/seasoning.png';
 import './images/cookbook.png';
 import './images/pot.png';
-
-// // // // // // IMPORT CLASS AND FUNCTIONS
 import User from './user';
 import Recipe from './recipe';
-import Pantry from './pantry';
-import Ingredient from './ingredient';
+// import Pantry from './pantry';
+// import Ingredient from './ingredient';
 import {getData, postData} from './apis';
 import domUpdates from './dom-updates';
 
-// // // // // // GLOBAL VARIABLES
-const fullRecipeInfo = document.querySelector(".recipe-instructions");
-
-let menuOpen = false;
 let users = [];
 let recipes = [];
 let ingredients = []
-let pantryInfo = [];
 let user;
 
-// HELPER FUNCTION TO ADD EVENT LISTENERS ON CLICKS
+window.addEventListener("load", loadPage);
+
 function addClickEvent(area, func) {
   document.querySelector(area).addEventListener('click', func)
 }
 
-// // // // // // LOADING THE PAGE 
-window.addEventListener("load", loadPage);
+addClickEvent(".login-btn", login)
+addClickEvent("main", mainClicks)
+// addClickEvent('.lets-cook-button', displayRecipesToCook)
+addClickEvent(".saved-recipes-btn", showSavedRecipes)
+addClickEvent(".search-btn", searchRecipes)
+// addClickEvent(".home", showAllRecipes)
+addClickEvent(".filter-btn", findCheckedBoxes)
+addClickEvent(".show-pantry-recipes-btn", findCheckedPantryBoxes)
+addClickEvent(".my-pantry-btn",  displayPantry)
+addClickEvent('.pantry', pantryClicks)
+// addClickEvent(".add-ingredient-button", addIngredientToPantry)
 
+
+// LOADING THE PAGE 
 function loadPage() {
   getData('users', users)
   getData('recipes', recipes)
   getData('ingredients', ingredients)
 }
 
-// // // // // // LOGGIN IN 
-addClickEvent(".login-btn", login)
-
+// LOGGING IN 
 function login() {
   const loginInput = document.querySelector('.user-input');
   const userLoggingIn = users.find(user => user.name === loginInput.value)
@@ -54,81 +53,49 @@ function login() {
   findTags()
 }
 
-// CREATE RECIPE CARDS
-function createCards(recipeList) {
-  recipeList.forEach(recipe => {
-    const recipeInfo = new Recipe(recipe);
-    let shortRecipeName = recipeInfo.name;
-    recipesList.push(recipeInfo);
-    if (recipeInfo.name.length > 40) {
-      shortRecipeName = recipeInfo.name.substring(0, 40) + "...";
-    }
-    domUpdates.displayCards(recipeInfo, shortRecipeName)
-  });
-}
+function createCards() {
+  recipes = recipes.map(recipe => new Recipe(recipe))
+  recipes.forEach(recipe => domUpdates.displayCards(recipe))
+};
 
 function findTags() {
-  let tags = [];
-  recipes.forEach(recipe => {
-    recipe.tags.forEach(tag => {
-      if (!tags.includes(tag)) {
-        tags.push(tag);
-      }
-    });
-  });
-  tags.sort();
-  domUpdates.listTags(tags);
+  const allTags = recipes.flatMap(recipe => recipe.tags)
+  const uniqueTags = new Set(allTags)
+  const sortedUniqueTags = Array.from(uniqueTags).sort()
+  domUpdates.listTags(sortedUniqueTags);
 }
 
-// // // // // // SHOW ALL RECIPES BUTTON 
-addClickEvent(".show-all-btn", showAllRecipes)
+// SHOW ALL RECIPES BUTTON 
+//This will become the "Home" logo click, shows all recipes
 
-//BOTH OF THESE TOGGLE?
-function toggleMenu() {
-  domUpdates.toggle('.drop-menu')
-  // REPLACE ALL THIS WITH THE ABOVE TOGGLE?
-  // var menuDropdown = document.querySelector(".drop-menu");
-  // // menuOpen = !menuOpen;
-  // if (menuOpen) {
-  //   menuDropdown.style.display = "block";
-  // } else {
-  //   menuDropdown.style.display = "none";
-  // }
-}
 
-function showAllRecipes() {
-  //TOGGLE? HERE
-  // let ids = recipes.
-  recipes.forEach(recipe => {
-    let domRecipe = document.getElementById(`${recipe.id}`);
-    domRecipe.style.display = "block";
-  });
-  domUpdates.toggle([".welcome-msg", ".my-recipes-banner"])
-}
-
+// function showAllRecipes() {
+//  displayCards(recipes)
+// }
+console.log('HELLO SCOTT')
 
 
 // // // // // // FAVORITING THE RECIPES 
-addClickEvent("main", mainClicks)
+
 
 function mainClicks(event) {
   let target = event.target
-  console.log(target.id)
+  // console.log(target.id)
   switch(target.id) {
     case 'img1':
-      target.parentNode.parentNode.parentNode.parentNode.classList.add('recipe-card-active')
+      target.closest('.recipe-card').classList.add('recipe-card-active')
       break;
     case 'img2':
-      target.parentNode.parentNode.parentNode.parentNode.parentNode.classList.add('recipe-card-active')
+      target.closest('.recipe-card').classList.add('recipe-card-active')
       break;
     case 'icon-fav' || 'icon-fav-text':
       console.log(target.parentNode.parentNode.parentNode.parentNode.classList)
       break;
     case 'icon-cook' || 'icon-cook-text':
-      addToCookList(target.parentNode.name)
+      addToCookList(target)
       break;
     case 'exit-recipe':
-      target.parentNode.parentNode.parentNode.classList.remove('recipe-card-active')
+      target.closest('.recipe-card').classList.remove('recipe-card-active')
       break;
     case 'cooked-recipe':
       console.log('cooked-recipe')
@@ -139,16 +106,16 @@ function mainClicks(event) {
   }
 }
 
-function addToCookList(targetId) {
+function addToCookList(target) {
    //to add this to the "let's cook list" we need to
-      // find recipe in recipes  
-  const targetRecipe = recipes.find(recipe => recipe.id === targetId)
+      // find recipe in recipes 
+  const targetId = target.parentNode.getAttribute('name')
+  const targetRecipe = recipes.find(recipe => recipe.id == targetId)
   user.recipesToCook.push(targetRecipe)
-  console.log('TARGET RECIPE', targetRecipe)
+ 
   //DO WE UPDATE THE DATABASE WITH API?
   // Change the icon color
   // display the new recipes to cook in the list
- 
 }
 
 
@@ -163,7 +130,8 @@ function addToFavoriteRecipes() {
       event.target.src = "../images/apple-logo-outline.png";
       user.removeRecipe(cardId);
     }
-  } 
+  }
+}
 
 function showSavedRecipes() {
   let unsavedRecipes = recipes.filter(recipe => {
@@ -185,18 +153,16 @@ function clickSaveToFavoriteRecipes(event) {
 
 
 // // // // // // DISPLAY LET'S COOK RECIPES TO COOK BUTTON
-addClickEvent('.lets-cook-button', displayRecipesToCook)
 
 function displayRecipesToCook() {
   createCards(user.recipesToCook)
 }
 
 // // // // // // DISPLAYING FAVORITED RECIPES
-addClickEvent(".saved-recipes-btn", showSavedRecipes)
 
 
 // // // // // // SEARCH BAR 
-addClickEvent(".search-btn", searchRecipes)
+
 const searchForm = document.querySelector("#search");
 const searchInput = document.querySelector("#search-input");
 searchForm.addEventListener("submit", pressEnterSearch);
@@ -229,10 +195,6 @@ function createRecipeObject(recipes) {
 }
 
 // // // // // // FILTER BY RECIPE TAGS
-// // // // // // TAG SEARCH
-addClickEvent(".filter-btn", findCheckedBoxes)
-const tagList = document.querySelector(".tag-list");
-
 
 function findCheckedBoxes() {
   let tagCheckboxes = document.querySelectorAll(".checked-tag");
@@ -276,9 +238,6 @@ function hideUnselectedRecipes(foundRecipes) {
 }
 
 // // // // // // PANTRY 
-  addClickEvent(".show-pantry-recipes-btn", findCheckedPantryBoxes)
-  addClickEvent(".my-pantry-btn",  displayPantry)
-  addClickEvent('.pantry', pantryClicks)
 
 function displayPantry() {
   domUpdates.toggle(['.pantry'])
@@ -351,39 +310,24 @@ function findRecipesWithCheckedIngredients(selected) {
     }
   })
 }
+
+
+// ADD INGREDIENT FORM
+document.querySelector(".add-ingredient-form").addEventListener("submit", addIngredientToPantry)
+
+const nameAddedIngredient = document.querySelector(".name-ingredient-form")
+const quantityAddedIngredient = document.querySelector(".quantity-ingredient-form")
+
+function addIngredientToPantry(event) {
+  event.preventDefault()
+
+  const nameAdded = nameAddedIngredient.value
+  const quantityAdded = quantityAddedIngredient.value
+
+  const match = ingredients.find(ingredient => ingredient.name === nameAdded.toLowerCase()) 
+
+  const matchId = match ? match.id : Date.now()
+
+  console.log(matchID)
+  postData(user.id, matchId, quantityAdded)
 }
-
-// // ADD INGREDIENT FORM
- // do we need a form here to post ingredients 
-  // so users can update their pantry?
-
-// addClickEvent(".add-ingredient-button", addIngredientToPantry)
-// const nameAddedIngredient = document.querySelector(".name-ingredient-form")
-// const quantityAddedIngredient = document.querySelector(".quantity-ingredient-form")
-
-// const addIngredientToForm  = () => {
-//   const nameAdded = nameAddedIngredient.value
-//   const quantityAdded = quantityAddedIngredient.value
-
-// // IF EITHER FIELD IS EMPTY
-//   const checkEmptyField = field => field === '' || field === null
-//   if (checkEmptyField(nameAdded) || checkEmptyField(quantityAdded)) {
-//     alert('Name and Quantity input is required.')
-//   }
-// // VALIDATE TYPE OF FORM INPUT
-//    const formInputValidation = nameAddedIngredient === /^[a-zA-Z]+$/
-//      &&  quantityAdded === /^[0-9]+$/
-
-// //CHECK IF THERE'S A MATCHING INGREDIENT ID
-//   const match = ingredients.find(ingredient => ingredient.name === nameInput)
-
-// // IF VALID ADD TO USER PANTRY AND POST 
-//    if (formInputValidation && match) {
-//      user.pantry[match.id].quantity.amount += quantityAdded
-//      postData(user.id, match.id, quantityAdded)
-//   } else {
-
-// // CAN WE ONLY ADD EXISTING INGREDIENTS? HOW DO WE ADD NEW INGREDIENT WITH POST TO DATABASE?
-//     alert('Sorry, ingredient cannot be added at this time.')
-//   }
-// }

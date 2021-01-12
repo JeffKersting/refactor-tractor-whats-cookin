@@ -6,7 +6,6 @@ export function getData(dataType, localArray) {
       dataArray.forEach(dataObject => {
         localArray.push(dataObject)
       })
-      console.log('It done', localArray)
     })
     .catch(error => alert(`Sorry, there is an error: ${error}`))
 }

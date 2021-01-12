@@ -70,6 +70,7 @@ function returnUserId() {
   const userSearched = users.find(user => user.name === loginInput.value)
   user = new User(userSearched)
 }
+
 function createCards() {
   recipes.forEach(recipe => {
       const recipeInstance = new Recipe(recipe);
