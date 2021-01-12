@@ -85,6 +85,7 @@ function pressEnterSearch(event) {
 }
 
 function displayFavoritedRecipes() {
+  console.log(user.favoriteRecipes)
   domUpdates.displayCards(user.favoriteRecipes)
 }
 
@@ -106,10 +107,22 @@ function pantryClicks(event) {
   }
 }
 
+function addIngredientToPantry(event) {
+  event.preventDefault()
+  const nameAdded = document.querySelector(".name-ingredient-form").value
+  const quantityAdded = document.querySelector(".quantity-ingredient-form").value
+
+  const match = ingredients.find(ingredient => ingredient.name === nameAdded.toLowerCase()) 
+  const matchId = match ? match.id : Date.now()
+
+  postData(user.id, matchId, quantityAdded)
+}
+
 function mainClicks(event) {
+  console.log('HELP', event.target, 'PARENT', event.target.closest('.recipe-card').getAttribute("name"))
   const target = event.target
   const targetRecipe = findTargetRecipe(target)
-
+  
   switch(target.id) {
     case 'img1':
       target.closest('.recipe-card').classList.add('recipe-card-active')
@@ -136,13 +149,14 @@ function mainClicks(event) {
 }
 
 function findTargetRecipe(target) {
-  const targetId = target.parentNode.getAttribute('name')
-  const targetRecipe = recipes.find(recipe => recipe.id == targetId)
+  const targetId = target.closest('.recipe-card').getAttribute('name')
+  return recipes.find(recipe => recipe.id == targetId)
 }
 
 function saveToFavorites(targetRecipe) {
-   console.log('RECIPES', recipes)
+  targetRecipe.isFavorited = true
   user.saveRecipe(targetRecipe, 'favoriteRecipes')
+  console.log(user.favoriteRecipes)
   //SAVE RECIPE PROPERTY ISFAVORITED
   showHome()
 }
@@ -195,49 +209,8 @@ function hideUnselectedRecipes(foundRecipes) {
   });
 }
 
-// // // // // // PANTRY 
-
-
-
-// CREATE AND USE PANTRY
-function findPantryInfo() {
-  user.pantry.forEach(item => {
-    let itemInfo = ingredientsData.find(ingredient => {
-      return ingredient.id === item.ingredient;
-    });
-    let originalIngredient = pantryInfo.find(ingredient => {
-      if (itemInfo) {
-        return ingredient.name === itemInfo.name;
-      }
-    });
-    if (itemInfo && originalIngredient) {
-      originalIngredient.count += item.amount;
-    } else if (itemInfo) {
-      pantryInfo.push({name: itemInfo.name, count: item.amount});
-    }
-  });
-  displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
-}
-
-function displayPantryInfo(pantry) {
-  pantry.forEach(ingredient => {
-    let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">
-      <label for="${ingredient.name}">${ingredient.name}, ${ingredient.count}</label></li>`;
-    document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
-      ingredientHtml);
-  });
-}
-
 function findCheckedPantryBoxes() {
-  let pantryCheckboxes = document.querySelectorAll(".pantry-checkbox");
-  let pantryCheckboxInfo = Array.from(pantryCheckboxes)
-  let selectedIngredients = pantryCheckboxInfo.filter(box => {
-    return box.checked;
-  })
-  showAllRecipes();
-  if (selectedIngredients.length > 0) {
-    findRecipesWithCheckedIngredients(selectedIngredients);
-  }
+  console.log('hi')
 }
 
 function findRecipesWithCheckedIngredients(selected) {
@@ -255,21 +228,4 @@ function findRecipesWithCheckedIngredients(selected) {
       domRecipe.style.display = "none";
     }
   })
-}
-
-
-// ADD INGREDIENT FORM
-
-function addIngredientToPantry(event) {
-  event.preventDefault()
-
-  const nameAdded = document.querySelector(".name-ingredient-form").value
-  const quantityAdded =document.querySelector(".quantity-ingredient-form").value
-
-  const match = ingredients.find(ingredient => ingredient.name === nameAdded.toLowerCase()) 
-
-  const matchId = match ? match.id : Date.now()
-
-  console.log(matchID)
-  postData(user.id, matchId, quantityAdded)
 }

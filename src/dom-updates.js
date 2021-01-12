@@ -10,12 +10,15 @@ const domUpdates = {
         document.querySelector(area).insertAdjacentHTML(where, what)
     },
 
+    clearDisplay(area) {
+      document.querySelector(area).innerHTML = ''
+    },
+
     // CARD DISPLAY
     displayCards(recipeList) {
-      document.querySelector('main').innerHTML = ''
+      this.clearDisplay('main')
     
       recipeList.forEach(recipe => {
-
         let instructions = '';
         recipe.instructions.forEach(step => {
             instructions += `<li>${step.instruction}</li><br>`
@@ -27,7 +30,7 @@ const domUpdates = {
 
         const toCookClass = recipe.isFavorited ? "to-cook" : ''
 
-        const cardHtml = `<div class="recipe-card ${favoritedClass} ${toCookClass}" id=${recipe.id}>
+        const cardHtml = `<div class="recipe-card ${favoritedClass} ${toCookClass}" id=${recipe.id} name=${recipe.id}>
           <div class="flip-card">
             <div class="card-front">
               <h3 maxlength="40">${shortName}</h3>
@@ -77,11 +80,14 @@ const domUpdates = {
     },
 
     showUserPantry(user, ingredients) {
+      this.clearDisaply('.pantry')
       const pantryItemArray = Object.keys(user.pantry.pantry)
       pantryItemArray.forEach(pantryItem => {
         const ingredientName = ingredients.find(ingredient => ingredient.id == pantryItem).name
+
         const pantryItemHTML = `${ingredientName} 
         - ${user.pantry.pantry[pantryItem].amount} <br>`
+
         this.addDisplay('.pantry', 'beforeend', pantryItemHTML)
        })
     }
