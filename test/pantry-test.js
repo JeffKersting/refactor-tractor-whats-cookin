@@ -7,23 +7,13 @@ import Pantry from '../src/pantry';
 
 
 describe.only('Pantry', () => {
-  // let pantry, userInfo, recipe 
-  
-  // beforeEach(() => {
-  //   userInfo = new User(userData[0]);
-  //   pantry = new Pantry(userInfo.pantry, userInfo.id);
-  //   recipe = new Recipe(recipeData[0]);
-  // });
-  
-  describe('instantiate', () => {
 
-    let pantry, userInfo, recipe 
+  describe('instantiate', () => {
+    let pantry, userInfo
   
     beforeEach(() => {
       userInfo = new User(userData[0]);
-      // pantry = new Pantry(userInfo.pantry, userInfo.id);
       pantry = userInfo.pantry;
-      recipe = new Recipe(recipeData[0]);
     });
 
     it('should be an instance of Pantry class', () => {
@@ -33,7 +23,6 @@ describe.only('Pantry', () => {
   });
 
   describe('method', () => {
-
     let pantry, userInfo, recipe 
   
     beforeEach(() => {
@@ -43,17 +32,14 @@ describe.only('Pantry', () => {
     });
 
     it('should consolidate duplicate ingredients', () => {
+      const ingredientKey = Object.keys(pantry.pantry)[0];
+      const ingredient1 = pantry.pantry[ingredientKey];
 
-      console.log('pantry >>>>>>>>>>', pantry);
-
-      expect(pantry.length).to.equal(2)
-      expect(pantry[0].amount).to.equal(6)
+      expect(Object.keys(pantry.pantry).length).to.equal(113)
+      expect(ingredient1.amount).to.equal(18)
     });
 
     it('should return ingredients that is missing from pantry in array', () => {
-
-      console.log('pantry >>>>>>>>>>', pantry);
-
       const missingIngredients = pantry.compareIngredients(recipe);
 
       expect(missingIngredients).to.deep.equal([

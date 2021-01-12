@@ -7,7 +7,6 @@ class RecipeRepository {
 
     console.log('keyword >>>>>>', keyword);
     
-
     return (this.recipeData.filter(recipe => recipe.tags.includes(keyword)))
     || (recipe.ingredients.filter(ingredient => ingredient.name.includes(keyword)))
   }

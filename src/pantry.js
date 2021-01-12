@@ -9,11 +9,12 @@ class Pantry {
       if (acc[pantryItem.ingredient]) {
         acc[pantryItem.ingredient].amount += parseInt(pantryItem.amount);
       } else {
-        acc[pantryItem.ingredient] = pantryItem;
-      } else {
-        acc[pantryItem.ingredient].amount += pantryItem.amount;
+        acc[pantryItem.ingredient] =
+        {
+          id: pantryItem.ingredient,
+          amount: parseInt(pantryItem.amount)
+        };
       }
-
       return acc
     }, {});
     return uniquePantryItems
