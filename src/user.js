@@ -1,8 +1,12 @@
+// import Pantry from '../src/pantry';
+
 class User {
-  constructor(user) {
+  constructor(user, pantry) {
     this.id = user.id;
     this.name = user.name;
-    this.pantry = new Pantry(user.pantry, user.id);
+    this.pantry = pantry;
+
+    // this.pantry = new Pantry(user.pantry, user.id);
     this.favoriteRecipes = [];
     this.recipesToCook = [];
   }

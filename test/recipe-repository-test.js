@@ -7,7 +7,7 @@ import recipesData from '../src/data/recipe-data';
 import RecipeRepository from '../src/recipe-repository';
 
 
-describe.only('RecipeRepository', () => {
+describe('RecipeRepository', () => {
   let recipe1;
   let recipe2;
   let recipe3;
