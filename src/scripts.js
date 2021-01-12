@@ -9,6 +9,7 @@ import User from './user';
 import Recipe from './recipe';
 import {getData, postData} from './apis';
 import domUpdates from './dom-updates';
+import Ingredient from './ingredient';
 
 let users = [];
 let recipes = [];
@@ -18,23 +19,25 @@ let user;
 window.addEventListener("load", loadPage);
 
 function addEvent(area, eventType, func) {
+  if (!document.querySelector(area)) {
+    console.log('THISAREA', area)
+  }
   document.querySelector(area).addEventListener(eventType, func)
 }
 
 addEvent(".login-btn", "click", login) // line 43
 addEvent(".home-btn", "click", showHome) // line 70
+addEvent("#search", "submit", pressEnterSearch) // line 72
 addEvent(".search-btn", "click", searchRecipes) //
-addEvent("#search", "submit", pressEnterSearch);
-addEvent(".favorited-recipes-btn", "click", displaySavedRecipes)
+addEvent(".favorited-recipes-btn", "click", displayFavoritedRecipes)
 addEvent(".my-pantry-btn",  "click", displayPantry)
 addEvent(".pantry", "click", pantryClicks)
 addEvent(".add-ingredient-form", "submit", addIngredientToPantry)
 addEvent(".show-pantry-recipes-btn", "click", findCheckedPantryBoxes)
-addEvent(".lets-cook-button", "click", displayToCookRecipes)
+addEvent(".lets-cook-btn", "click", displayToCookRecipes)
 addEvent(".filter-btn", "click", findCheckedBoxes)
 addEvent("main", "click", mainClicks)
 
-//HELPERs
 function formValue(area) {
   document.querySelector(area).value
 }
@@ -46,20 +49,24 @@ function loadPage() {
 }
 
 function login() {
+  updateDataToClassInstances()
   const loginInput = document.querySelector('.user-input');
   const userLoggingIn = users.find(user => user.name === loginInput.value)
-  user = new User(userLoggingIn)
+  user = userLoggingIn
   domUpdates.toggle(['.login', '.page-wrapper'])
-  createCards(recipes)
-  findTags()
+  showHome()
+  displayTagsSideBar()
 }
 
-function createCards() {
+function updateDataToClassInstances() {
+  users = users.map(user => new User(user))
   recipes = recipes.map(recipe => new Recipe(recipe))
-  recipes.forEach(recipe => domUpdates.displayCards(recipe))
-};
+  // MAYBE TRY TO MAKE ALL THESE INTO INGREDIENT CLASS INSTANCES?
+  // const allRecipeIngredients = recipes.flatMap(recipe => recipe.ingredients())
+  // ingredients = ingredients.map(ingredient => new Ingredient(ingredient))
+}
 
-function findTags() {
+function displayTagsSideBar() {
   const allTags = recipes.flatMap(recipe => recipe.tags)
   const uniqueTags = new Set(allTags)
   const sortedUniqueTags = Array.from(uniqueTags).sort()
@@ -70,9 +77,37 @@ function showHome() {
   domUpdates.displayCards(recipes)
 }
 
+function pressEnterSearch(event) {
+  event.preventDefault();
+  searchRecipes();
+}
+
+function searchRecipes() {
+  const userSearch = formValue('#search-input').toLowerCase()
+  const searchResults = recipes.filter(recipe => {
+    return recipe.name.toLowerCase().includes(userSearch);
+  });
+  filterNonSearched(searchResults);
+}
+
+function filterNonSearched(filtered) {
+  let found = recipes.filter(recipe => {
+    let ids = filtered.map(f => f.id);
+    return !ids.includes(recipe.id)
+  })
+  hideUnselectedRecipes(found);
+}
+
+function displayFavoritedRecipes() {
+  domUpdates.displayCards(user.favoriteRecipes)
+}
+
+function displayToCookRecipes() {
+  domUpdates.displayCards(user.recipesToCook)
+}
+
 function mainClicks(event) {
   let target = event.target
-  // console.log(target.id)
   switch(target.id) {
     case 'img1':
       target.closest('.recipe-card').classList.add('recipe-card-active')
@@ -150,37 +185,7 @@ function displayRecipesToCook() {
   createCards(user.recipesToCook)
 }
 
-// // // // // // DISPLAYING FAVORITED RECIPES
 
-
-// // // // // // SEARCH BAR 
-
-
-function pressEnterSearch(event) {
-  event.preventDefault();
-  searchRecipes();
-}
-
-function searchRecipes() {
-  showAllRecipes();
-  let searchedRecipes = recipeData.filter(recipe => {
-    return recipe.name.toLowerCase().includes(formValue('#search-input').toLowerCase());
-  });
-  filterNonSearched(createRecipeObject(searchedRecipes));
-}
-
-function filterNonSearched(filtered) {
-  let found = recipes.filter(recipe => {
-    let ids = filtered.map(f => f.id);
-    return !ids.includes(recipe.id)
-  })
-  hideUnselectedRecipes(found);
-}
-
-function createRecipeObject(recipes) {
-  recipes = recipes.map(recipe => new Recipe(recipe));
-  return recipes
-}
 
 // // // // // // FILTER BY RECIPE TAGS
 

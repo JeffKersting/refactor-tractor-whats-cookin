@@ -14,43 +14,46 @@ const domUpdates = {
     displayCards(recipeList) {
       // Reset html somehow
         // document.querySelector('main').innerHTML = ''
+      recipeList.forEach(recipe => {
 
         let instructions = '';
-        recipeList.instructions.forEach(item => {
-            instructions += `<li>${item.instruction}</li><br>`
+        recipe.instructions.forEach(step => {
+            instructions += `<li>${step.instruction}</li><br>`
         })
-
-        const shortName = recipeList.name.length > 40 ? recipeList.name.substring(0, 40) + "..." : recipeList.name
         
-        const cardHtml = `<div class="recipe-card" id=${recipeList.id}>
-        <div class="flip-card">
-          <div class="card-front">
-            <h3 maxlength="40">${shortName}</h3>
-            <div class="card-photo-container">
-              <img src=${recipeList.image} class="card-photo-preview" id= "img1" alt="${recipeList.name} recipe" title="${recipeList.name} recipe">
-              <div class="text">
-                <div id="img2">Click for Instructions</div>
+        const shortName = recipe.name.length > 40 ? recipe.name.substring(0, 40) + "..." : recipe.name
+        
+        const cardHtml = `<div class="recipe-card" id=${recipe.id}>
+          <div class="flip-card">
+            <div class="card-front">
+              <h3 maxlength="40">${shortName}</h3>
+              <div class="card-photo-container">
+                <img src=${recipe.image} class="card-photo-preview" id="img1" alt="${recipe.name} recipe" title="${recipe.name} recipe">
+                <div class="text">
+                  <div id="img2">Click for Instructions</div>
+                </div>
+              </div>
+              <h4>${recipe.tags[0]}</h4>
+              <div class="to-cook-button" name=${recipe.id}>
+                  <div id="icon-cook">🍽</div>
+                  <p id="icon-cook-text">Add to cook</p>
+              </div>
+              <div class="favorite-button" name=${recipe.id}>
+                  <div id="icon-fav">&#127822;</div>
+                  <p id="icon-fav-text">Favorite</p>
               </div>
             </div>
-            <h4>${recipeList.tags[0]}</h4>
-            <div class="to-cook-button" name=${recipeList.id}>
-                <div id="icon-cook">🍽</div>
-                <p id="icon-cook-text">Add to cook</p>
-            </div>
-            <div class="favorite-button" name=${recipeList.id}>
-                <div id="icon-fav">&#127822;</div>
-                <p id="icon-fav-text">Favorite</p>
+            <div class="card-back">
+              <div id="exit-recipe">⤸</div>
+              <p class="instructions-title">${recipe.name}</p>
+              <ol class="instructions">${instructions}</ol>
+              <div id="cooked-recipe">&#10003;</div>
             </div>
           </div>
-          <div class="card-back">
-            <div id="exit-recipe">⤸</div>
-            <p class="instructions-title">${recipeList.name}</p>
-            <ol class="instructions">${instructions}</ol>
-            <div id="cooked-recipe">&#10003;</div>
-          </div>
-        </div>
-      </div>`
-            this.addDisplay("main", "beforeend", cardHtml)
+        </div>`
+
+        this.addDisplay("main", "beforeend", cardHtml)
+      })
     }, 
 
     capitalize(words) {
