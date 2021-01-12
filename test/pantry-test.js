@@ -5,7 +5,7 @@ import recipeData from '../src/data/recipe-data';
 import Pantry from '../src/pantry';
 
 
-describe('Pantry', () => {
+describe.only('Pantry', () => {
   let pantry, userInfo, recipe 
   
   beforeEach(() => {
@@ -14,65 +14,116 @@ describe('Pantry', () => {
     recipe = new Recipe(recipeData[0]);
   });
 
+  afterEach(() => {
+    // runs after each test in this block
+    userInfo = null;
+    pantry = null;
+    recipe = null;
+  });
+  
   describe('instantiate', () => {
+
+    // beforeEach(() => {
+    //   const userInfo = userData[0];
+    //   const pantry = new Pantry(userInfo.pantry, userInfo.id);
+    //   const recipe = new Recipe(recipeData[0]);
+    // });
+  
+    // afterEach(() => {
+    //   // runs after each test in this block
+    // });
+
     it('should be an instance of Pantry class', () => {
+      // const userInfo = userData[0];
+      // const pantry = new Pantry(userInfo.pantry, userInfo.id);
+      // const recipe = new Recipe(recipeData[0]);
+
       expect(pantry).to.be.an.instanceof(Pantry);
     });
+
   });
 
+  describe('method', () => {
 
-  describe.only('method', () => {
+    // beforeEach(() => {
+    //   const userInfo = userData[0];
+    //   const pantry = new Pantry(userInfo.pantry, userInfo.id);
+    //   const recipe = new Recipe(recipeData[0]);
+    // });
+  
+    // afterEach(() => {
+    //   // runs after each test in this block
+    // });
 
     it('should consolidate duplicate ingredients', () => {
-      const alsPantry = [
-        {
-          "ingredient": 11477,
-          "amount": 1
-        },
-        {
-          "ingredient": 11297,
-          "amount": 3
-        },
-        {
-          "ingredient": 11477,
-          "amount": 5
-        },
-      ]
-      const alsUserPantry = new Pantry(alsPantry, 666)
-      expect(Object.keys(alsUserPantry.pantry).length).to.equal(2)
-      expect(Object.keys(alsUserPantry.pantry)[0].amount).to.equal(6)
+      // const userInfo = userData[0];
+      // const pantry = new Pantry(userInfo.pantry, userInfo.id);
+      // const recipe = new Recipe(recipeData[0]);
+
+      // const alsPantry = [
+      //   {
+      //     "ingredient": 11477,
+      //     "amount": 1
+      //   },
+      //   {
+      //     "ingredient": 11297,
+      //     "amount": 3
+      //   },
+      //   {
+      //     "ingredient": 11477,
+      //     "amount": 5
+      //   },
+      // ]
+      // const alsUserPantry = new Pantry(alsPantry, 666)
+      // expect(Object.keys(alsUserPantry.pantry).length).to.equal(2)
+      // expect(Object.keys(alsUserPantry.pantry)[0].amount).to.equal(6)
+
+      console.log('pantry >>>>>>>>>>', pantry);
+
+      expect(pantry.length).to.equal(2)
+      expect(pantry[0].amount).to.equal(6)
     });
 
     it('should return ingredients that is missing from pantry in array', () => {
 
-      const alsPantry = [
-        {
-          "ingredient": 11477,
-          "amount": 1
-        },
-        {
-          "ingredient": 11297,
-          "amount": 3
-        },
-        {
-          "ingredient": 11477,
-          "amount": 5
-        },
-      ]
-      const alsUserPantry = new Pantry(alsPantry, 666)
+      // const alsPantry = [
+      //   {
+      //     "ingredient": 11477,
+      //     "amount": 1
+      //   },
+      //   {
+      //     "ingredient": 11297,
+      //     "amount": 3
+      //   },
+      //   {
+      //     "ingredient": 11477,
+      //     "amount": 5
+      //   },
+      // ]
+      // const alsUserPantry = new Pantry(alsPantry, 666)
 
-      const result = alsUserPantry.compareIngredients(recipe);
+      // const result = alsUserPantry.compareIngredients(recipe);
 
-      expect(result).to.deep.equal([
+      // expect(result).to.deep.equal([
+      //   {missing: 'sea salt', amountNeeded: 24},
+      //   {missing: 'semisweet chocolate chips', amountNeeded: 2 }
+      // ]);
+
+      console.log('pantry >>>>>>>>>>', pantry);
+
+      const missingIngredients = pantry.compareIngredients(recipe);
+
+      expect(missingIngredients).to.deep.equal([
         {missing: 'sea salt', amountNeeded: 24},
         {missing: 'semisweet chocolate chips', amountNeeded: 2 }
       ]);
+
     });
 
     it('should remove ingredients from the data and updates api', () => {
-      const result = pantry.removeIngredients(recipe);
+      const ingredientModifications = pantry.removeIngredients(recipe);
   
-      expect(result).to.deep.equal([
+      expect(ingredientModifications).to.deep.equal([
         { userID: 1, ingredientID: 20081, ingredientModification: -1.5 },
         { userID: 1, ingredientID: 18372, ingredientModification: -0.5 },
         { userID: 1, ingredientID: 1123, ingredientModification: -1 },
