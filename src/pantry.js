@@ -7,7 +7,7 @@ class Pantry {
   compileSameIngredients(pantry) {
     const uniquePantryItems = pantry.reduce((acc, pantryItem) => {
       if (acc[pantryItem.ingredient]) {
-        acc[pantryItem.ingredient].amount += pantryItem.amount;
+        acc[pantryItem.ingredient].amount += parseInt(pantryItem.amount);
       } else {
         acc[pantryItem.ingredient] = pantryItem;
       }

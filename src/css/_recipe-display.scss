@@ -189,12 +189,12 @@ main {
     opacity: 0;
   }
 
-  #icon {
+  #icon-fav, #icon-cook {
       @include transparentText($accent-secondary)
     }
 
   &:hover {
-    #icon {
+    #icon-fav, #icon-cook {
       @include transparentText($dark-apple-red);
       transform: translateY(-10%);
       transition: .4s ease;
@@ -230,12 +230,12 @@ main {
     opacity: 0;
   }
 
-  #icon {
+  #icon-fav {
       @include transparentText($accent-secondary)
     }
 
   &:hover {
-    #icon {
+    #icon-fav {
       @include transparentText($dark-apple-red);
       transform: translateY(-10%);
       transition: .4s ease;

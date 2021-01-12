@@ -14,12 +14,15 @@ describe('Pantry', () => {
     recipe = new Recipe(recipeData[0]);
   });
 
+  afterEach(() => {
+    userInfo = userData[0];
+  });
+
   describe.only('instantiate', () => {
     it('should be an instance of Pantry class', () => {
       expect(pantry).to.be.an.instanceof(Pantry);
     });
   });
-
 
   describe.only('method', () => {
     it('should return ingredients that is missing from pantry in array', () => {
