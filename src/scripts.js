@@ -7,8 +7,6 @@ import './images/cookbook.png';
 import './images/pot.png';
 import User from './user';
 import Recipe from './recipe';
-// import Pantry from './pantry';
-// import Ingredient from './ingredient';
 import {getData, postData} from './apis';
 import domUpdates from './dom-updates';
 
@@ -17,33 +15,37 @@ let recipes = [];
 let ingredients = []
 let user;
 
+
 window.addEventListener("load", loadPage);
 
-function addClickEvent(area, func) {
-  document.querySelector(area).addEventListener('click', func)
+function addEvent(area, eventType, func) {
+  document.querySelector(area).addEventListener(eventType, func)
 }
 
-addClickEvent(".login-btn", login)
-addClickEvent("main", mainClicks)
-// addClickEvent('.lets-cook-button', displayRecipesToCook)
-addClickEvent(".saved-recipes-btn", showSavedRecipes)
-addClickEvent(".search-btn", searchRecipes)
-// addClickEvent(".home", showAllRecipes)
-addClickEvent(".filter-btn", findCheckedBoxes)
-addClickEvent(".show-pantry-recipes-btn", findCheckedPantryBoxes)
-addClickEvent(".my-pantry-btn",  displayPantry)
-addClickEvent('.pantry', pantryClicks)
-// addClickEvent(".add-ingredient-button", addIngredientToPantry)
+addEvent(".login-btn", "click", login) // line 43
+addEvent(".home-btn", "click", showHome) // line 70
+addEvent(".search-btn", "click", searchRecipes) //
+addEvent("#search", "submit", pressEnterSearch);
+addEvent(".favorited-recipes-btn", "click", displaySavedRecipes)
+addEvent(".my-pantry-btn",  "click", displayPantry)
+addEvent(".pantry", "click", pantryClicks)
+addEvent(".add-ingredient-form", "submit", addIngredientToPantry)
+addEvent(".show-pantry-recipes-btn", "click", findCheckedPantryBoxes)
+addEvent(".lets-cook-button", "click", displayToCookRecipes)
+addEvent(".filter-btn", "click", findCheckedBoxes)
+addEvent("main", "click", mainClicks)
 
+//HELPERs
+function formValue(area) {
+  document.querySelector(area).value
+}
 
-// LOADING THE PAGE 
 function loadPage() {
   getData('users', users)
   getData('recipes', recipes)
   getData('ingredients', ingredients)
 }
 
-// LOGGING IN 
 function login() {
   const loginInput = document.querySelector('.user-input');
   const userLoggingIn = users.find(user => user.name === loginInput.value)
@@ -65,18 +67,9 @@ function findTags() {
   domUpdates.listTags(sortedUniqueTags);
 }
 
-// SHOW ALL RECIPES BUTTON 
-//This will become the "Home" logo click, shows all recipes
-
-
-// function showAllRecipes() {
-//  displayCards(recipes)
-// }
-console.log('HELLO SCOTT')
-
-
-// // // // // // FAVORITING THE RECIPES 
-
+function showHome() {
+  domUpdates.displayCards(recipes)
+}
 
 function mainClicks(event) {
   let target = event.target
@@ -163,10 +156,6 @@ function displayRecipesToCook() {
 
 // // // // // // SEARCH BAR 
 
-const searchForm = document.querySelector("#search");
-const searchInput = document.querySelector("#search-input");
-searchForm.addEventListener("submit", pressEnterSearch);
-
 
 function pressEnterSearch(event) {
   event.preventDefault();
@@ -176,7 +165,7 @@ function pressEnterSearch(event) {
 function searchRecipes() {
   showAllRecipes();
   let searchedRecipes = recipeData.filter(recipe => {
-    return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
+    return recipe.name.toLowerCase().includes(formValue('#search-input').toLowerCase());
   });
   filterNonSearched(createRecipeObject(searchedRecipes));
 }
@@ -313,16 +302,12 @@ function findRecipesWithCheckedIngredients(selected) {
 
 
 // ADD INGREDIENT FORM
-document.querySelector(".add-ingredient-form").addEventListener("submit", addIngredientToPantry)
-
-const nameAddedIngredient = document.querySelector(".name-ingredient-form")
-const quantityAddedIngredient = document.querySelector(".quantity-ingredient-form")
 
 function addIngredientToPantry(event) {
   event.preventDefault()
 
-  const nameAdded = nameAddedIngredient.value
-  const quantityAdded = quantityAddedIngredient.value
+  const nameAdded = formValue(".name-ingredient-form")
+  const quantityAdded = formValue(".quantity-ingredient-form")
 
   const match = ingredients.find(ingredient => ingredient.name === nameAdded.toLowerCase()) 
 

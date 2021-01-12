@@ -12,6 +12,7 @@ const domUpdates = {
 
     // CARD DISPLAY
     displayCards(recipeList) {
+      // Reset html somehow
         // document.querySelector('main').innerHTML = ''
 
         let instructions = '';
