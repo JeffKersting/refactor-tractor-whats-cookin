@@ -18,9 +18,9 @@
         </section>
       </div>
       <div class="user-icon">👤</div>
-      <label for="user-name">Username: </label>
-      <input class="user-input" type="text" name="user-name" aria-label="input-field-for-user-name" aria-required="true" tabindex="0">
-      <button class="login-btn" aria-label="submit-button-for-user-login" type="submit" tabindex="0">Login</button>
+      <label for="user-name-login">Username: </label>
+      <input class="user-input" type="text" name="user-name-login" aria-label="login-input-field-for-user-name" aria-required="true" tabindex="0">
+      <button class="login-btn" type="submit" aria-label="submit-button-for-user-name-login" tabindex="0">Login</button>
     </section>
 
     <div class="page-wrapper hidden">
@@ -31,13 +31,14 @@
         <h1>fresh<span>Picks</span>&#127822;</h1>
         </button>
         <form id="search" role="search">
-          <input id="recipe-search-input" type="text" autocomplete="off" placeholder="Search Recipes..."></input>
+          <input id="recipe-search-input" type="text" autocomplete="off" aria-label="input-field-for-search-by-recipe-name-or-ingredients" aria-required="true" tabindex="1" placeholder="Search Recipes..."></input>
           <label for="recipe-search-input" class="search-label">Search</label>
-          <button class="nav-btn search-btn" type="button" name="button"><img src="../images/search.png" alt="search button"></button>
+          <button class="nav-btn search-btn" type="button" name="button" aria-label="submit-button-for-search-by-recipe-name-or-ingredients"  tabindex="1"><img src="../images/search.png" alt="search button"></button>
         </form>
-        <button class="nav-btn ing-pan-btn favorited-recipes-btn stroke-right" type="button" name="button"><img src="../images/cookbook.png" alt="search button">Favorites</button>
-        <button class="nav-btn my-pantry-btn ing-pan-btn stroke-right" type="button" name="button"><img src="../images/seasoning.png" alt="search button">My Pantry</button>
-        <button class="nav-btn pot-btn lets-cook-btn" type="button" name="button"><img src="../images/pot.png" alt="search button">Lets Cook</button>
+        <button class="nav-btn ing-pan-btn favorited-recipes-btn stroke-right"
+        aria-label="button-to-access-users-list-of-favorited-recipes" tabindex="2" type="user-favorites-button" name="button"><img src="../images/cookbook.png" alt="search button">Favorites</button>
+        <button class="nav-btn my-pantry-btn ing-pan-btn stroke-right" aria-label="button-to-access-users-list-of-pantry-ingredients" tabindex="2" type="button" name="user-pantry-button"><img src="../images/seasoning.png" alt="search button">My Pantry</button>
+        <button class="nav-btn pot-btn lets-cook-btn" aria-label="button-to-access-users-list-of-recipes-to-cook" tabindex="2" type="button" name="user-recipes-to-cook-button"><img src="../images/pot.png" alt="search button">Lets Cook</button>
       </header>
 
       <section class="banner-image">
@@ -64,8 +65,8 @@
       <div class="pantry hidden">
         <h4>My Pantry</h4>
         <form id="search" role="search">
-          <input id="pantry-search-input" type="text" autocomplete="off" placeholder="Search Pantry..."></input>
-          <label for="pantry-search-input" class="search-label">Search</label>
+          <input id="search-input" type="text" autocomplete="off" placeholder="Search Pantry..."></input>
+          <label for="search-input" class="search-label">Search</label>
           <button class="nav-btn search-btn" type="button" name="button"><img src="../images/search.png" alt="search button"></button>
         </form>
         <section class="pantry-ingredients"></section>
