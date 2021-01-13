@@ -243,6 +243,262 @@ let recipeData = [
       "dinner"
     ]
   },
+  {
+    "name": "Dirty Steve's Original Wing Sauce",
+    "id": 412309,
+    "image": "https://spoonacular.com/recipeImages/412309-556x370.jpeg",
+    "ingredients": [
+      {
+        "name": "black pepper",
+        "id": 1002030,
+        "quantity": {
+          "amount": 4,
+          "unit": "teaspoons"
+        }
+      },
+      {
+        "name": "brown sugar",
+        "id": 19334,
+        "quantity": {
+          "amount": 8,
+          "unit": "tablespoons"
+        }
+      },
+      {
+        "name": "butter",
+        "id": 1001,
+        "quantity": {
+          "amount": 2,
+          "unit": "cups"
+        }
+      },
+      {
+        "name": "canola oil",
+        "id": 4582,
+        "quantity": {
+          "amount": 4,
+          "unit": "servings"
+        }
+      },
+      {
+        "name": "cayenne pepper",
+        "id": 2031,
+        "quantity": {
+          "amount": 4,
+          "unit": "teaspoons"
+        }
+      },
+      {
+        "name": "chicken wings",
+        "id": 5100,
+        "quantity": {
+          "amount": 1,
+          "unit": "pound"
+        }
+      },
+      {
+        "name": "chili powder",
+        "id": 2009,
+        "quantity": {
+          "amount": 4,
+          "unit": "teaspoons"
+        }
+      },
+      {
+        "name": "garlic powder",
+        "id": 1022020,
+        "quantity": {
+          "amount": 4,
+          "unit": "teaspoons"
+        }
+      },
+      {
+        "name": "hot sauce",
+        "id": 6168,
+        "quantity": {
+          "amount": 8,
+          "unit": "cups"
+        }
+      },
+      {
+        "name": "mango",
+        "id": 9176,
+        "quantity": {
+          "amount": 0.5,
+          "unit": "cup"
+        }
+      },
+      {
+        "name": "onion powder",
+        "id": 2026,
+        "quantity": {
+          "amount": 4,
+          "unit": "teaspoons"
+        }
+      },
+      {
+        "name": "seasoning salt",
+        "id": 1042047,
+        "quantity": {
+          "amount": 1.5,
+          "unit": "tablespoons"
+        }
+      },
+      {
+        "name": "seasoning salt",
+        "id": 1042047,
+        "quantity": {
+          "amount": 4,
+          "unit": "teaspoons"
+        }
+      }
+    ],
+    "instructions": [
+      {
+        "number": 1,
+        "instruction": "Mix the hot sauce, butter, mango habanero sauce, brown sugar, chili powder, garlic powder, onion powder, black pepper, cayenne pepper and seasoning salt in a bowl. Stir vigorously until completely combined."
+      }
+    ],
+    "tags": [
+      "sauce"
+    ]
+  },
+  {
+    "name": "Elvis Pancakes",
+    "id": 741603,
+    "image": "https://spoonacular.com/recipeImages/741603-556x370.jpeg",
+    "ingredients": [
+      {
+        "name": "all purpose flour",
+        "id": 20081,
+        "quantity": {
+          "amount": 1,
+          "unit": "cup"
+        }
+      },
+      {
+        "name": "baking powder",
+        "id": 18371,
+        "quantity": {
+          "amount": 2,
+          "unit": "teaspoons"
+        }
+      },
+      {
+        "name": "bananas",
+        "id": 9040,
+        "quantity": {
+          "amount": 12,
+          "unit": "servings"
+        }
+      },
+      {
+        "name": "buckwheat flour",
+        "id": 20011,
+        "quantity": {
+          "amount": 1,
+          "unit": "cup"
+        }
+      },
+      {
+        "name": "butter",
+        "id": 1001,
+        "quantity": {
+          "amount": 2,
+          "unit": "tablespoons"
+        }
+      },
+      {
+        "name": "butter",
+        "id": 1001,
+        "quantity": {
+          "amount": 6,
+          "unit": "tablespoons"
+        }
+      },
+      {
+        "name": "buttermilk",
+        "id": 1230,
+        "quantity": {
+          "amount": 2,
+          "unit": "cups"
+        }
+      },
+      {
+        "name": "eggs",
+        "id": 1123,
+        "quantity": {
+          "amount": 2,
+          "unit": ""
+        }
+      },
+      {
+        "name": "honey",
+        "id": 19296,
+        "quantity": {
+          "amount": 12,
+          "unit": "servings"
+        }
+      },
+      {
+        "name": "peanut butter",
+        "id": 16098,
+        "quantity": {
+          "amount": 12,
+          "unit": "servings"
+        }
+      },
+      {
+        "name": "salt",
+        "id": 2047,
+        "quantity": {
+          "amount": 1,
+          "unit": "teaspoon"
+        }
+      },
+      {
+        "name": "sugar",
+        "id": 19335,
+        "quantity": {
+          "amount": 2,
+          "unit": "teaspoons"
+        }
+      }
+    ],
+    "instructions": [
+      {
+        "number": 1,
+        "instruction": "Watch how to make this recipe."
+      },
+      {
+        "number": 2,
+        "instruction": "In a large bowl, whisk together buttermilk, eggs, baking powder, sugar, salt and butter."
+      },
+      {
+        "number": 3,
+        "instruction": "In another large bowl mix together all-purpose flour and buckwheat flour."
+      },
+      {
+        "number": 4,
+        "instruction": "Slowly add flour into the wet ingredients mixing with a whisk."
+      },
+      {
+        "number": 5,
+        "instruction": "Mix until there are no lumps and the batter is smooth and velvety."
+      },
+      {
+        "number": 6,
+        "instruction": "In a large cast iron skillet or flat grill pan over medium-high heat, melt a tablespoon of butter. Ladle pancake batter onto skillet to desired size. Using the ladle, form pancake into circular shape. Cook on each side for 2 to 3 minutes or until golden brown. Set pancakes aside and keep warm. Repeat with remaining ingredients."
+      },
+      {
+        "number": 7,
+        "instruction": "Once completed, spread peanut butter on a pancake, layer it with sliced bananas and drizzle it with honey. Top the pancake with another pancake to form a sandwich. Repeat with remaining pancakes and serve with extra honey."
+      }
+    ],
+    "tags": [
+      "side dish"
+    ]
+  },
 ]
 
 export default recipeData;
