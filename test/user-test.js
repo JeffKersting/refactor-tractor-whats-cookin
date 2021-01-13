@@ -5,7 +5,7 @@ import userData from '../test/test-data/user-test-data';
 import recipeData from '../src/data/recipe-data';
 
 describe('User', () => {
-  let user, userInfo, recipe
+  let user, recipe
 
   beforeEach(() => {
     user = new User(userData[0])
