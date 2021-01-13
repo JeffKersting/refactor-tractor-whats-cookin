@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import Recipe from '../src/recipe';
+import Recipe from '../src/Recipe';
 import recipesData from '../test/test-data/recipe-test-data';
 
 describe('Recipe', () => {
