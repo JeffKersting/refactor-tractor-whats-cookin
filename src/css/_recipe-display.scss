@@ -100,14 +100,30 @@ main {
     color: $dark-green;
   }
 
-  ol {
+  .ingredients {
     position: relative;
     top: 15%;
-    font-size: 10px;
+    height: 30%;
+    overflow: auto;
+    font-size: .8em;
     transform: scaleY(.5);
     margin: 0;
     padding: 0;
     line-height: .9;
+  }
+
+  .instructions {
+    position: relative;
+    overflow: auto;
+    height: 85%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-size: 1em;
+    transform: scaleY(.5);
+    margin: -5% 0 0 0;
+    padding: 0;
+    line-height: 1.2;
+
   }
 
   #exit-recipe {
@@ -124,6 +140,12 @@ main {
     }
   }
 
+  button {
+    position: fixed;
+    bottom: 1%;
+    left: 5%;
+    transform: scaleY(.7)
+  }
   #cooked-recipe {
     position: absolute;
     bottom: 0%;
@@ -139,19 +161,6 @@ main {
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .favorite-recipe {
   border: 2px solid $apple-red;
