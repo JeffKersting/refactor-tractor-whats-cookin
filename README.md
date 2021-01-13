@@ -2,6 +2,12 @@
 
 Do you like eating?  If so, try cooking. And we can help!
 
+This is a group project for [Turing School](https://turing.io/) in Module 2, which introduced us to working with pre-existing code in preparation for any legacy codebases we may work with in the future. 
+
+We recieved some existing code and were able to refactor and build out the functionality, with emphasis on DRY logic and accessibility, as well as using **dynamic** fetch requests to API endpoints to reflect a strong data model.
+
+This project helped us practice familiarizing ourselves with exisiting code, working asynchronously with three others a project in a relatively short time-frame, and honed our planning, communication and project managament.
+
 Our site, 'What's Cookin'?', displays a variety of recipes to tempt your taste-buds. A user is free to:
  - puruse the recipes
  - search recipes by keyword
@@ -15,10 +21,7 @@ Our site, 'What's Cookin'?', displays a variety of recipes to tempt your taste-b
  - for each recipe, see which ingredients are missing from the 'pantry'
  - 'cook' a recipe, and see the pantry amounts reflect the ingredients used
  - display the cost of the recipes with very real and accurate prices
-
-This is a group project for [Turing School](https://turing.io/) in Module 2, which introduced us to working with pre-existing code in preparation for any legacy codebases we may work with in the future. 
-
-We recieved some existing code and were able to refactor and build out the functionality, with emphasis on DRY logic and accessibility, as well as using dynamic fetch requests to API endpoints to reflect a strong data model.
+  
 ## Setup
 
 //DO THIS DO THIS DO THIS DO THIS:
@@ -49,6 +52,7 @@ Special thanks to our mentors [Scott Schipke](https://github.com/sschipke)
 
 During this project we gained experience with the following technologies:
 - ES6 JavaScript
+- Augmenting exising code
 - Testing with Mocha and Chai
 - Linting with ESLint
 - Semantic HTML
@@ -58,20 +62,17 @@ During this project we gained experience with the following technologies:
 - Using Webpack to compile mulitple class and script files
 - Deploying a site on GitHub Pages
 - Git workflow using GitHub Issues and Project Kanban Board
-
-We also gained invaluable experience working with a larger group (4 people) and collaborating on exisiting data.
+  
 ## Future Iterations
 
-This project helped us practice familiarizing ourselves with exisiting code, working asynchronously with three others a project in a relatively short time-frame, and honed our planning, communication and project managament.
+If time permitted, we would've loved to accomplish more. 
 
-However, if time permitted, we would've loved to accomplish more. 
+No future work is planned on this project, but we've added some possible future steps for if we were to continue.
 
-While no future work is planned on this project, we kept in mind ideas for building this out for further functionality.
-
-//ADD IDEAS HERE:
 Ideas for future iterations:
  - It would be nice to do more data cleanup and type validation in the server data, because of some strange bugs with quantity concatination instead of addition, or undefined properties.
  - Prices should be shown for items based on real prices from a set store/able to be input by a user.
+   - Possibly using Google Mapping API in order to pull that for users
  - Images for each recipes could be more uniform/attractive, as they tend to get stretched now.
  - We would love to have more recipes or the ability for a user to upload their own favorite recipes.
  - Local storage could be used to persist users from session to session.
@@ -79,8 +80,21 @@ Ideas for future iterations:
  - It would be nice to feature the display of certain recipes based on commonly cooked recipes by each user or ingredients a user has.
  - In addition to cooking a recipe, a user could make notes about how they cooked a recipe in case they wanted to reference any suggestions for future cooks.
  - Recipes could have comments by users for all users to see suggestions or reviews.
-  
+ - Ingredient having a link to show another page of where they can buy the ingredient around them and list all the prices from each store 
+   - This might be a way for a site like this to intake revenue
+ - In order to let users see/search for more common names for ingredients, update the server data with common ingredient names 
 
+
+## Challenges & Wins
+
+Challenges include:
+- making sure that everyone is on the same page about where issues are
+- figuring out the data inconsistencies with server data
+- approaching and incorporating new technologies
+- working with an exisiting codebase
+
+Wins include:
+- successfully incorporating Webpack, SCSS, and using API
 ## In Action:
 
 ![GIF OF SITE ON BROWSER]()
