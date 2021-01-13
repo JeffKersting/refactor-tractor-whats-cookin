@@ -33,7 +33,7 @@ const domUpdates = {
         : recipe.name
 
         const favoritedClass = recipe.isFavorited ? "favorited" : ''
-        const toCookClass = recipe.isFavorited ? "to-cook" : ''
+        const toCookClass = recipe.isToCook ? "to-cook" : ''
 
         const cardHtml = `<div class="recipe-card ${favoritedClass} ${toCookClass}" id=${recipe.id} name=${recipe.id}>
           <div class="flip-card">
