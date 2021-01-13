@@ -28,7 +28,7 @@ describe('Ingredient', () => {
   });
 
   it('should initialize with an name', () => {
-    expect(ingredient3.name).to.equal('egg');
+    expect(ingredient3.name).to.equal('eggs');
   });
 
   it('should initialize with an estimated amount the ingredient costs', () => {

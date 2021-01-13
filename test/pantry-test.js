@@ -43,8 +43,8 @@ describe('Pantry', () => {
       const missingIngredients = pantry.compareIngredients(recipe);
 
       expect(missingIngredients).to.deep.equal([
-        {missing: 'sea salt', amountNeeded: 24},
-        {missing: 'semisweet chocolate chips', amountNeeded: 2 }
+        {missing: 'fine sea salt', amountNeeded: 24},
+        {missing: 'semi sweet chips', amountNeeded: 2 }
       ]);
 
     });

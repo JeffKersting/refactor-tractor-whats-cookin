@@ -298,8 +298,6 @@ describe('RecipeRepository', () => {
         "sauce"
       ]
     })
-    // console.log('filteredRecipes >>>>>>>>>', filteredRecipes);
-    // console.log('dirtySteveRecipe >>>>>>>>>', dirtySteveRecipe);
 
     expect(filteredRecipes).to.deep.equal([dirtySteveRecipe]);
     expect(filteredRecipes[0].name).to.equal
@@ -561,7 +559,7 @@ describe('RecipeRepository', () => {
   });
 
   it('should be able to search the collection of recipes by ingredient', () => {
-    const filteredRecipes = shallowRecipeRepo.filterByKeyword(['brown sugar']);
+    const filteredRecipes = shallowRecipeRepo.filterByKeyword(['butter']);
     expect(filteredRecipes).to.deep.equal([recipe3]);
   });
 
