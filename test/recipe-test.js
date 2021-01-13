@@ -38,31 +38,31 @@ describe('Recipe', () => {
   it('should initialize with an array of ingredients', () => {
     expect(allRecipes[0].ingredients).to.be.an('Array');
     expect(allRecipes[0].ingredients).to.deep.equal([
-      { name: 'all purpose flour', id: 20081, "estimatedCostInCents": 142, quantity: {
+      { name: 'wheat flour', id: 20081, "estimatedCostInCents": 142, quantity: {
         "amount": 1.5,
         "unit": "c"
       } },
-      { name: 'baking soda', id: 18372, "estimatedCostInCents": 582, quantity: {
+      { name: 'bicarbonate of soda', id: 18372, "estimatedCostInCents": 582, quantity: {
         "amount": 0.5,
         "unit": "tsp"
       } },
-      { name: 'egg', id: 1123, "estimatedCostInCents": 472, quantity: {
+      { name: 'eggs', id: 1123, "estimatedCostInCents": 472, quantity: {
         "amount": 1,
         "unit": "large"
       } },
-      { name: 'granulated sugar', id: 19335, "estimatedCostInCents": 902, quantity: {
+      { name: 'sucrose', id: 19335, "estimatedCostInCents": 902, quantity: {
         "amount": 0.5,
         "unit": "c"
       } },
       {
-        name: 'instant vanilla pudding mix',
+        name: 'instant vanilla pudding',
         id: 19206,
         "estimatedCostInCents": 660, quantity: {
           "amount": 3,
           "unit": "Tbsp"
         }
       },
-      { name: 'light brown sugar', id: 19334, "estimatedCostInCents": 559, quantity: {
+      { name: 'brown sugar', id: 19334, "estimatedCostInCents": 559, quantity: {
         "amount": 0.5,
         "unit": "c"
       } },
@@ -70,12 +70,12 @@ describe('Recipe', () => {
         "amount": 0.5,
         "unit": "tsp"
       } },
-      { name: 'sea salt', id: 1012047, "estimatedCostInCents": 528, quantity: {
+      { name: 'fine sea salt', id: 1012047, "estimatedCostInCents": 528, quantity: {
         "amount": 24,
         "unit": "servings"
       } },
       {
-        name: 'semisweet chocolate chips',
+        name: 'semi sweet chips',
         id: 10019903,
         "estimatedCostInCents": 253, quantity: {
           "amount": 2,
@@ -86,7 +86,7 @@ describe('Recipe', () => {
         "amount": 0.5,
         "unit": "c"
       } },
-      { name: 'vanilla extract', id: 2050, "estimatedCostInCents": 926, quantity: {
+      { name: 'vanilla', id: 2050, "estimatedCostInCents": 926, quantity: {
         "amount": 0.5,
         "unit": "tsp"
       } }
