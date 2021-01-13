@@ -24,7 +24,7 @@ const domUpdates = {
         recipe.instructions.forEach(step => {
             instructions += `<li>${step.instruction}</li><br>`
         })
-        recipe.ingredientsRaw.forEach(ingredient => {
+        recipe.ingredients.forEach(ingredient => {
             ingredients += `<li>${ingredient.name}: ${ingredient.quantity.amount}${ingredient.quantity.unit}</li><br>`
         })
 

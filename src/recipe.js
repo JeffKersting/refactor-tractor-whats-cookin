@@ -9,7 +9,6 @@ class Recipe {
     this.image = recipe.image;
     this.tags = recipe.tags;
     this.ingredients = this.instantiateIngredients(recipe, ingredientsData);
-    this.ingredientsRaw = recipe.ingredients;
     this.instructions = recipe.instructions;
     this.isFavorited = false;
     this.isToCook = false;

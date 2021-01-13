@@ -27,15 +27,20 @@
     height: 5%;
     width: 70%;
     font-size: 1em;
+
+    img {
+      transform: scale(.6)
+    }
   }
 
   .pantry-ingredients {
     position: absolute;
-    overflow: scroll;
+    overflow-y: scroll;
     top: 25%;
     width: 75%;
     height: 50%;
     font-size: 1em;
+    padding-left: 5%;
     @include cardStyling()
     @include centerHorizontally()
   }
@@ -45,6 +50,17 @@
     text-decoration: underline;
     font-size: 3em;
     background-color: transparent;
+  }
+
+  .add-ingredient-form {
+    position: fixed;
+    bottom: 5%;
+    @include centerHorizontally()
+  }
+
+  .find-recipes-using-pantry-btn  {
+    margin-top: 2%;
+    @include centerHorizontally()
   }
 }
 
