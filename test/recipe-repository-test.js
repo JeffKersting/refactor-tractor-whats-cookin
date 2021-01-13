@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 
 import Recipe from '../src/recipe';
-import recipesData from '../src/data/recipe-data';
-import RecipeRepository from '../src/recipe-repository';
+import recipesData from '../test/test-data/recipe-test-data';
+import RecipeRepository from '../src/Recipe-Repository';
 
 
-describe.only('RecipeRepository', () => {
+describe('RecipeRepository', () => {
   let recipe1, recipe2, recipe3, shallowRecipes, shallowRecipeRepo;
 
   beforeEach(() => {

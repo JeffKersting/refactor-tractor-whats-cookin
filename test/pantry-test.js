@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import User from '../src/user';
-import userData from '../src/data/users-data';
-import Recipe from '../src/recipe';
-import recipeData from '../src/data/recipe-data';
-import Pantry from '../src/pantry';
+import User from '../src/User';
+import userData from './test-data/user-test-data';
+import Recipe from '../src/Recipe';
+import recipeData from './test-data/recipe-test-data';
+import Pantry from '../src/Pantry';
 
 
 describe('Pantry', () => {
