@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import Recipe from '../src/recipe';
 import recipesData from '../test/test-data/recipe-test-data';
-import RecipeRepository from '../src/recipe-repository';
+import RecipeRepository from '../src/Recipe-Repository';
 
 
 describe.only('RecipeRepository', () => {
