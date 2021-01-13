@@ -6,7 +6,7 @@ import recipeData from '../src/data/recipe-data';
 import Pantry from '../src/pantry';
 
 
-describe.only('Pantry', () => {
+describe('Pantry', () => {
 
   describe('instantiate', () => {
     let pantry, userInfo

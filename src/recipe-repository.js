@@ -1,21 +1,30 @@
+import Recipe from "./recipe";
+
 class RecipeRepository {
-  constructor(recipeData) {
-    this.recipeData = recipeData || [];
+  constructor(recipesData = []) {
+    this.recipeData = recipesData.map(recipeInfo => new Recipe(recipeInfo));
   }
 
-  filterByKeyword(keyword) {
+  filterByKeyword(keywords) {
+    const lowercaseKeywords = keywords.map(key => key.toLowerCase());
+    const matchingTags = this.recipeData.filter(recipe => {
+      return recipe.tags.some(tag => {
+        return lowercaseKeywords.includes(tag.toLowerCase())
+      });
+    });
 
-    console.log('keyword >>>>>>', keyword);
-    
-    return (this.recipeData.filter(recipe => recipe.tags.includes(keyword)))
-    || (recipe.ingredients.filter(ingredient => ingredient.name.includes(keyword)))
+    const matchingIngredients = this.recipeData.filter(recipe => {
+      return recipe.ingredients.some(ingredient => {
+        return lowercaseKeywords.includes(ingredient.name.toLowerCase())
+      });
+    });
+    const matchingName = this.recipeData.filter(recipe => {
+      return lowercaseKeywords.includes(recipe.name.toLowerCase());
+    });
+
+    return [...matchingTags, ...matchingIngredients, ...matchingName]
   }
 
-
-  searchForRecipe(keyword, list) {
-    return this[list].filter(recipe => recipe.name.includes(keyword) || recipe.ingredients.filter(ingredient => ingredient.name.includes(keyword)))
-  }
-  
 }
 
 export default RecipeRepository;

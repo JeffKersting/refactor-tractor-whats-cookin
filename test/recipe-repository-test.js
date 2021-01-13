@@ -1,57 +1,31 @@
 import { expect } from 'chai';
 
-import Ingredient from '../src/ingredient';
-import ingredientsData from '../src/data/ingredient-data';
 import Recipe from '../src/recipe';
 import recipesData from '../src/data/recipe-data';
 import RecipeRepository from '../src/recipe-repository';
 
 
-describe('RecipeRepository', () => {
-  let recipe1;
-  let recipe2;
-  let recipe3;
-
-  let instRecipe1
-  let instRecipe2
-  let instRecipe3
-  let shallowRecipes;
-  let shallowRecipeRepo;
+describe.only('RecipeRepository', () => {
+  let recipe1, recipe2, recipe3, shallowRecipes, shallowRecipeRepo;
 
   beforeEach(() => {
-    // allRecipes = recipesData.map(recipeInfo => {
-    //   const recipe = new Recipe(recipeInfo);
-    //   return recipe;
-    // });
-
-    // recipeRepo = new RecipeRepository(allRecipes);
-    // recipe1 = recipeRepo.recipeData[0];
-    // recipe2 = recipeRepo.recipeData[1];
-    // recipe3 = recipeRepo.recipeData[2];
-
-    instRecipe1 = new Recipe(recipesData[0]);
-    instRecipe2 = new Recipe(recipesData[1]);
-    instRecipe3 = new Recipe(recipesData[2]);
-    shallowRecipes = [instRecipe1, instRecipe2, instRecipe3];
+    shallowRecipes = [recipesData[0], recipesData[1], recipesData[2]];
     shallowRecipeRepo = new RecipeRepository(shallowRecipes);
     recipe1 = shallowRecipeRepo.recipeData[0];
     recipe2 = shallowRecipeRepo.recipeData[1];
     recipe3 = shallowRecipeRepo.recipeData[2];
-
   })
 
-  it.skip('should be a function', () => {
-    expect(shallowRecipeRepo).to.be.a('function');
+  it('should be a function', () => {
+    expect(RecipeRepository).to.be.a('function');
   });
 
   it('should be an instance of the RecipeRepository class', () => {
     expect(shallowRecipeRepo).to.be.an.instanceof(RecipeRepository);
   });
 
-  it('should store instances of the Recipe class', () => {
-    expect(recipe1).to.be.an.instanceof(Recipe);
-    expect(shallowRecipeRepo.recipeData[1]).to.be.an.instanceof(Recipe);
-    expect(recipe3).to.deep.equal({
+  it('should create & store instances of the Recipe class', () => {
+    const dirtySteveRecipe = new Recipe({
       "name": "Dirty Steve's Original Wing Sauce",
       "id": 412309,
       "image": "https://spoonacular.com/recipeImages/412309-556x370.jpeg",
@@ -173,7 +147,7 @@ describe('RecipeRepository', () => {
             "unit": "teaspoons"
           }
         }
-      ],
+      ], 
       "instructions": [
         {
           "number": 1,
@@ -184,14 +158,14 @@ describe('RecipeRepository', () => {
         "sauce"
       ]
     });
+
+    expect(recipe1).to.be.an.instanceof(Recipe);
+    expect(recipe3).to.deep.equal(dirtySteveRecipe);
   });
 
-  it('should be able to search the collection of recipes by type / tag', () => {
-    const filteredRecipes = shallowRecipeRepo.filterByKeyword('sauce');
-    console.log('shallowRecipeRepo >>>>>>>>>', shallowRecipeRepo);
-    console.log('filteredRecipes >>>>>>>>>', filteredRecipes);
-    expect(filteredRecipes).to.deep.equal(
-      [{
+  it('should be able to search all recipes by type / tag', () => {
+    const filteredRecipes = shallowRecipeRepo.filterByKeyword(['sauce']);
+    const dirtySteveRecipe = new Recipe({
       "name": "Dirty Steve's Original Wing Sauce",
       "id": 412309,
       "image": "https://spoonacular.com/recipeImages/412309-556x370.jpeg",
@@ -313,17 +287,30 @@ describe('RecipeRepository', () => {
             "unit": "teaspoons"
           }
         }
+      ], 
+      "instructions": [
+        {
+          "number": 1,
+          "instruction": "Mix the hot sauce, butter, mango habanero sauce, brown sugar, chili powder, garlic powder, onion powder, black pepper, cayenne pepper and seasoning salt in a bowl. Stir vigorously until completely combined."
+        }
+      ],
+      "tags": [
+        "sauce"
       ]
-    }]
-    );
-    expect(filteredRecipes[0].name).to.equal("Dirty Steve's Original Wing Sauce");
+    })
+    // console.log('filteredRecipes >>>>>>>>>', filteredRecipes);
+    // console.log('dirtySteveRecipe >>>>>>>>>', dirtySteveRecipe);
+
+    expect(filteredRecipes).to.deep.equal([dirtySteveRecipe]);
+    expect(filteredRecipes[0].name).to.equal
+    ("Dirty Steve's Original Wing Sauce");
 
   });
 
-  it.skip('should be able to search the collection of recipes by a set of tags', () => {
-    const filteredRecipes = shallowRecipeRepo.filterByKeyword(['snack', 'lunch']);
-    // console.log(shallowRecipeRepo)
-    expect(filteredRecipes).to.deep.equal([{
+  it('should be able to search all recipes by a set of tags', () => {
+    const filteredRecipes = 
+    shallowRecipeRepo.filterByKeyword(['snack', 'lunch']);
+    const cookieCupsRecipe = new Recipe({
       "name": "Loaded Chocolate Chip Pudding Cookie Cups",
       "id": 595736,
       "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
@@ -451,8 +438,8 @@ describe('RecipeRepository', () => {
         "antipasto",
         "hor d'oeuvre"
       ]
-    },
-    {
+    });
+    const maplePorkchopsRecipe = new Recipe({
       "name": "Maple Dijon Apple Cider Grilled Pork Chops",
       "id": 678353,
       "image": "https://spoonacular.com/recipeImages/678353-556x370.jpg",
@@ -566,13 +553,16 @@ describe('RecipeRepository', () => {
         "main dish",
         "dinner"
       ]
-    }]);
+    })
+
+    expect(filteredRecipes).to.deep.equal(
+      [cookieCupsRecipe, maplePorkchopsRecipe]
+    );
   });
 
   it('should be able to search the collection of recipes by ingredient', () => {
-    const filteredRecipes = shallowRecipeRepo.filterByKeyword('brown sugar');
-    // console.log(shallowRecipeRepo[1])
-    expect(filteredRecipes).to.deep.equal([recipe2]);
+    const filteredRecipes = shallowRecipeRepo.filterByKeyword(['brown sugar']);
+    expect(filteredRecipes).to.deep.equal([recipe3]);
   });
 
 });
