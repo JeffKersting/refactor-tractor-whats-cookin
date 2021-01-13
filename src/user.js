@@ -1,4 +1,4 @@
-import Pantry from './pantry'
+import Pantry from './Pantry'
 class User {
   constructor(user) {
     this.id = user.id;

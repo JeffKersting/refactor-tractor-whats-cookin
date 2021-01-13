@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import User from '../src/user';
-import userData from '../src/data/users-data';
-import Recipe from '../src/recipe';
-import recipeData from '../src/data/recipe-data';
-import Pantry from '../src/pantry';
+import User from '../src/User';
+import userData from './test-data/user-test-data';
+import Recipe from '../src/Recipe';
+import recipeData from './test-data/recipe-test-data';
+import Pantry from '../src/Pantry';
 
 
 describe('Pantry', () => {
@@ -43,8 +43,8 @@ describe('Pantry', () => {
       const missingIngredients = pantry.compareIngredients(recipe);
 
       expect(missingIngredients).to.deep.equal([
-        {missing: 'sea salt', amountNeeded: 24},
-        {missing: 'semisweet chocolate chips', amountNeeded: 2 }
+        {missing: 'fine sea salt', amountNeeded: 24},
+        {missing: 'semi sweet chips', amountNeeded: 2 }
       ]);
 
     });

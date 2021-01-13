@@ -160,13 +160,10 @@ function mainClicks(event) {
       target.closest('.recipe-card').classList.add('recipe-card-active')
       break;
     case 'icon-fav' || 'icon-fav-text':
-      saveToFavorites(targetRecipe)
-      target.classList.toggle('favorited')
-      console.log(target.classList)
+      addOrRemoveFromUserList(targetRecipe, 'isFavorited', 'favoriteRecipes')
       break;
     case 'icon-cook' || 'icon-cook-text':
-      addToCookList(targetRecipe)
-      target.classList.toggle('to-cook')
+      addOrRemoveFromUserList(targetRecipe, 'isToCook', 'recipesToCook')
       break;
     case 'exit-recipe':
       target.closest('.recipe-card').classList.remove('recipe-card-active')
@@ -190,15 +187,14 @@ function findTargetRecipe(target) {
   return recipes.find(recipe => recipe.id == targetId)
 }
 
-function saveToFavorites(targetRecipe) {
-  targetRecipe.isFavorited = true
-  user.saveRecipe(targetRecipe, 'favoriteRecipes')
-  showHome()
-}
-
-function addToCookList(targetRecipe) {
-  targetRecipe.isToCook = true
-  user.saveRecipe(targetRecipe, 'recipesToCook')
+function addOrRemoveFromUserList(targetRecipe, checkProperty, userListName) {
+  if (targetRecipe[checkProperty]) {
+    targetRecipe[checkProperty] = false
+    user.removeRecipe(targetRecipe, userListName)
+  } else {
+    targetRecipe[checkProperty] = true
+    user.saveRecipe(targetRecipe, userListName)
+  }
   showHome()
 }
 

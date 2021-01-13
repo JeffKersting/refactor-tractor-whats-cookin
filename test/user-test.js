@@ -1,15 +1,14 @@
 import { expect } from 'chai';
 
-import User from '../src/user';
-import userData from '../src/data/users-data';
-import recipeData from '../src/data/recipe-data';
+import User from '../src/User';
+import userData from '../test/test-data/user-test-data';
+import recipeData from '../test/test-data/recipe-test-data';
 
 describe('User', () => {
-  let user, userInfo, recipe
+  let user, recipe
 
   beforeEach(() => {
-    userInfo = userData[0];
-    user = new User(userInfo)
+    user = new User(userData[0])
     recipe = recipeData[0];
   });
 
@@ -27,7 +26,7 @@ describe('User', () => {
     });
   
     it('should initialize with a pantry', () => {
-      expect(user.pantry[0].ingredient).to.eq(11477);
+      expect(Object.keys(user.pantry.pantry).length).to.equal(113);
     });
   
     it('should initialize with an empty favoriteRecipes array', () => {

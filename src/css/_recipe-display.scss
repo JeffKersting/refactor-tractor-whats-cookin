@@ -194,9 +194,9 @@ main {
     opacity: 0;
   }
 
-  .not-to-cook {
-      @include transparentText($accent-secondary)
-    }
+
+  @include transparentText($accent-secondary)
+
 
   .to-cook {
       @include transparentText($apple-red)
@@ -237,9 +237,9 @@ main {
     opacity: 0;
   }
 
-  .unfavorited {
-      @include transparentText($accent-secondary)
-    }
+
+    @include transparentText($accent-secondary)
+
 
     .favorited {
       @include transparentText($apple-red);

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
-import recipesData from '../src/data/recipe-data';
-import Recipe from '../src/recipe';
+import recipesData from '../test/test-data/recipe-test-data';
+import Recipe from '../src/Recipe';
 import Ingredient from '../src/ingredient';
 
 describe('Ingredient', () => {
@@ -20,9 +20,6 @@ describe('Ingredient', () => {
   });
 
   it('should be an instance of Ingredient', () => {
-
-    console.log('ingredient1 >>>>>>>>', ingredient1);
-
     expect(ingredient1).to.be.an.instanceof(Ingredient);
   });
 
@@ -31,7 +28,7 @@ describe('Ingredient', () => {
   });
 
   it('should initialize with an name', () => {
-    expect(ingredient3.name).to.equal('egg');
+    expect(ingredient3.name).to.equal('eggs');
   });
 
   it('should initialize with an estimated amount the ingredient costs', () => {
