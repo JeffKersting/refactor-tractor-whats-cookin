@@ -3,19 +3,20 @@ import ingredientsData from './data/ingredient-data'
 import Ingredient from './ingredient';
 
 class Recipe {
-  constructor(recipe) {
+  constructor(recipe, ingredientData) {
     this.id = recipe.id;
     this.name = recipe.name;
     this.image = recipe.image;
     this.tags = recipe.tags;
     this.ingredients = this.instantiateIngredients(recipe, ingredientsData);
+    this.ingredientsRaw = recipe.ingredients;
     this.instructions = recipe.instructions;
     this.isFavorited = false;
     this.isToCook = false;
   }
 
   instantiateIngredients(recipe, ingredientsData) {
-    
+
     return recipe.ingredients.map(recipeIngredient => {
       if (recipeIngredient.id) {
         const ingredientInfo = ingredientsData.find(ingredient => ingredient.id === recipeIngredient.id);

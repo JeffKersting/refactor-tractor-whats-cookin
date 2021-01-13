@@ -20,8 +20,12 @@ const domUpdates = {
 
       recipeList.forEach(recipe => {
         let instructions = '';
+        let ingredients = '';
         recipe.instructions.forEach(step => {
             instructions += `<li>${step.instruction}</li><br>`
+        })
+        recipe.ingredientsRaw.forEach(ingredient => {
+            ingredients += `<li>${ingredient.name}: ${ingredient.quantity.amount}${ingredient.quantity.unit}</li><br>`
         })
 
         const shortName = recipe.name.length > 40
@@ -53,9 +57,10 @@ const domUpdates = {
             <div class="card-back">
               <div id="exit-recipe">⤸</div>
               <p class="instructions-title">${recipe.name}</p>
+              <ol class="ingredients">${ingredients}</ol>
               <ol class="instructions">${instructions}</ol>
               <ol class="missing"></ol>
-              <button class="compare-recipe type="button" id="compare-recipe-${recipe.id}">Pantry Check?</button>
+              <button class="" type="button" id="compare-recipe">Pantry Check?</button>
               <div id="cooked-recipe">&#10003;</div>
             </div>
           </div>

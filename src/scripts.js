@@ -28,7 +28,7 @@ addEvent(".search-btn", "click", searchRecipes) // line 80
 addEvent("#search", "submit", pressEnterSearch) // line 88
 addEvent(".favorited-recipes-btn", "click", displayFavoritedRecipes) // line 90
 addEvent(".my-pantry-btn",  "click", displayPantry) // line 98
-addEvent(".pantry", "click", pantryClicks) // 
+addEvent(".pantry", "click", pantryClicks) //
 addEvent(".add-ingredient-form", "submit", addIngredientToPantry)
 addEvent(".find-recipes-using-pantry-btn", "click", findRecipesUsingPantry)
 addEvent(".lets-cook-btn", "click", displayToCookRecipes)
@@ -54,7 +54,7 @@ function login() {
 function updateDataToClassInstances() {
   // doing this just to keep all data in class structures? dunno if needed
   users = users.map(user => new User(user))
-  recipes = recipes.map(recipe => new Recipe(recipe))
+  recipes = recipes.map(recipe => new Recipe(recipe, ingredients))
   // MAYBE TRY TO MAKE ALL THESE INTO INGREDIENT CLASS INSTANCES?
   // tricky because we have to pass in another array to instantiate
   // const allRecipeIngredients = recipes.flatMap(recipe => recipe.ingredients())
@@ -113,14 +113,14 @@ function addIngredientToPantry(event) {
   const nameAdded = document.querySelector(".name-ingredient-form").value
   const quantityAdded = document.querySelector(".quantity-ingredient-form").value
 
-  const match = ingredients.find(ingredient => ingredient.name === nameAdded.toLowerCase()) 
+  const match = ingredients.find(ingredient => ingredient.name === nameAdded.toLowerCase())
   const matchId = match ? match.id : Date.now()
 
   postData(user.id, matchId, quantityAdded)
   alert(`You have added ${quantityAdded} of ${nameAdded} to your pantry!`)
 
-  //Update user from API to update ingredients, 
-  //right now it's doing a weird concatination instead of addition, 
+  //Update user from API to update ingredients,
+  //right now it's doing a weird concatination instead of addition,
   // added a parseInt to pantry amount to try to fix in the future
   // getData('users', users)
   // user = users.find(person => person.id === user.id)
@@ -138,13 +138,13 @@ function findRecipesUsingPantry() {
   } else {
     alert('Sorry, you need to go to the groccery store.')
   }
-} 
+}
 
 
 function mainClicks(event) {
   const target = event.target
   const targetRecipe = findTargetRecipe(target)
-  
+
   switch(target.id) {
     case 'img1':
       target.closest('.recipe-card').classList.add('recipe-card-active')
@@ -167,8 +167,8 @@ function mainClicks(event) {
     case 'exit-pantry':
       target.parentNode.classList.add('hidden')
       break;
-    case `#recipe-compare-${targetRecipe.id}`:
-      console.log('hi')
+    case `compare-recipe`:
+      console.log(target.classList)
       //may have to do something to set button eventListening or something
       compareRecipes(targetRecipe)
       break;
@@ -193,9 +193,15 @@ function addToCookList(targetRecipe) {
 }
 
 //NOT WORKING:
-function compareRecipes(event) {
+function compareRecipes(targetRecipe) {
+  console.log(targetRecipe)
   const missingList = user.pantry.compareIngredients(targetRecipe)
-  domUpdates.compareRecipes(missingList)
+  console.log(missingList)
+  if (missingList) {
+    domUpdates.showRecipeComparison(missingList)
+  } else {
+    alert('YOU CAN DO IT')
+  }
 }
 
 function cookThisRecipe(targetRecipe) {
