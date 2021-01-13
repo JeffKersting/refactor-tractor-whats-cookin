@@ -70,7 +70,16 @@ While no future work is planned on this project, we kept in mind ideas for build
 
 //ADD IDEAS HERE:
 Ideas for future iterations:
- - 
+ - It would be nice to do more data cleanup and type validation in the server data, because of some strange bugs with quantity concatination instead of addition, or undefined properties.
+ - Prices should be shown for items based on real prices from a set store/able to be input by a user.
+ - Images for each recipes could be more uniform/attractive, as they tend to get stretched now.
+ - We would love to have more recipes or the ability for a user to upload their own favorite recipes.
+ - Local storage could be used to persist users from session to session.
+ - User login validation could utilize a password or other information based on additional server data, with additional preferences for each user.
+ - It would be nice to feature the display of certain recipes based on commonly cooked recipes by each user or ingredients a user has.
+ - In addition to cooking a recipe, a user could make notes about how they cooked a recipe in case they wanted to reference any suggestions for future cooks.
+ - Recipes could have comments by users for all users to see suggestions or reviews.
+  
 
 ## In Action:
 
