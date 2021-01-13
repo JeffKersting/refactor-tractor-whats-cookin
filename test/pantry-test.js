@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import User from '../src/user';
+import User from '../src/User';
 import userData from '../src/data/users-data';
-import Recipe from '../src/recipe';
+import Recipe from '../src/Recipe';
 import recipeData from '../src/data/recipe-data';
 import Pantry from '../src/pantry';
 

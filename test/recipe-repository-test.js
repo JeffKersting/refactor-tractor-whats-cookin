@@ -5,7 +5,7 @@ import recipesData from '../src/data/recipe-data';
 import RecipeRepository from '../src/recipe-repository';
 
 
-describe.only('RecipeRepository', () => {
+describe('RecipeRepository', () => {
   let recipe1, recipe2, recipe3, shallowRecipes, shallowRecipeRepo;
 
   beforeEach(() => {
