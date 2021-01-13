@@ -5,10 +5,7 @@ import Recipe from '../src/recipe';
 import Ingredient from '../src/ingredient';
 
 describe('Ingredient', () => {
-  let ingredient1;
-  let ingredient2;
-  let ingredient3;
-  let ingredient4;
+  let recipe, ingredient1, ingredient2, ingredient3, ingredient4;
 
   beforeEach(() => {
     recipe = new Recipe(recipesData[0]);

@@ -4,11 +4,7 @@ import Recipe from '../src/recipe';
 import recipesData from '../src/data/recipe-data';
 
 describe('Recipe', () => {
-  let recipe1;
-  let recipe2;
-  let recipe3;
-  let recipe4;
-  let allRecipes;
+  let recipe1, recipe2, recipe3, recipe4, allRecipes;
 
   beforeEach(() => {
     recipe1 = new Recipe(recipesData[0]);

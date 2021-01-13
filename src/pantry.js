@@ -9,7 +9,11 @@ class Pantry {
       if (acc[pantryItem.ingredient]) {
         acc[pantryItem.ingredient].amount += parseInt(pantryItem.amount);
       } else {
-        acc[pantryItem.ingredient] = pantryItem;
+        acc[pantryItem.ingredient] =
+        {
+          id: pantryItem.ingredient,
+          amount: parseInt(pantryItem.amount)
+        };
       }
       return acc
     }, {});
@@ -21,13 +25,15 @@ class Pantry {
     recipe.ingredients.forEach(ingredient => {
       if (!this.pantry[ingredient.id]) {
         missing.push({
-          'missing' : ingredient.name, 
-          'amount' : ingredient.quantity.amount,
+          'missing': ingredient.name, 
+          'amountNeeded': ingredient.quantity.amount,
         })
-      } else if (this.pantry[ingredient.id].amount < ingredient.quantity.amount) {
+      } else if 
+      (this.pantry[ingredient.id].amount < ingredient.quantity.amount) {
         missing.push({
-          'missing' : ingredient.name, 
-          'amount' : (ingredient.quantity.amount - this.pantry[ingredient.id].amount),
+          'missing': ingredient.name, 
+          'amountNeeded': 
+          (ingredient.quantity.amount - this.pantry[ingredient.id].amount),
         })
       }
     })
@@ -42,7 +48,7 @@ class Pantry {
         apiUpdate.push({
           userID: this.userID, 
           ingredientID: ingredient.id, 
-          ingredientModification: this.pantry[ingredient.id].amount,
+          ingredientModification: -ingredient.quantity.amount,
         })
       }
     })
