@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 
-import recipesData from '../src/data/recipe-data';
-import Recipe from '../src/recipe';
+import recipesData from '../test/test-data/recipe-test-data';
+import Recipe from '../src/Recipe';
 import Ingredient from '../src/ingredient';
 
-describe('Ingredient', () => {
+describe.only('Ingredient', () => {
   let recipe, ingredient1, ingredient2, ingredient3, ingredient4;
 
   beforeEach(() => {
@@ -20,9 +20,6 @@ describe('Ingredient', () => {
   });
 
   it('should be an instance of Ingredient', () => {
-
-    console.log('ingredient1 >>>>>>>>', ingredient1);
-
     expect(ingredient1).to.be.an.instanceof(Ingredient);
   });
 
