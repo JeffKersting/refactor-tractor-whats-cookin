@@ -181,8 +181,13 @@ function findTargetRecipe(target) {
 }
 
 function saveToFavorites(targetRecipe) {
-  targetRecipe.isFavorited = true
+  if (targetRecipe.isFavorited) {
+    targetRecipe.isFavorited = false
+    user.removeRecipe(targetRecipe, 'favoriteRecipes')
+  } else {
+    targetRecipe.isFavorited = true
   user.saveRecipe(targetRecipe, 'favoriteRecipes')
+  }
   showHome()
 }
 
