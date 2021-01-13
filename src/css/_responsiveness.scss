@@ -1,0 +1,86 @@
+@media only screen and (max-width: 1284px) {
+  .login {
+    width: 40vw;
+  }
+}
+
+@media only screen and (max-width: 1072px) {
+
+  main {
+    left: 5%;
+  }
+
+  header {
+    h1 {
+      display: none;
+    }
+
+    .filter {
+      display: block;
+    }
+
+    .home-btn-apple {
+      display: block;
+    }
+  }
+
+  .login {
+    height: 45vh;
+  }
+
+  .recipe-filters {
+    display: none;
+  }
+
+  .filter-drop {
+    top: 9%;
+    left: 0%;
+    width: 200px;
+    margin-left: -2%;
+    border-radius: 7px;
+
+    .wrap {
+      width: 110%;
+      height: auto;
+      @include cardStyling;
+    }
+
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .login {
+    width: 60vw;
+    height: 45vh;
+  }
+  main {
+    grid-auto-rows: minmax(400px, 600px);
+  }
+
+
+
+  .card-photo-container {
+    height: 200px;
+
+    img {
+      height: 100%
+    }
+  }
+  .recipe-card {
+    height: 90%;
+  }
+
+  .favorite-button {
+    margin-top: 25%;
+  }
+
+  .to-cook-button {
+    margin-top: 25%;
+  }
+}
+
+@media only screen and (max-width: 428px) {
+  .login {
+    width: 80vw;
+  }
+}

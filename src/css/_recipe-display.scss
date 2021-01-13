@@ -162,10 +162,6 @@ main {
 
 }
 
-.favorite-recipe {
-  border: 2px solid $apple-red;
-}
-
 .recipe-card:hover .card-photo-preview {
   opacity: 50%;
   transition: .8s ease;
@@ -198,9 +194,13 @@ main {
     opacity: 0;
   }
 
-  #icon-fav, #icon-cook {
-      @include transparentText($accent-secondary)
-    }
+
+  @include transparentText($accent-secondary)
+
+
+  .to-cook {
+      @include transparentText($apple-red)
+  }
 
   &:hover {
     #icon-fav, #icon-cook {
@@ -221,9 +221,7 @@ main {
   }
 }
 
-.to-cook-active {
-  @include transparentText($apple-red)
-}
+
 
 .favorite-button {
   float: right;
@@ -239,8 +237,12 @@ main {
     opacity: 0;
   }
 
-  #icon-fav {
-      @include transparentText($accent-secondary)
+
+    @include transparentText($accent-secondary)
+
+
+    .favorited {
+      @include transparentText($apple-red);
     }
 
   &:hover {
@@ -258,12 +260,11 @@ main {
       margin-top: -12%;
       opacity: 1;
     }
+
   }
 }
 
-.favorite-active {
-  @include transparentText($apple-red)
-}
+
 
 .card-photo-preview {
   background-position: 50% 50%;
