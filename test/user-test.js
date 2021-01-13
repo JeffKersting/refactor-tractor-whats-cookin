@@ -26,7 +26,7 @@ describe('User', () => {
     });
   
     it('should initialize with a pantry', () => {
-      expect(user.pantry[0].ingredient).to.equal(11477);
+      expect(Object.keys(user.pantry.pantry).length).to.equal(113);
     });
   
     it('should initialize with an empty favoriteRecipes array', () => {

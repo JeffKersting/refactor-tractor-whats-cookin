@@ -4,7 +4,7 @@ import recipesData from '../test/test-data/recipe-test-data';
 import Recipe from '../src/Recipe';
 import Ingredient from '../src/ingredient';
 
-describe.only('Ingredient', () => {
+describe('Ingredient', () => {
   let recipe, ingredient1, ingredient2, ingredient3, ingredient4;
 
   beforeEach(() => {
