@@ -11,8 +11,7 @@
 
     <!-- <div class="load-animation"></div> -->
 
-
-    <section class="login">
+    <section class="login" role="form">
       <div class="welcome-background">
         <section class="welcome">
           <section class="welcome-text">&#127822;freshPicks</h1>
@@ -20,8 +19,8 @@
       </div>
       <div class="user-icon">👤</div>
       <label for="user-name">Username: </label>
-      <input class="user-input" type="text" name="user-name">
-      <button class="login-btn" type="submit">Login</button>
+      <input class="user-input" type="text" name="user-name" aria-label="input-field-for-user-name" aria-required="true" tabindex="0">
+      <button class="login-btn" aria-label="submit-button-for-user-login" type="submit" tabindex="0">Login</button>
     </section>
 
     <div class="page-wrapper hidden">
@@ -32,8 +31,8 @@
         <h1>fresh<span>Picks</span>&#127822;</h1>
         </button>
         <form id="search" role="search">
-          <input id="search-input" type="text" autocomplete="off" placeholder="Search Recipes..."></input>
-          <label for="search-input" class="search-label">Search</label>
+          <input id="recipe-search-input" type="text" autocomplete="off" placeholder="Search Recipes..."></input>
+          <label for="recipe-search-input" class="search-label">Search</label>
           <button class="nav-btn search-btn" type="button" name="button"><img src="../images/search.png" alt="search button"></button>
         </form>
         <button class="nav-btn ing-pan-btn favorited-recipes-btn stroke-right" type="button" name="button"><img src="../images/cookbook.png" alt="search button">Favorites</button>
@@ -65,8 +64,8 @@
       <div class="pantry hidden">
         <h4>My Pantry</h4>
         <form id="search" role="search">
-          <input id="search-input" type="text" autocomplete="off" placeholder="Search Pantry..."></input>
-          <label for="search-input" class="search-label">Search</label>
+          <input id="pantry-search-input" type="text" autocomplete="off" placeholder="Search Pantry..."></input>
+          <label for="pantry-search-input" class="search-label">Search</label>
           <button class="nav-btn search-btn" type="button" name="button"><img src="../images/search.png" alt="search button"></button>
         </form>
         <section class="pantry-ingredients"></section>
