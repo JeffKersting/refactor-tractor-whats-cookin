@@ -176,7 +176,6 @@ function mainClicks(event) {
       break;
     case `compare-recipe`:
       console.log(target.classList)
-      //may have to do something to set button eventListening or something
       compareRecipes(targetRecipe)
       break;
   }
