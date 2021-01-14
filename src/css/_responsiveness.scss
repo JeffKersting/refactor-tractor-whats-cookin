@@ -57,8 +57,6 @@
     grid-auto-rows: minmax(400px, 600px);
   }
 
-
-
   .card-photo-container {
     height: 200px;
 
@@ -76,6 +74,12 @@
 
   .to-cook-button {
     margin-top: 25%;
+  }
+
+  .name-ingredient-form,
+  .quantity-ingredient-form,
+  .add-ingredient-button {
+    font-size: .5em;
   }
 }
 
