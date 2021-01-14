@@ -121,7 +121,11 @@ main {
     overflow-y: scroll;
     font-size: 1em;
     transform: scaleY(.5);
+<<<<<<< HEAD
+    margin: -20% 0 0 0;
+=======
     margin: -15% 0 0 0;
+>>>>>>> main
     padding: 0;
     line-height: 1.2;
     @include cardStyling()
