@@ -206,7 +206,6 @@ function addOrRemoveFromUserList(targetRecipe, checkProperty, userListName) {
   showHome()
 }
 
-//NOT WORKING:
 function compareRecipes(targetRecipe) {
   const missingList = user.pantry.compareIngredients(targetRecipe)
   if (missingList) {
