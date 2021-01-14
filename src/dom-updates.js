@@ -22,10 +22,10 @@ const domUpdates = {
         let instructions = '';
         let ingredients = '';
         recipe.instructions.forEach(step => {
-            instructions += `<li>${step.instruction}</li><br>`
+            instructions += `<li aria-label="recipe-instruction-step" tabindex="0">${step.instruction}</li><br>`
         })
         recipe.ingredients.forEach(ingredient => {
-            ingredients += `<li>${ingredient.name}: ${ingredient.quantity.amount}${ingredient.quantity.unit}</li><br>`
+            ingredients += `<li aria-label="ingredient-required-for-recipe" tabindex="0">${ingredient.name}: ${ingredient.quantity.amount}${ingredient.quantity.unit}</li><br>`
         })
 
         const shortName = recipe.name.length > 40
@@ -40,27 +40,27 @@ const domUpdates = {
             <div class="card-front">
               <h3 maxlength="40">${shortName}</h3>
               <div class="card-photo-container">
-                <img src=${recipe.image} class="card-photo-preview" id="img1" alt="${recipe.name} recipe" title="${recipe.name} recipe">
+                <img src=${recipe.image} class="card-photo-preview" id="img1" alt="${recipe.name} recipe" title="${recipe.name} recipe" aria-label="flip-card-to-reveal-details-for-${recipe.name}" tabindex="0" role="button">
                 <div class="text">
                   <div id="img2">Click for Instructions</div>
                 </div>
               </div>
               <div class="to-cook-button" name=${recipe.id}>
-                  <div id="icon-cook">🍽</div>
+                  <div id="icon-cook" aria-label="button-to-add-recipe-to-user-list-to-cook" tabindex="0" role="button">🍽</div>
                   <p id="icon-cook-text">Add to cook</p>
               </div>
               <div class="favorite-button" name=${recipe.id}>
-                  <div id="icon-fav">&#127822;</div>
+                  <div id="icon-fav" aria-label="button-to-add-recipe-to-user-list-of-favorites" tabindex="0" role="button">&#127822;</div>
                   <p id="icon-fav-text">Favorite</p>
               </div>
             </div>
             <div class="card-back">
-              <div id="exit-recipe">⤸</div>
+              <div id="exit-recipe" aria-label="button-to-exit-details-view-of-${recipe.name}" tabindex="0" role="button">⤸</div>
               <p class="instructions-title">${recipe.name}</p>
               <ol class="ingredients">${ingredients}</ol>
               <ol class="instructions">${instructions}</ol>
-              <ol class="missing"></ol>
-              <button class="" type="button" id="compare-recipe">Pantry Check?</button>
+              <ol class="missing" aria-label="ingredients-user-must-restock-to-cook-${recipe.name}" tabindex="0"></ol>
+              <button class="" type="button" id="compare-recipe" aria-label="button-to-check-user-pantry-stock-of-ingredients-to-cook-${recipe.name}" tabindex="0">Pantry Check?</button>
               <div id="cooked-recipe">&#10003;</div>
             </div>
           </div>
@@ -109,7 +109,7 @@ const domUpdates = {
     showRecipeComparison(missingList) {
       const missingItemHtml = ["<h2>Missing Ingredients from Your Pantry:</h2>"]
       missingList.forEach(item => {
-        missingItemHtml.push`<li>
+        missingItemHtml.push`<li aria-label="ingredient-to-restock"  tabindex="0">
         ${item.amount} - ${item.missing}
         </li>`
       })
