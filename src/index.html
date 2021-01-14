@@ -31,14 +31,14 @@
         <h1>fresh<span>Picks</span>&#127822;</h1>
         </button>
         <form id="search" role="search">
-          <input id="recipe-search-input" type="text" autocomplete="off" aria-label="input-field-for-search-by-recipe-name-or-ingredients" aria-required="true" tabindex="1" placeholder="Search Recipes..."></input>
+          <input id="recipe-search-input" type="text" autocomplete="off" aria-label="input-field-for-search-by-recipe-name-or-ingredients" aria-required="true" tabindex="0" placeholder="Search Recipes..."></input>
           <label for="recipe-search-input" class="search-label">Search</label>
-          <button class="nav-btn search-btn" type="button" name="button" aria-label="submit-button-for-search-by-recipe-name-or-ingredients"  tabindex="1"><img src="../images/search.png" alt="search button"></button>
+          <button class="nav-btn search-btn" type="button" name="button" aria-label="submit-button-for-search-by-recipe-name-or-ingredients"  tabindex="0"><img src="../images/search.png" alt="search button"></button>
         </form>
         <button class="nav-btn ing-pan-btn favorited-recipes-btn stroke-right"
-        aria-label="button-to-access-users-list-of-favorited-recipes" tabindex="2" type="user-favorites-button" name="button"><img src="../images/cookbook.png" alt="search button">Favorites</button>
-        <button class="nav-btn my-pantry-btn ing-pan-btn stroke-right" aria-label="button-to-access-users-list-of-pantry-ingredients" tabindex="2" type="button" name="user-pantry-button"><img src="../images/seasoning.png" alt="search button">My Pantry</button>
-        <button class="nav-btn pot-btn lets-cook-btn" aria-label="button-to-access-users-list-of-recipes-to-cook" tabindex="2" type="button" name="user-recipes-to-cook-button"><img src="../images/pot.png" alt="search button">Lets Cook</button>
+        aria-label="button-to-access-users-list-of-favorited-recipes" tabindex="0" type="user-favorites-button" name="button"><img src="../images/cookbook.png" alt="search button">Favorites</button>
+        <button class="nav-btn my-pantry-btn ing-pan-btn stroke-right" aria-label="button-to-access-users-list-of-pantry-ingredients" tabindex="0" type="button" name="user-pantry-button"><img src="../images/seasoning.png" alt="search button">My Pantry</button>
+        <button class="nav-btn pot-btn lets-cook-btn" aria-label="button-to-access-users-list-of-recipes-to-cook" tabindex="0" type="button" name="user-recipes-to-cook-button"><img src="../images/pot.png" alt="search button">Lets Cook</button>
       </header>
 
       <section class="banner-image"></section>
@@ -48,7 +48,7 @@
           <h2>Recipe Type</h2>
           <ul class="tag-list">
           </ul>
-          <button class="filter-btn" type="submit" aria-label="button-to-submit-users-selected-tags-to-filter-recipes" tabindex="3">Filter Recipes</button>
+          <button class="filter-btn" type="submit" aria-label="button-to-submit-users-selected-tags-to-filter-recipes" tabindex="0">Filter Recipes</button>
         </div>
       </aside>
       <main>
@@ -56,19 +56,14 @@
       </main>
       <div class="pantry hidden">
         <h4>My Pantry</h4>
-        <form id="search" role="search">
-          <input id="search-input" type="text" autocomplete="off" placeholder="Search Pantry..."></input>
-          <label for="search-input" class="search-label">Search</label>
-          <button class="nav-btn search-btn" type="button" name="button"><img src="../images/search.png" alt="search button"></button>
-        </form>
         <section class="pantry-ingredients"></section>
         <form class="add-ingredient-form" onsubmit="">
-          <input class="name-ingredient-form" type="text" placeholder="Ingredient Name" required>
-          <input class="quantity-ingredient-form" type="number" min="1" max="30" required>
-          <button class="add-ingredient-button" type="submit">Add Ingredient</button>
-          <button class="find-recipes-using-pantry-btn" type="button">Find Recipes Using Pantry Ingredients</button>
+          <input class="name-ingredient-form" type="text" aria-label="input-field-for-ingredient-name-to-add-to-user-pantry" aria-required="true" tabindex="0" placeholder="Ingredient Name" required>
+          <input class="quantity-ingredient-form" type="number" min="1" max="30" aria-label="input-field-for-ingredient-quantity-to-add-to-user-pantry" aria-required="true" tabindex="0" required>
+          <button class="add-ingredient-button" type="submit" aria-label="submit-button-to-add-new-ingredient-to-user-pantry" tabindex="0">Add Ingredient</button>
+          <button class="find-recipes-using-pantry-btn" type="button" aria-label="button-to-search-for-recipes-user-can-cook-with-available-pantry-ingredients" tabindex="0">What can I cook?</button>
         </form>
-        <div id="exit-pantry">⤸</div>
+        <div id="exit-pantry" role="button" aria-label="button-to-exit-user-pantry-view" tabindex="0">⤸</div>
 
       </div>
     </div>

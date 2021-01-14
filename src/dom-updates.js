@@ -80,7 +80,7 @@ const domUpdates = {
         allTags.forEach(tag => {
           const tagHtml = `<li>
           <input type="checkbox" class="checked-tag" id="${tag}"
-          aria-label="checkbox-for-${tag}-tag" aria-required="false" tabindex="3">
+          aria-label="checkbox-for-${tag}-tag" aria-required="false" tabindex="0">
           <label for="${tag}">${this.capitalize(tag)}</label>
           </li>`;
             this.addDisplay(".tag-list", "beforeend", tagHtml);
