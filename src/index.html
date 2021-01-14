@@ -60,17 +60,14 @@
       </main>
       <div class="pantry hidden">
         <h4>My Pantry</h4>
-        <form id="search" role="search">
-          <input id="search-input" type="text" autocomplete="off" placeholder="Search Pantry..."></input>
-          <label for="search-input" class="search-label">Search</label>
-          <button class="nav-btn search-btn" type="button" name="button"><img src="../images/search.png" alt="search button"></button>
-        </form>
         <section class="pantry-ingredients"></section>
         <form class="add-ingredient-form" onsubmit="">
-          <input class="name-ingredient-form" type="text" placeholder="Ingredient Name" required>
-          <input class="quantity-ingredient-form" type="number" min="1" max="30" required>
-          <button class="add-ingredient-button" id="add-ingredient-button" type="submit">Add Ingredient</button>
-          <button class="find-recipes-using-pantry-btn" id="find-recipes-using-pantry-btn" type="button">Find Recipes Using Pantry Ingredients</button>
+          <div class="add-ingredient-wrapper">
+            <input class="name-ingredient-form" type="text" placeholder="Ingredient Name" required>
+            <input class="quantity-ingredient-form" type="number" min="1" max="30" required>
+            <button class="add-ingredient-button" id="add-ingredient-button" type="submit">Add Ingredient</button>
+          </div>
+          <button class="find-recipes-using-pantry-btn" id="find-recipes-using-pantry-btn" type="button">What Can I Cook?</button
         </form>
         <div id="exit-pantry">⤸</div>
 

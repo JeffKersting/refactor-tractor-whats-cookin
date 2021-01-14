@@ -3,7 +3,7 @@
   @include centerHorizontally();
   @include cardStyling();
   top: 25%;
-  height: 65%;
+  height: 70%;
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -23,22 +23,12 @@
     }
   }
 
-  #search {
-    height: 5%;
-    width: 70%;
-    font-size: 1em;
-
-    img {
-      transform: scale(.6)
-    }
-  }
-
   .pantry-ingredients {
     position: absolute;
     overflow-y: scroll;
-    top: 25%;
-    width: 75%;
-    height: 50%;
+    top: 15%;
+    width: 85%;
+    height: 60%;
     font-size: 1em;
     padding-left: 5%;
     @include cardStyling()
@@ -52,9 +42,17 @@
     background-color: transparent;
   }
 
+  .add-ingredient-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    @include centerHorizontally()
+  }
+
   .add-ingredient-form {
     position: fixed;
     bottom: 5%;
+    width: 85%;
     @include centerHorizontally()
   }
 
