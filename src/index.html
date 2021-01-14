@@ -28,18 +28,18 @@
 
       <header>
         <!-- <h1><span>fresh</span>Picks<img src="../images/apple-logo.png" alt="apple icon" class="header-apple-icon"></h1> -->
-        <button class="filter">Filter Recipes</button>
+        <button class="filter dropfilter" name="filter-button">Filter Recipes</button>
         <button class="home-btn-apple" type="button" name="home-button" alt="home button">&#127822;</button>
         <h1 class="home-btn">fresh<span class="home-btn">Picks</span>&#127822;</h1>
         </button>
         <form id="search" role="search">
           <input id="search-input" type="text" autocomplete="off" placeholder="Search Recipes..."></input>
           <label for="search-input" class="search-label">Search</label>
-          <button class="nav-btn search-btn" type="button" name="button"><img src="../images/search.png" alt="search button"></button>
+          <button class="nav-btn search-btn" type="button" name="nav-search-button"><img src="../images/search.png" alt="search button"></button>
         </form>
-        <button class="nav-btn ing-pan-btn favorited-recipes-btn stroke-right" type="button" name="button"><img src="../images/cookbook.png" alt="search button">Favorites</button>
-        <button class="nav-btn my-pantry-btn ing-pan-btn stroke-right" type="button" name="button"><img src="../images/seasoning.png" alt="search button">My Pantry</button>
-        <button class="nav-btn pot-btn lets-cook-btn" type="button" name="button"><img src="../images/pot.png" alt="search button">Lets Cook</button>
+        <button class="nav-btn ing-pan-btn favorited-recipes-btn stroke-right" type="button" name="fav-button"><img src="../images/cookbook.png" alt="search button">Favorites</button>
+        <button class="nav-btn my-pantry-btn ing-pan-btn stroke-right" type="button" name="pantry-button"><img src="../images/seasoning.png" alt="search button">My Pantry</button>
+        <button class="nav-btn pot-btn lets-cook-btn" type="button" name="to-cook-button"><img src="../images/pot.png" alt="search button">Lets Cook</button>
       </header>
 
       <section class="banner-image">
@@ -47,12 +47,7 @@
           <h1>My Recipes</h1>
         </div>
       </section>
-      <div class="drop-menu">
-        <h2>My Pantry</h2>
-        <button class="show-pantry-recipes-btn">What Can I Make?</button>
-        <ul class="pantry-list"></ul>
-      </div>
-      <aside class="recipe-filters">
+      <aside class="recipe-filters dropdown-filter">
         <div class="wrap">
           <h2>Recipe Type</h2>
           <ul class="tag-list">
@@ -70,9 +65,9 @@
           <div class="add-ingredient-wrapper">
             <input class="name-ingredient-form" type="text" placeholder="Ingredient Name" required>
             <input class="quantity-ingredient-form" type="number" min="1" max="30" required>
-            <button class="add-ingredient-button" type="submit">Add Ingredient</button>
+            <button class="add-ingredient-button" id="add-ingredient-button" type="submit">Add Ingredient</button>
           </div>
-          <button class="find-recipes-using-pantry-btn" type="button">What Can I Cook?</button>
+          <button class="find-recipes-using-pantry-btn" id="find-recipes-using-pantry-btn" type="button">What Can I Cook?</button
         </form>
         <div id="exit-pantry">⤸</div>
 

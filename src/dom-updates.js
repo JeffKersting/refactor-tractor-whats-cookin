@@ -57,10 +57,15 @@ const domUpdates = {
             <div class="card-back">
               <div id="exit-recipe">⤸</div>
               <p class="instructions-title">${recipe.name}</p>
-              <ol class="ingredients">${ingredients}</ol>
-              <ol class="instructions">${instructions}</ol>
-              <ol class="missing"></ol>
-              <button class="" type="button" id="compare-recipe">Pantry Check?</button>
+              <ol class="ingredients missing-${recipe.id}">
+              <h2>Ingredients:</h2>
+              ${ingredients}
+              </ol>
+              <ol class="instructions">
+                <h2>Instructions:</h2>
+                ${instructions}
+              </ol>
+              <button class="compare-recipe-button" type="button" id="compare-recipe">Check Pantry?</button>
               <div id="cooked-recipe">&#10003;</div>
             </div>
           </div>
@@ -89,31 +94,22 @@ const domUpdates = {
     showUserPantry(user, ingredients) {
       const pantryItemArray = Object.keys(user.pantry.pantry)
       pantryItemArray.forEach(pantryItem => {
-        console.log(user.pantry.pantry[pantryItem])
-
-        //right now if this is long because we have no names on ingredients
-        // if they added it themselves to the database we have no way of retrieving
-        // that new ingredient name, just an id which I set to Date.now()
         const ingredientName = ingredients.find(ingredient => ingredient.id == pantryItem)
         ? ingredients.find(ingredient => ingredient.id == pantryItem).name
         : `Item ID: ${user.pantry.pantry[pantryItem].id}`
-
         const pantryItemHTML = `${user.pantry.pantry[pantryItem].amount} - ${ingredientName}  <br>`
-        console.log(document.querySelector('.pantry-list'))
         this.addDisplay('.pantry-ingredients', 'beforeend', pantryItemHTML)
        })
     },
 
-    //NOT WORKING
-    showRecipeComparison(missingList) {
+    showRecipeComparison(missingList, targetRecipe) {
       const missingItemHtml = ["<h2>Missing Ingredients from Your Pantry:</h2>"]
       missingList.forEach(item => {
-        missingItemHtml.push`<li>
-        ${item.amount} - ${item.missing}
-        </li>`
+        missingItemHtml.push(`<li>
+        ${item.amountNeeded} - ${item.missing}
+        </li>`)
       })
-
-      this.displayCards('.missing', 'beforeend', missingItemHtml.join(''))
+      this.addDisplay(`.missing-${targetRecipe.id}`, 'afterbegin', missingItemHtml.join(''))
     }
 
   }

@@ -22,25 +22,13 @@ function addEvent(area, eventType, func) {
   document.querySelector(area).addEventListener(eventType, func)
 }
 
-addEvent(".login-btn", "click", login) // line 43
-addEvent(".home-btn", "click", showHome) // line 70
-addEvent(".search-btn", "click", searchRecipes) // line 80
-addEvent("#search", "submit", pressEnterSearch) // line 88
-addEvent(".favorited-recipes-btn", "click", displayFavoritedRecipes) // line 90
-addEvent(".my-pantry-btn",  "click", displayPantry) // line 98
-addEvent(".pantry", "click", pantryClicks) //
+addEvent("header", "click", navClicks)
+addEvent(".login-btn", "click", login) 
+addEvent("#search", "submit", pressEnterSearch) 
+addEvent(".pantry", "click", pantryClicks)
 addEvent(".add-ingredient-form", "submit", addIngredientToPantry)
-addEvent(".find-recipes-using-pantry-btn", "click", findRecipesUsingPantry)
-addEvent(".lets-cook-btn", "click", displayToCookRecipes)
 addEvent(".filter-btn", "click", displayTaggedRecipes)
 addEvent("main", "click", mainClicks)
-addEvent('.filter', 'click', showFilterMenu)
-
-const filterBar = document.querySelector('.recipe-filters')
-function showFilterMenu() {
-  filterBar.classList.toggle('filter-drop')
-  filterBar.classList.toggle('recipe-filters')
-}
 
 function loadPage() {
   getData('users', users)
@@ -59,13 +47,8 @@ function login() {
 }
 
 function updateDataToClassInstances() {
-  // doing this just to keep all data in class structures? dunno if needed
   users = users.map(user => new User(user))
   recipes = recipes.map(recipe => new Recipe(recipe, ingredients))
-  // MAYBE TRY TO MAKE ALL THESE INTO INGREDIENT CLASS INSTANCES?
-  // tricky because we have to pass in another array to instantiate
-  // const allRecipeIngredients = recipes.flatMap(recipe => recipe.ingredients())
-  // ingredients = ingredients.map(ingredient => new Ingredient(ingredient))
 }
 
 function displayTagsSideBar() {
@@ -73,6 +56,36 @@ function displayTagsSideBar() {
   const uniqueTags = new Set(allTags)
   const sortedUniqueTags = Array.from(uniqueTags).sort()
   domUpdates.listTags(sortedUniqueTags);
+}
+function navClicks(event) {
+  const targetButton = event.target.closest("button")
+
+  switch(targetButton.getAttribute("name")) {
+    case 'filter-button':
+      showFilterMenu()
+      break;
+    case 'home-button':
+      showHome()
+      break;
+    case 'nav-search-button':
+      searchRecipes()
+      break;
+    case 'fav-button':
+      displayFavoritedRecipes()
+      break;
+    case 'pantry-button':
+      displayPantry()
+      break;
+    case 'to-cook-button':
+      displayToCookRecipes()
+      break;
+  }
+}
+
+function showFilterMenu() {
+  const filterBar = document.querySelector('.dropdown-filter')
+  filterBar.classList.toggle('filter-drop')
+  filterBar.classList.toggle('recipe-filters')
 }
 
 function showHome() {
@@ -107,10 +120,13 @@ function displayPantry() {
 }
 
 function pantryClicks(event) {
-  let target = event.target
+  const target = event.target
   switch(target.id) {
     case 'exit-pantry':
       displayPantry()
+      break;
+    case "find-recipes-using-pantry-btn":
+      findRecipesUsingPantry()
       break;
   }
 }
@@ -120,30 +136,24 @@ function addIngredientToPantry(event) {
   const nameAdded = document.querySelector(".name-ingredient-form").value
   const quantityAdded = document.querySelector(".quantity-ingredient-form").value
 
-  const match = ingredients.find(ingredient => ingredient.name === nameAdded.toLowerCase())
+  const match = ingredients.find(ingredient => {
+    return ingredient.name === nameAdded.toLowerCase()
+  })
   const matchId = match ? match.id : Date.now()
 
   postData(user.id, matchId, quantityAdded)
   alert(`You have added ${quantityAdded} of ${nameAdded} to your pantry!`)
-
-  //Update user from API to update ingredients,
-  //right now it's doing a weird concatination instead of addition,
-  // added a parseInt to pantry amount to try to fix in the future
-  // getData('users', users)
-  // user = users.find(person => person.id === user.id)
-  // showUserPantry(user, ingredients)
 }
 
-// we currently don't have this but we could?
 function findRecipesUsingPantry() {
   const recipesUserCouldCook = recipes.filter(recipe => {
     return !user.pantry.compareIngredients(recipe)
   })
-  if (recipesUserCouldCook.length != 0) {
+  if (recipesUserCouldCook.length) {
     domUpdates.displayCards(recipesUserCouldCook)
     domUpdates.toggle(['.pantry'])
   } else {
-    alert('Sorry, you need to go to the groccery store.')
+    alert('Sorry, you cannot cook any recipes, you need to go to the groccery store.')
   }
 }
 
@@ -175,7 +185,6 @@ function mainClicks(event) {
       target.parentNode.classList.add('hidden')
       break;
     case `compare-recipe`:
-      console.log(target.classList)
       compareRecipes(targetRecipe)
       break;
   }
@@ -197,15 +206,12 @@ function addOrRemoveFromUserList(targetRecipe, checkProperty, userListName) {
   showHome()
 }
 
-//NOT WORKING:
 function compareRecipes(targetRecipe) {
-  console.log(targetRecipe)
   const missingList = user.pantry.compareIngredients(targetRecipe)
-  console.log(missingList)
   if (missingList) {
-    domUpdates.showRecipeComparison(missingList)
+    domUpdates.showRecipeComparison(missingList, targetRecipe)
   } else {
-    alert('YOU CAN DO IT')
+    alert('You can cook this with your current pantry ingredients!')
   }
 }
 
@@ -225,5 +231,4 @@ function displayTaggedRecipes(checkboxesSelector) {
     return recipe.tags.some(tag => selectedBoxes.includes(tag));
   });
   domUpdates.displayCards(searchResults)
-  //how to reset checks? when?
 }
