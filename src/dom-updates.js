@@ -65,7 +65,7 @@ const domUpdates = {
                 <h2>Instructions:</h2>
                 ${instructions}
               </ol>
-              <button class="compare-recipe-button" type="button" id="compare-recipe">Pantry Check?</button>
+              <button class="compare-recipe-button" type="button" id="compare-recipe">Check Pantry?</button>
               <div id="cooked-recipe">&#10003;</div>
             </div>
           </div>

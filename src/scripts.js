@@ -49,8 +49,6 @@ function login() {
 function updateDataToClassInstances() {
   users = users.map(user => new User(user))
   recipes = recipes.map(recipe => new Recipe(recipe, ingredients))
-  // const allRecipeIngredients = recipes.flatMap(recipe => recipe.ingredients())
-  // ingredients = ingredients.map(ingredient => new Ingredient(ingredient,))
 }
 
 function displayTagsSideBar() {
@@ -122,7 +120,7 @@ function displayPantry() {
 }
 
 function pantryClicks(event) {
-  let target = event.target
+  const target = event.target
   switch(target.id) {
     case 'exit-pantry':
       displayPantry()
@@ -234,5 +232,4 @@ function displayTaggedRecipes(checkboxesSelector) {
     return recipe.tags.some(tag => selectedBoxes.includes(tag));
   });
   domUpdates.displayCards(searchResults)
-  //how to reset checks? when?
 }
