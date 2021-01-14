@@ -24,10 +24,7 @@ Our site, 'What's Cookin'?', displays a variety of recipes to tempt your taste-b
   
 ## Setup
 
-//DO THIS DO THIS DO THIS DO THIS:
-If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
-
-Visit the site at [GitHub Pages](https://pages.github.com/)
+Visit the site at [GitHub Pages](https://JeffKersting.github.io/refactor-tractor-whats-cookin/)
 
 Otherwise, in order to deploy this site locally, a user will have to run a local server.
 
@@ -44,9 +41,7 @@ Otherwise, in order to deploy this site locally, a user will have to run a local
 
 This refactor was coded by [Jeff Kersting](https://github.com/JeffKersting), [Allison Dietz](https://github.com/dietza), [Thao Ma](https://github.com/thaomonster) and [Alice Ruppert](https://github.com/srslie).
 
-Special thanks to our mentors [Scott Schipke](https://github.com/sschipke) 
-
-//ADD MENTORS?
+Special thanks to Alice's mentor [Scott Schipke](https://github.com/sschipke).
 
 ## Technologies
 
@@ -97,6 +92,6 @@ Wins include:
 - successfully incorporating Webpack, SCSS, and using API
 ## In Action:
 
-![GIF OF SITE ON BROWSER]()
+![GIF OF MEDIA QUERY](https://media.giphy.com/media/0DNOn0xV0U7cToRRAK/giphy.gif)
 
-![GIF OF SITE ON MOBILE]()
+![GIF OF RECIPE CARD FLIP](https://media.giphy.com/media/TH2YA9mtwqGAhArEvd/giphy.gif)
