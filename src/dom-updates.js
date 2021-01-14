@@ -55,17 +55,22 @@ const domUpdates = {
                 <p id="icon-fav-text">Favorite</p>
             </div>
           </div>
-          <div class="card-back">
-            <div id="exit-recipe" aria-label="button-to-exit-details-view-of-${recipe.name}" tabindex="0" role="button">⤸</div>
-            <p class="instructions-title">${recipe.name}</p>
-            <ol class="ingredients">${ingredients}</ol>
-            <ol class="instructions">${instructions}</ol>
-            <ol class="missing" aria-label="ingredients-user-must-restock-to-cook-${recipe.name}" tabindex="0"></ol>
-            <button class="" type="button" id="compare-recipe" aria-label="button-to-check-user-pantry-stock-of-ingredients-to-cook-${recipe.name}" tabindex="0">Pantry Check?</button>
-            <div id="cooked-recipe">&#10003;</div>
+            <div class="card-back">
+              <div id="exit-recipe" aria-label="button-to-exit-details-view-of-${recipe.name}" tabindex="0" role="button">⤸</div>
+              <p class="instructions-title">${recipe.name}</p>
+              <ol class="ingredients missing-${recipe.id}" aria-label="ingredients-user-must-restock-to-cook-${recipe.name}" tabindex="0">
+              <h2>Ingredients:</h2>
+              ${ingredients}
+              </ol>
+              <ol class="instructions">
+                <h2>Instructions:</h2>
+                ${instructions}
+              </ol>
+              <button class="compare-recipe-button" type="button" id="compare-recipe" aria-label="button-to-check-user-pantry-stock-of-ingredients-to-cook-${recipe.name}" tabindex="0">Check Pantry?</button>
+              <div id="cooked-recipe">&#10003;</div>
+            </div>
           </div>
-        </div>
-      </div>`
+        </div>`
 
       this.addDisplay("main", "beforeend", cardHtml)
     })
@@ -80,42 +85,32 @@ const domUpdates = {
   listTags(allTags) {
     allTags.forEach(tag => {
       const tagHtml = `<li>
-        <input type="checkbox" class="checked-tag" id="${tag}"
-        aria-label="checkbox-for-${tag}-tag" aria-required="false" tabindex="0">
-        <label for="${tag}">${this.capitalize(tag)}</label>
+        <input type="checkbox" class="checked-tag" id="${tag}">
+        <label for="${tag}" aria-label="checkbox-for-${tag}-tag" aria-required="false" tabindex="0">${this.capitalize(tag)}</label>
         </li>`;
       this.addDisplay(".tag-list", "beforeend", tagHtml);
     });
   },
 
   showUserPantry(user, ingredients) {
-    const pantryItemArray = Object.keys(user.pantry.pantry)
     pantryItemArray.forEach(pantryItem => {
-      console.log(user.pantry.pantry[pantryItem])
-
-      //right now if this is long because we have no names on ingredients
-      // if they added it themselves to the database we have no way of retrieving
-      // that new ingredient name, just an id which I set to Date.now()
-      const ingredientName = ingredients.find(ingredient => ingredient.id == pantryItem)
+      const pantryItemArray = Object.keys(user.pantry.pantry)
+        const ingredientName = ingredients.find(ingredient => ingredient.id == pantryItem)
         ? ingredients.find(ingredient => ingredient.id == pantryItem).name
         : `Item ID: ${user.pantry.pantry[pantryItem].id}`
-
       const pantryItemHTML = `${user.pantry.pantry[pantryItem].amount} - ${ingredientName}  <br>`
-      console.log(document.querySelector('.pantry-list'))
       this.addDisplay('.pantry-ingredients', 'beforeend', pantryItemHTML)
     })
   },
 
-  //NOT WORKING
-  showRecipeComparison(missingList) {
+  showRecipeComparison(missingList, targetRecipe) {
     const missingItemHtml = ["<h2>Missing Ingredients from Your Pantry:</h2>"]
     missingList.forEach(item => {
-      missingItemHtml.push`<li aria-label="ingredient-to-restock"  tabindex="0">
-      ${item.amount} - ${item.missing}
-      </li>`
+      missingItemHtml.push(`<li aria-label="ingredient-to-restock"  tabindex="0">
+        ${item.amountNeeded} - ${item.missing}
+        </li>`)
     })
-
-    this.displayCards('.missing', 'beforeend', missingItemHtml.join(''))
+    this.addDisplay(`.missing-${targetRecipe.id}`, 'afterbegin', missingItemHtml.join(''))
   }
 
 }
