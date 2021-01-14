@@ -9,6 +9,16 @@ header {
   height: 9%;
 }
 
+.filter {
+  display: none;
+}
+
+.home-btn-apple {
+  display: none;
+  font-size: 2em;
+  @include transparentText($accent-primary)
+}
+
 h1 {
   @include transparentText($accent-primary)
   font-weight: 200;

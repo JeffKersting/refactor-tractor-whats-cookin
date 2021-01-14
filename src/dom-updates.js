@@ -35,14 +35,15 @@ const domUpdates = {
       const favoritedClass = recipe.isFavorited ? "favorited" : ''
       const toCookClass = recipe.isToCook ? "to-cook" : ''
 
-      const cardHtml = `<div class="recipe-card ${favoritedClass} ${toCookClass}" id=${recipe.id} name=${recipe.id}>
-        <div class="flip-card">
-          <div class="card-front">
-            <h3 maxlength="40">${shortName}</h3>
-            <div class="card-photo-container">
-              <img src=${recipe.image} class="card-photo-preview" id="img1" alt="${recipe.name} recipe" title="${recipe.name} recipe" aria-label="flip-card-to-reveal-details-for-${recipe.name}" tabindex="0" role="button">
-              <div class="text">
-                <div id="img2">Click for Instructions</div>
+      const cardHtml = `<div class="recipe-card" id=${recipe.id} name=${recipe.id}>
+          <div class="flip-card">
+            <div class="card-front">
+              <h3 maxlength="40">${shortName}</h3>
+              <div class="card-photo-container">
+                <img src=${recipe.image} class="card-photo-preview" id="img1" alt="${recipe.name} recipe" title="${recipe.name} recipe" aria-label="flip-card-to-reveal-details-for-${recipe.name}" tabindex="0" role="button">
+                <div class="text">
+                  <div id="img2">Click for Instructions</div>
+                </div>
               </div>
             </div>
             <div class="to-cook-button" name=${recipe.id}>

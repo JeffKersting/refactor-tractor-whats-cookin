@@ -13,7 +13,7 @@ import Ingredient from './ingredient';
 
 let users = [];
 let recipes = [];
-let ingredients = []
+let ingredients = [];
 let user;
 
 window.addEventListener("load", loadPage);
@@ -34,6 +34,13 @@ addEvent(".find-recipes-using-pantry-btn", "click", findRecipesUsingPantry)
 addEvent(".lets-cook-btn", "click", displayToCookRecipes)
 addEvent(".filter-btn", "click", displayTaggedRecipes)
 addEvent("main", "click", mainClicks)
+addEvent('.filter', 'click', showFilterMenu)
+
+const filterBar = document.querySelector('.recipe-filters')
+function showFilterMenu() {
+  filterBar.classList.toggle('filter-drop')
+  filterBar.classList.toggle('recipe-filters')
+}
 
 function loadPage() {
   getData('users', users)

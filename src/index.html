@@ -27,8 +27,9 @@
 
       <header>
         <!-- <h1><span>fresh</span>Picks<img src="../images/apple-logo.png" alt="apple icon" class="header-apple-icon"></h1> -->
-        <button class="home-btn" type="button" name="home-button" alt="home button" aria-label="button-to-return-user-to-home-page" tabindex="0">
-        <h1>fresh<span>Picks</span>&#127822;</h1>
+        <button class="filter" aria-label="button-to-reveal-checkbox-list-of-recipe-tag-options" tabindex="0">Filter Recipes</button>
+        <button class="home-btn-apple" type="button" name="home-button" alt="home button" aria-label="button-to-return-user-to-home-page" tabindex="0">&#127822;</button>
+        <h1 class="home-btn">fresh<span class="home-btn">Picks</span>&#127822;</h1>
         </button>
         <form id="search" role="search">
           <input id="recipe-search-input" type="text" autocomplete="off" aria-label="input-field-for-search-by-recipe-name-or-ingredients" aria-required="true" tabindex="0" placeholder="Search Recipes..."></input>
@@ -41,9 +42,13 @@
         <button class="nav-btn pot-btn lets-cook-btn" aria-label="button-to-access-users-list-of-recipes-to-cook" tabindex="0" type="button" name="user-recipes-to-cook-button"><img src="../images/pot.png" alt="search button">Lets Cook</button>
       </header>
 
-      <section class="banner-image"></section>
-
-      <aside>
+      <section class="banner-image">
+        <div class="my-recipes-banner">
+          <h1>My Recipes</h1>
+        </div>
+      </section>
+ 
+      <aside class="recipe-filters">
         <div class="wrap">
           <h2>Recipe Type</h2>
           <ul class="tag-list">
@@ -58,9 +63,11 @@
         <h4>My Pantry</h4>
         <section class="pantry-ingredients"></section>
         <form class="add-ingredient-form" onsubmit="">
-          <input class="name-ingredient-form" type="text" aria-label="input-field-for-ingredient-name-to-add-to-user-pantry" aria-required="true" tabindex="0" placeholder="Ingredient Name" required>
-          <input class="quantity-ingredient-form" type="number" min="1" max="30" aria-label="input-field-for-ingredient-quantity-to-add-to-user-pantry" aria-required="true" tabindex="0" required>
-          <button class="add-ingredient-button" type="submit" aria-label="submit-button-to-add-new-ingredient-to-user-pantry" tabindex="0">Add Ingredient</button>
+          <div class="add-ingredient-wrapper">
+            <input class="name-ingredient-form" type="text" aria-label="input-field-for-ingredient-name-to-add-to-user-pantry" aria-required="true" tabindex="0" placeholder="Ingredient Name" required>
+            <input class="quantity-ingredient-form" type="number" min="1" max="30" aria-label="input-field-for-ingredient-quantity-to-add-to-user-pantry" aria-required="true" tabindex="0" required>
+            <button class="add-ingredient-button" type="submit" aria-label="submit-button-to-add-new-ingredient-to-user-pantry" tabindex="0">Add Ingredient</button>
+          </div>
           <button class="find-recipes-using-pantry-btn" type="button" aria-label="button-to-search-for-recipes-user-can-cook-with-available-pantry-ingredients" tabindex="0">What can I cook?</button>
         </form>
         <div id="exit-pantry" role="button" aria-label="button-to-exit-user-pantry-view" tabindex="0">⤸</div>
