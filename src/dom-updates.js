@@ -61,6 +61,8 @@ const domUpdates = {
               <ol class="ingredients missing-${recipe.id}" aria-label="ingredients-user-must-restock-to-cook-${recipe.name}" tabindex="0">
               <h2>Ingredients:</h2>
               ${ingredients}
+              <h2>Total Cost of Ingredients:</h2>
+              <p>${recipe.calculateIngredientsCost()}</p>
               </ol>
               <ol class="instructions">
                 <h2>Instructions:</h2>
