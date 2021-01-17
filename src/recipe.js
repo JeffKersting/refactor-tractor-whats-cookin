@@ -1,5 +1,5 @@
 import ingredientsData from './data/ingredient-data'
-// Will need to import fetched ingredient data from API
+
 import Ingredient from './ingredient';
 
 class Recipe {
