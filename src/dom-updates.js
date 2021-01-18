@@ -45,7 +45,6 @@ const domUpdates = {
                   <div id="img2">Click for Instructions</div>
                 </div>
               </div>
-            </div>
             <div class="to-cook-button" name=${recipe.id}>
                 <div id="icon-cook" aria-label="button-to-add-recipe-to-user-list-to-cook" tabindex="0" role="button">🍽</div>
                 <p id="icon-cook-text">Add to cook</p>
