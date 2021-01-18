@@ -64,7 +64,7 @@ function navClicks(event) {
     case 'filter-button':
       showFilterMenu()
       break;
-    case 'home-button':
+    case 'home-button' || 'home-btn':
       showHome()
       break;
     case 'nav-search-button':
@@ -90,6 +90,7 @@ function showFilterMenu() {
 
 function showHome() {
   domUpdates.displayCards(recipes)
+  console.log('LOADING RECIPES')
 }
 
 function searchRecipes() {
@@ -115,6 +116,7 @@ function displayToCookRecipes() {
 }
 
 function displayPantry() {
+  console.log('INGREDIENTS', ingredients)
   domUpdates.showUserPantry(user, ingredients)
   domUpdates.toggle(['.pantry'])
 }
@@ -203,6 +205,7 @@ function addOrRemoveFromUserList(targetRecipe, checkProperty, userListName) {
     targetRecipe[checkProperty] = true
     user.saveRecipe(targetRecipe, userListName)
   }
+  console.log(targetRecipe)
   showHome()
 }
 

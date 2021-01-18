@@ -46,11 +46,11 @@ const domUpdates = {
                 </div>
               </div>
             <div class="to-cook-button" name=${recipe.id}>
-                <div id="icon-cook" aria-label="button-to-add-recipe-to-user-list-to-cook" tabindex="0" role="button">🍽</div>
+                <div class="${toCookClass}" id="icon-cook" aria-label="button-to-add-recipe-to-user-list-to-cook" tabindex="0" role="button">🍽</div>
                 <p id="icon-cook-text">Add to cook</p>
             </div>
             <div class="favorite-button" name=${recipe.id}>
-                <div id="icon-fav" aria-label="button-to-add-recipe-to-user-list-of-favorites" tabindex="0" role="button">&#127822;</div>
+                <div class="${favoritedClass}" id="icon-fav" aria-label="button-to-add-recipe-to-user-list-of-favorites" tabindex="0" role="button">&#127822;</div>
                 <p id="icon-fav-text">Favorite</p>
             </div>
           </div>
@@ -72,7 +72,6 @@ const domUpdates = {
             </div>
           </div>
         </div>`
-
       this.addDisplay("main", "beforeend", cardHtml)
     })
   },
@@ -94,8 +93,8 @@ const domUpdates = {
   },
 
   showUserPantry(user, ingredients) {
-    pantryItemArray.forEach(pantryItem => {
-      const pantryItemArray = Object.keys(user.pantry.pantry)
+    const pantryItemArray = Object.keys(user.pantry.pantry)
+    pantryItemArray.forEach(pantryItem => {   
         const ingredientName = ingredients.find(ingredient => ingredient.id == pantryItem)
         ? ingredients.find(ingredient => ingredient.id == pantryItem).name
         : `Item ID: ${user.pantry.pantry[pantryItem].id}`
