@@ -25,7 +25,7 @@ const domUpdates = {
         instructions += `<li aria-label="recipe-instruction-step" tabindex="0">${step.instruction}</li><br>`
       })
       recipe.ingredients.forEach(ingredient => {
-        ingredients += `<li aria-label="ingredient-required-for-recipe" tabindex="0">${ingredient.name}: ${ingredient.quantity.amount}${ingredient.quantity.unit}</li><br>`
+        ingredients += `<li aria-label="ingredient-required-for-recipe" tabindex="0">${ingredient.name}: ${ingredient.quantity.amount} ${ingredient.quantity.unit}</li><br>`
       })
 
       const shortName = recipe.name.length > 40
